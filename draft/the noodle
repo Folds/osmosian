@@ -6076,7 +6076,9 @@ to initialize the screen:
   put 96 into the ppi.
   put the tpi divided by the ppi into the tpp.
   put the screen's pixel width times the tpp into a width.
+  put 15000 into the width.
   put the screen's pixel height times the tpp into a height.
+  put the height minus 750 into the height. 
   put 0 and 0 and the width and the height into the screen's box.
   subtract the tpp from the screen's right-bottom.
 
@@ -6096,8 +6098,9 @@ to initialize the window:
   put the module's handle into the window class' hinstance.
   put the module's name's first into the window class' lpszclassname.
   call "user32.dll" "RegisterClassExA" with the window class's whereabouts.
-  call "user32.dll" "CreateWindowExA" with 0 and the module's name's first and the module's name's first and -2147483648 [ws_popup] 
-    and 0 and 0 and the screen's pixel width and the screen's pixel height and 0 and 0 and the module's handle and 0.
+  put 1000 into a number called window width.
+  call "user32.dll" "CreateWindowExA" with 0 and the module's name's first and the module's name's first and -2147483648 [ws_popup]
+     and 0 and 0 and the screen's pixel width and the screen's pixel height and 0 and 0 and the module's handle and 0.
   call "user32.dll" "ShowWindow" with the main window and 1 [sw_shownormal].
 
 to initialize winsock:
