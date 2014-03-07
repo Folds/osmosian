@@ -1,0 +1,82 @@
+# This file tells the git repository to ignore some files and folders.
+# This file is explained at
+# http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository
+
+# git can be run from a Linux shell,
+# with the current directory set to
+# whichever directory contains the Plain English code.
+
+#
+# git status     shows which files (except the ones listed below)
+#                are not up-to-date in the repository.
+# git add <(possibly wildcarded) filename>
+#                tells git that the current version of the file
+#                should be staged.  Staged files will be pushed
+#                into the repository during the next commit.
+# git reset HEAD <(possibly wildcarded) filename>
+#                subtract a file from the staging area.
+# git rm <(possibly wildcarded) filename>
+#                tells git that a file that has been deleted
+#                from the working directory should be staged
+#                for removal from the repository's latest set.
+# git rm --cached <(possibly wildcarded) filename>
+#                Ditto, but for files that have not been deleted
+#                from the working directory.
+# git diff       shows diffs between the working directory
+#                and what has been staged (ignoring whether
+#                the files have been committed yet).
+# git diff --staged
+#                shows diffs between the working directory
+#                and what has been committed.
+# git commit -m "<commit note>"
+#                Commits the changes from staging into the repository,
+#                with the commit note.
+# git commit     Ditto, but uses a text editor to prompt
+#                for the commit note.  Also shows (as comments
+#                that are not part of the commit note)
+#                the output from git status in the text editor.
+# git commit -v  Ditto, but shows the output of
+#                git diff --staged instead of git status.
+# git commit -a  Ditto, but allows skipping the git add step(s)
+#                by automatically staging all tracked files
+#                that are not up-to-date in the repository.
+#                It ignores the files listed below.
+# git commit --amend
+#                Retroactively fix the most recent commit,
+#                and/or the commit message.
+#
+# git checkout -- <(possibly wildcarded) filename>
+#                copy a file from the repository to the working directory,
+#                overwriting the file(s) (if already present)
+#                in the working directory.
+#
+# git log        Show summary of changes, most recent first.
+# git log -p     Ditto, with diffs.
+# git log -p --word-diff
+#                Much finer diffs; suitable for comparing .civ files.
+# git log --stat Summarizes changes as count(s) of file(s)
+#                added, changed, or removed.
+# git log --pretty=oneline
+# git log --pretty=short
+# git log --pretty=full
+# git log --pretty=fuller
+# git log --pretty=format:"%h - %an, %ad : %s"
+# git log --pretty=format:"%h - %cn, %cd : %s"
+# git log --name-status
+# git log -<n>
+# git log --since <n>.weeks
+# git log --since "<date>"
+# git log --until <n>.weeks
+# git log --until "<date>"
+# git log <any other options> <filepath as last option>
+# gitk           GUI version of git log
+
+# ignore the following:
+3040/
+cal-3040.zip
+documentation/instructions.pdf
+sample.exe
+sample.zip
+source.txt
+
+
