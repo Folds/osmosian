@@ -881,11 +881,13 @@ to compile the body of a routine:
   set the routine's compiled flag.
   slap a rider on the routine's routine body.
   move the rider (compiler rules).
-  if the rider's token is "employ", compile the body of the routine given the rider (employ); exit.
+  if the rider's token is "employ",
+    compile the body of the routine given the rider (employ); exit.
   put the current routine into a saved routine.
   put the routine into the current routine.
   create the routine's nickname index given 101.
-  eliminate duplicate nicknames from the routine's parameters given the routine's nickname index.
+  eliminate duplicate nicknames from the routine's parameters
+    given the routine's nickname index.
   compile the body of the routine (prolog).
   loop.
   if the compiler's abort flag is set, exit.
@@ -920,7 +922,8 @@ to compile the body of a routine (prolog):
 to compile the body of the routine called a string:
   if the compiler's abort flag is set, exit.
   find a routine given the string and the routine index.
-  if the routine is nil, abort with "I need a routine to '" then the string then "'."; exit.
+  if the routine is nil,
+    abort with "I need a routine to '" then the string then "'."; exit.
   compile the body of the routine.
 
 to compile the body of a routine given a rider (employ):
@@ -928,11 +931,16 @@ to compile the body of a routine given a rider (employ):
   compile a routine reference given the rider.
   convert the routine reference to the routine's employs moniker.
   destroy the routine reference.
-  if the rider's token is not ".", abort with "Employ statments should end with a period not '" then the rider's token then "'." and the rider; exit.
+  if the rider's token is not ".",
+    abort with "Employ statments should end with a period not '"
+    then the rider's token then "'." and the rider; exit.
   move the rider (compiler rules).
-  if the rider's token is not blank, abort with "Once an employ, only an employ" and the rider; exit.
+  if the rider's token is not blank,
+    abort with "Once an employ, only an employ" and the rider; exit.
   find another routine given the routine's employs moniker and the routine index.
-  if the other routine is nil, abort with "I can't find the '" then the routine's employs moniker then "' routine you're trying to employ." and the routine's locus; exit.
+  if the other routine is nil,
+    abort with "I can't find the '" then the routine's employs moniker
+    then "' routine you're trying to employ." and the routine's locus; exit.
   compile the body of the other routine.
 
 to compile the call'd part given a rider and a variable:
@@ -3531,7 +3539,9 @@ to put a term into another term:
 to read a source file:
   if the source file is nil, exit.
   read the source file's path into the source file's buffer.
-  if the i/o error is not blank, abort with "Could not read the file named '" then the source file's path then "'."; exit.
+  if the i/o error is not blank,
+    abort with "Could not read the file named '"
+    then the source file's path then "'."; exit.
 
 to read some source files:
   loop.
