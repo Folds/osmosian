@@ -2651,9 +2651,9 @@ to decide if a key is any letter key:
   say no.
 
 to decide if a key is any modifier key:
-  if the key is the alt key, say yes.
-  if the key is the ctrl key, say yes.
-  if the key is the shift key ,say yes.
+  if the key is the alt key,   say yes.
+  if the key is the ctrl key,  say yes.
+  if the key is the shift key, say yes.
   say no.
 
 to decide if a key is any pad key:
@@ -2661,10 +2661,10 @@ to decide if a key is any pad key:
   say no.
 
 to decide if a key is any printable key:
-  if the key is the space key, say yes.
-  if the key is any digit key, say yes.
+  if the key is the space key,  say yes.
+  if the key is any digit key,  say yes.
   if the key is any letter key, say yes.
-  if the key is any pad key, say yes.
+  if the key is any pad key,    say yes.
   if the key is any symbol key, say yes.
   say no.
 
@@ -2674,7 +2674,7 @@ to decide if a key is any symbol key:
   say no.
 
 to decide if a key is any wm-char key:
-  if the key is not any printable key , say no.
+  if the key is not any printable key, say no.
   if the alt key was down, say no.
   if the ctrl key was down, say no.
   say yes.
@@ -4997,7 +4997,8 @@ to get an ip address given a host string:
 
 to get an item (not first time):
   clear the i/o error.
-  call "kernel32.dll" "FindNextFileA" with the item's handle and the item's win32finddata's whereabouts returning a number.
+  call "kernel32.dll" "FindNextFileA" with the item's handle
+    and the item's win32finddata's whereabouts returning a number.
   if the number is not 0, adjust the item; exit.
   clear the item's kind.
   call "kernel32.dll" "FindClose" with the item's handle.
@@ -5014,13 +5015,15 @@ to get an item from a path (first time):
   append "*.*" to the path.
   null terminate the path.
   clear the item's kind.
-  call "kernel32.dll" "FindFirstFileA" with the path's first and the item's win32finddata's whereabouts returning the item's handle.
+  call "kernel32.dll" "FindFirstFileA" with the path's first
+    and the item's win32finddata's whereabouts returning the item's handle.
   if the item's handle is -1 [invalid_handle_value], exit.
   adjust the item.
 
 to get an lcm given a number and another number:
   get a gcd given the number and the other number.
-  call "kernel32.dll" "MulDiv" with the number and the other number and the gcd returning the lcm.
+  call "kernel32.dll" "MulDiv" with the number and the other number
+    and the gcd returning the lcm.
 
 to get an offset pair given a string and a box and a font and an alignment:
   create the hfont of the memory canvas given the font.
@@ -5036,9 +5039,11 @@ to get an offset pair given a string and a box and a font and an alignment (fast
 
 to get an outlinetextmetric given a font:
   create the hfont of the memory canvas given the font.
-  call "gdi32.dll" "GetOutlineTextMetricsA" with the memory canvas and 0 and 0 returning a result number.
+  call "gdi32.dll" "GetOutlineTextMetricsA" with the memory canvas
+    and 0 and 0 returning a result number.
   assign a poutlinetextmetric given the result.
-  call "gdi32.dll" "GetOutlineTextMetricsA" with the memory canvas and the result and the poutlinetextmetric.
+  call "gdi32.dll" "GetOutlineTextMetricsA" with the memory canvas
+    and the result and the poutlinetextmetric.
   put the poutlinetextmetric's target into the outlinetextmetric.
   destroy the hfont of the current canvas.
   unassign the poutlinetextmetric.
@@ -5083,17 +5088,22 @@ to get a selection box given a row and a text:
 to get a selection box given a row and a text (left side):
   put the text's normalized selection into a selection.
   put the text's globalized origin's x into the selection box's left.
-  if the selection's anchor row# is the row's row#, get a spot given the selection's anchor and the text; put the spot's x into the selection box's left.
+  if the selection's anchor row# is the row's row#,
+    get a spot given the selection's anchor and the text;
+    put the spot's x into the selection box's left.
   limit the selection box's left to the text's left and the text's right.
 
 to get a selection box given a row and a text (right side):
   put the text's normalized selection into a selection.
   put the text's right into the selection box's right.
-  if the selection's caret row# is the row's row#, get a spot given the selection's caret and the text; put the spot's x into the selection box's right.
+  if the selection's caret row# is the row's row#,
+    get a spot given the selection's caret and the text;
+    put the spot's x into the selection box's right.
   limit the selection box's right to the text's left and the text's right.
 
 to get a size given a path in the file system:
-  if the path is directory-format, get the size given the path in the file system (directory).
+  if the path is directory-format,
+    get the size given the path in the file system (directory).
   if the path is file-format, get the size given the path in the file system (file).
 
 to get a size given a path in the file system (directory):
@@ -5111,7 +5121,8 @@ to get a size given a path in the file system (directory):
 to get a size given a path in the file system (file):
   privatize the path.
   null terminate the path.
-  call "kernel32.dll" "GetFileAttributesExA" with the path's first and 0 and a win32finddata's whereabouts.
+  call "kernel32.dll" "GetFileAttributesExA"
+    with the path's first and 0 and a win32finddata's whereabouts.
   put the win32finddata's nfilesizelow into the size.
 
 to get a sockaddr given a host string:
@@ -5126,9 +5137,13 @@ to get a sockaddr given a host string:
   put 2 [af_inet] into a addrinfo's ai_family.
   put 1 [sock_stream] into the addrinfo's ai_sockettype.
   put 6 [ipproto_tcp] into the addrinfo's ai_protocol.
-  call the addrinfo routines' getaddrinfo with the host string's first and 0 and the addrinfo's whereabouts and a addrinfoptr's whereabouts returning a result number.
-  if the result number is not 0, put "Could not resolve host name '" then the host then "'." into the i/o error; exit.
-  if the addrinfoptr is nil, put "Could not resolve host name '" then the host then "'." into the i/o error; exit.
+  call the addrinfo routines' getaddrinfo with the host string's first
+    and 0 and the addrinfo's whereabouts and a addrinfoptr's whereabouts
+    returning a result number.
+  if the result number is not 0,
+    put "Could not resolve host name '" then the host then "'." into the i/o error; exit.
+  if the addrinfoptr is nil,
+    put "Could not resolve host name '" then the host then "'." into the i/o error; exit.
   put the addrinfoptr's ai_addr's target into the sockaddr.
   call the addrinfo routines' freeaddrinfo with the addrinfoptr.
 
@@ -5142,7 +5157,8 @@ to get a spot given a position and a text:
   put the substring's first plus the position's column# minus 2 into the substring's last.
   get a width given the substring and the memory canvas and the text's font.
   put the box's left plus the width into the spot's x.
-  get an offset pair given the row's working string and the box and the text's font and the text's alignment.
+  get an offset pair given the row's working string
+    and the box and the text's font and the text's alignment.
   add the offset pair's x to the spot's x.
 
 to get a start width and a substring given a row and a spot and a text (for "get a column# given a row..."):
@@ -5186,7 +5202,8 @@ to get a thing from some things (backwards):
   put the thing's previous into the thing.
 
 to get a width given a byte and a canvas:
-  call "gdi32.dll" "GetTextExtentPoint32A" with the canvas and the byte's whereabouts and 1 and a pair's whereabouts.
+  call "gdi32.dll" "GetTextExtentPoint32A" with the canvas
+    and the byte's whereabouts and 1 and a pair's whereabouts.
   put the pair's x into the width.
 
 to get a width given a byte and some font widths:
@@ -5200,7 +5217,8 @@ to get a width given a number and some font widths: \ indexes are 0 based
   put the number pointer's target into the width.
 
 to get a width given a string and a canvas: \ assumes font is already selected in canvas
-  call "gdi32.dll" "GetTextExtentPoint32A" with the canvas and the string's first and the string's length and a pair's whereabouts.
+  call "gdi32.dll" "GetTextExtentPoint32A" with the canvas
+    and the string's first and the string's length and a pair's whereabouts.
   put the pair's x into the width.
 
 to get a width given a string and a canvas and a font:
@@ -5378,7 +5396,8 @@ to handle any wm-rbuttondown with a l-param:
 to handle any wm-setcursor:
   refresh the cursor.
 
-to handle any wm-syskeydown with a w-param and an l-param: employ handle any wm-keydown with a w-param and an l-param.
+to handle any wm-syskeydown with a w-param and an l-param:
+  employ handle any wm-keydown with a w-param and an l-param.
 
 to handle capitalize given a text:
   if the text is nil, exit.
@@ -5406,10 +5425,14 @@ to handle cut given a text:
 
 to handle an event given a console:
   if the console is nil, exit.
-  if the event's kind is "key down", handle the event given the console (key down); exit.
-  if the event's kind is "refresh", handle the event given the console (refresh); exit.
-  if the event's kind is "right click", handle the event given the console (right click); exit.
-  if the event's kind is "set cursor", handle the event given the console (set cursor); exit.
+  if the event's kind is "key down",
+    handle the event given the console (key down); exit.
+  if the event's kind is "refresh",
+    handle the event given the console (refresh); exit.
+  if the event's kind is "right click",
+    handle the event given the console (right click); exit.
+  if the event's kind is "set cursor",
+    handle the event given the console (set cursor); exit.
 
 to handle an event given a console (backspace key):
   if the console's reply is blank, exit.
@@ -5435,14 +5458,22 @@ to handle an event given a console (home key):
   show the console.
 
 to handle an event given a console (key down):
-  if the event's key is the backspace key, handle the event given the console (backspace key); exit.
-  if the event's key is the down-arrow key, handle the event given the console (down-arrow key); exit.
-  if the event's key is the end key, handle the event given the console (end key); exit.
-  if the event's key is the enter key, handle the event given the console (enter key); exit.
-  if the event's key is the home key, handle the event given the console (home key); exit.
-  if the event's key is the page-down key, handle the event given the console (page-down key); exit.
-  if the event's key is the page-up key, handle the event given the console (page-up key); exit.
-  if the event's key is the up-arrow key, handle the event given the console (up-arrow key); exit.
+  if the event's key is the backspace key,
+    handle the event given the console (backspace key); exit.
+  if the event's key is the down-arrow key,
+    handle the event given the console (down-arrow key); exit.
+  if the event's key is the end key,
+    handle the event given the console (end key); exit.
+  if the event's key is the enter key,
+    handle the event given the console (enter key); exit.
+  if the event's key is the home key,
+    handle the event given the console (home key); exit.
+  if the event's key is the page-down key,
+    handle the event given the console (page-down key); exit.
+  if the event's key is the page-up key,
+    handle the event given the console (page-up key); exit.
+  if the event's key is the up-arrow key,
+    handle the event given the console (up-arrow key); exit.
   if the event's byte is not printable, exit.
   append the event's byte to the console's reply.
   handle the event given the console's text (printable key).
@@ -5501,7 +5532,8 @@ to handle an event given a text (down-arrow key):
 to handle an event given a text (end key):
   if the text is nil, exit.
   if the event is modified, move the caret to the last byte of the text.
-  if the event is not modified, move the caret to the last byte of the current row of the text.
+  if the event is not modified,
+    move the caret to the last byte of the current row of the text.
   if the event's shift flag is not set, deselect the text.
   clear the text's last operation.
   scroll the text to the caret.
@@ -5521,7 +5553,8 @@ to handle an event given a text (escape key):
 to handle an event given a text (home key):
   if the text is nil, exit.
   if the event is modified, move the caret to the first byte of the text.
-  if the event is not modified, move the caret to the first byte of the current row of the text.
+  if the event is not modified,
+    move the caret to the first byte of the current row of the text.
   if the event's shift flag is not set, deselect the text.
   clear the text's last operation.
   scroll the text to the caret.
@@ -5808,7 +5841,8 @@ to include a font in a pdf object:
   if the pdf object is nil, exit.
   find a font pdf object given the font's name and the pdf state's font index.
   if the font pdf object is nil, exit.
-  put "/" then the font pdf object's font name then " " then the font pdf object's number then " 0 R" into a string.
+  put "/" then the font pdf object's font name then " "
+    then the font pdf object's number then " 0 R" into a string.
   find a string thing given the string and the pdf object's font strings.
   if the string thing is not nil, exit.
   create a new string thing given the string.
@@ -5853,8 +5887,11 @@ to index a string in an index:
 to initialize before run:
   call "kernel32.dll" "GetProcessHeap" returning the heap pointer.
   call "kernel32.dll" "LoadLibraryA" with "kernel32.dll"'s first returning a handle.
-  if the handle is not 0, call "kernel32.dll" "GetProcAddress" with the handle and "HeapSetInformation"'s first returning a pointer.
-  if the pointer is not nil, call the pointer with the heap pointer and 0 and 2's whereabouts and 4.
+  if the handle is not 0,
+    call "kernel32.dll" "GetProcAddress" with the handle
+         and "HeapSetInformation"'s first returning a pointer.
+  if the pointer is not nil,
+    call the pointer with the heap pointer and 0 and 2's whereabouts and 4.
 
 to initialize the canvases:
   initialize the screen canvas.
@@ -5987,7 +6024,9 @@ to initialize the cursors (arrow cursor):
   append $10FFFFFF30FFFFFF787FFFFFF87FFFFF to the and-mask.
   append $FC3FFFFFFC3FFFFFFE7FFFFFFFFFFFFF to the and-mask.
   append $FF to the and-mask given 48.
-  call "user32.dll" "CreateCursor" with the module's handle and 0 and 0 and 32 and 32 and the and-mask's first and the xor-mask's first returning the arrow cursor.
+  call "user32.dll" "CreateCursor" with the module's handle
+    and 0 and 0 and 32 and 32 and the and-mask's first
+    and the xor-mask's first returning the arrow cursor.
 
 to initialize the cursors (hand cursor):
   append $000000000180000019B0000019B00000 to an xor-mask.
@@ -6000,7 +6039,9 @@ to initialize the cursors (hand cursor):
   append $0001FFFF8001FFFFC001FFFFC003FFFF to the and-mask.
   append $E003FFFFF007FFFFF807FFFFF807FFFF to the and-mask.
   append $FF to the and-mask given 64.
-  call "user32.dll" "CreateCursor" with the module's handle and 2 and 1 and 32 and 32 and the and-mask's first and the xor-mask's first returning the hand cursor.
+  call "user32.dll" "CreateCursor" with the module's handle
+    and 2 and 1 and 32 and 32 and the and-mask's first
+    and the xor-mask's first returning the hand cursor.
 
 to initialize the cursors (i-beam cursor):
   append $EE000000100000001000000010000000  to an xor-mask.
@@ -6009,22 +6050,30 @@ to initialize the cursors (i-beam cursor):
   append $100000001000000010000000EE000000 to the xor-mask.
   append $00 to the xor-mask given 64.
   append $FF to an and-mask given 128.
-  call "user32.dll" "CreateCursor" with the module's handle and 3 and 7 and 32 and 32 and the and-mask's first and the xor-mask's first returning the i-beam cursor.
+  call "user32.dll" "CreateCursor" with the module's handle
+    and 3 and 7 and 32 and 32 and the and-mask's first
+    and the xor-mask's first returning the i-beam cursor.
 
 to initialize the fonts:
   call "gdi32.dll" "GetStockObject" with 11 [ansi_fixed_font] returning the null hfont.
-  call "gdi32.dll" "AddFontMemResourceEx" with the osmosian font source's first and the osmosian font source's length and 0 and a number's whereabouts
-     returning the osmosian font resource.
+  call "gdi32.dll" "AddFontMemResourceEx"
+    with the osmosian font source's first
+    and the osmosian font source's length
+    and 0 and a number's whereabouts
+    returning the osmosian font resource.
   put "osmosian" and 1/4 inch into the default font.
 
 to initialize gdi+:
   put 1 into a gdiplusstartupinput's gdiplusversion.
-  call "gdiplus.dll" "GdiplusStartup" with the gptoken's whereabouts and the gdiplusstartupinput's whereabouts and 0.
+  call "gdiplus.dll" "GdiplusStartup" with the gptoken's whereabouts
+   and the gdiplusstartupinput's whereabouts and 0.
 
 to initialize the memory canvas:
   call "gdi32.dll" "CreateCompatibleDC" with the screen canvas returning the memory canvas.
-  call "gdi32.dll" "GetCurrentObject" with the memory canvas and 7 [obj_bitmap] returning the saved memory hbitmap.
-  call "gdi32.dll" "CreateCompatibleBitmap" with the screen canvas and the screen's pixel width and the screen's pixel height returning an hbitmap.
+  call "gdi32.dll" "GetCurrentObject" with the memory canvas
+    and 7 [obj_bitmap] returning the saved memory hbitmap.
+  call "gdi32.dll" "CreateCompatibleBitmap" with the screen canvas
+    and the screen's pixel width and the screen's pixel height returning an hbitmap.
   call "gdi32.dll" "SelectObject" with the memory canvas and the hbitmap.
   normalize the memory canvas.
 
@@ -6032,7 +6081,8 @@ to initialize the module:
   \ temp path
   put 512 into a length.
   reassign the temp path's first given the length.
-  call "kernel32.dll" "GetTempPathA" with the length and the temp path's first returning the length.
+  call "kernel32.dll" "GetTempPathA" with the length
+    and the temp path's first returning the length.
   put the temp path's first plus the length minus 1 into the temp path's last.
   null terminate the temp path.
   \ module handle
@@ -6040,9 +6090,12 @@ to initialize the module:
   \ module name
   put 512 into the length.
   reassign the module's path's first given the length.
-  call "kernel32.dll" "GetModuleFileNameA" with the module's handle and the module's path's first and the length returning the length.
+  call "kernel32.dll" "GetModuleFileNameA"
+    with the module's handle and the module's path's first
+    and the length returning the length.
   put the module's path's first plus the length minus 1 into the module's path's last.
-  if the module's path starts with "\\?\", remove leading bytes from the module's path given 4.
+  if the module's path starts with "\\?\",
+    remove leading bytes from the module's path given 4.
   lowercase the module's path.
   null terminate the module's path.
   \ module's other path pieces
@@ -6071,8 +6124,10 @@ to initialize the printer canvas:
   put the printdlgex's hdc into the printer canvas.
 
 to initialize the screen:
-  call "user32.dll" "GetSystemMetrics" with 0 [sm_cxscreen] returning the screen's pixel width.
-  call "user32.dll" "GetSystemMetrics" with 1 [sm_cyscreen] returning the screen's pixel height.
+  call "user32.dll" "GetSystemMetrics" with 0 [sm_cxscreen]
+    returning the screen's pixel width.
+  call "user32.dll" "GetSystemMetrics" with 1 [sm_cyscreen]
+    returning the screen's pixel height.
   put 96 into the ppi.
   put the tpi divided by the ppi into the tpp.
   put the screen's pixel width times the tpp into a width.
@@ -6089,18 +6144,22 @@ to initialize the screen canvas:
 to initialize a talker:
   convert "{96749377-3391-11D2-9EE3-00C04F797396}" [clsid_spvoice] to a clsid.
   convert "{6C44DF74-72B9-4992-A1EC-EF996E0422D4}" [iid_ispvoice] to an iid.
-  call "ole32.dll" "CoCreateInstance" with the clsid's whereabouts and 0 and 7 [clsctx_all] and the iid's whereabouts and the talker's whereabouts.
+  call "ole32.dll" "CoCreateInstance" with the clsid's whereabouts
+    and 0 and 7 [clsctx_all] and the iid's whereabouts and the talker's whereabouts.
 
 to initialize the window:
   put a window class's magnitude into the window class' cbsize.
   put 40 [cs_owndc + cs_dblclks] into the window class' style.
-  point the window class' lpfnwndproc to routine handle any message with a window a message number a w-param and a l-param.
+  point the window class' lpfnwndproc to routine handle any message
+    with a window a message number a w-param and a l-param.
   put the module's handle into the window class' hinstance.
   put the module's name's first into the window class' lpszclassname.
   call "user32.dll" "RegisterClassExA" with the window class's whereabouts.
   put 1000 into a number called window width.
-  call "user32.dll" "CreateWindowExA" with 0 and the module's name's first and the module's name's first and -2147483648 [ws_popup]
-     and 0 and 0 and the screen's pixel width and the screen's pixel height and 0 and 0 and the module's handle and 0.
+  call "user32.dll" "CreateWindowExA" with 0 and the module's name's first
+    and the module's name's first and -2147483648 [ws_popup]
+    and 0 and 0 and the screen's pixel width and the screen's pixel height
+    and 0 and 0 and the module's handle and 0.
   call "user32.dll" "ShowWindow" with the main window and 1 [sw_shownormal].
 
 to initialize winsock:
@@ -6214,10 +6273,14 @@ to intersect a box with another box giving a third box:
   if the box's bottom is less than the other box's top, exit.
   \ boxes touch
   put the box into the third box.
-  if the box's left is less than the other box's left, put the other box's left into the third box's left.
-  if the box's top is less than the other box's top, put the other box's top into the third box's top.
-  if the box's right is greater than the other box's right, put the other box's right into the third box's right.
-  if the box's bottom is greater than the other box's bottom, put the other box's bottom into the third box's bottom.
+  if the box's left is less than the other box's left,
+    put the other box's left into the third box's left.
+  if the box's top is less than the other box's top,
+    put the other box's top into the third box's top.
+  if the box's right is greater than the other box's right,
+    put the other box's right into the third box's right.
+  if the box's bottom is greater than the other box's bottom,
+    put the other box's bottom into the third box's bottom.
 
 to invert a flag:
   if the flag is yes, put no into the flag; exit.
@@ -6278,8 +6341,10 @@ to jump the caret left in a text:
   if the text's caret column# is 1, exit.
   get a row given the text's caret row# and the text.
   put the row's string's first plus the text's caret column# minus 2 into a byte pointer.
-  if the byte pointer's target is alphanumeric, move the caret left to any non-alphanumeric byte in the text.
-  if the byte pointer's target is not alphanumeric, move the caret left to any non-symbolic byte in the text.
+  if the byte pointer's target is alphanumeric,
+    move the caret left to any non-alphanumeric byte in the text.
+  if the byte pointer's target is not alphanumeric,
+    move the caret left to any non-symbolic byte in the text.
   move the caret left to any non-noise byte in the text.
 
 to jump the caret right in a text:
@@ -6288,8 +6353,10 @@ to jump the caret right in a text:
   get a row given the text's caret row# and the text.
   if the text's caret column# is the row's string's length, exit.
   put the row's string's first plus the text's caret column# minus 1 into a byte pointer.
-  if the byte pointer's target is alphanumeric, move the caret right to any non-alphanumeric byte in the text.
-  if the byte pointer's target is not alphanumeric, move the caret right to any non-symbolic byte in the text.
+  if the byte pointer's target is alphanumeric,
+    move the caret right to any non-alphanumeric byte in the text.
+  if the byte pointer's target is not alphanumeric,
+    move the caret right to any non-symbolic byte in the text.
   move the caret right to any non-noise byte in the text.
 
 the k-key is a key equal to 75.
@@ -10093,7 +10160,8 @@ to square up any selection in a text:
   normalize the text's selection.
   get a row given the text's caret row# and the text.
   put 1 into the text's anchor column#.
-  if the text's caret column# is not 1, add 1 to the text's caret row#; put 1 into the text's caret column#.
+  if the text's caret column# is not 1,
+    add 1 to the text's caret row#; put 1 into the text's caret column#.
   if the text's caret row# is less than or equal to the text's row count, exit.
   put the text's row count into the text's caret's row#.
   put the row's string's length into the text's caret's column#.
