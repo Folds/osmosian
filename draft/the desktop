@@ -408,8 +408,7 @@ to draw some buttons:
 to draw a command:
   if the command is nil, exit.
   unmask everything.
-  put the command's color into a color.
-  if the color is clear, put the white color into the color.
+  choose a color for the command (temporary color).
   draw the command's roundy box with the black color and the color.
   put the command's roundy box into a box.
   adjust the box given 1/8 inch and 0 and -1/8 inch and 0.
@@ -419,6 +418,18 @@ to draw a command:
     and the command's font and the command's alignment.
   draw the command's shortcut at the right of the box
     with the black color and the command's font.
+
+to choose a color for a command (temporary color):
+  put the command's color into the color.
+  if the color is clear, put the white color into the color.
+  if the command is pointless,
+    put the lightest gray color into the color.
+  
+to decide if a command is pointless:
+  put the command's handler in a string called handler.
+  if the handler's length is not 1, say no.
+  if the handler has a letter menu, say no.
+  say yes.
 
 to draw some commands:
   get a command from the commands.
@@ -445,6 +456,12 @@ to draw the dialog:
 to draw a menu:
   if the menu is nil, exit.
   draw the menu's commands.
+
+to decide if a submenu is populated:
+  if the submenu is nil, say no.
+  get a command from the submenu's commands.
+  if the command is nil, say no.
+  say yes.
 
 to draw the pad:
   mask only outside the pad's box.
@@ -822,6 +839,15 @@ to handle a command (letter):
   get the submenu given the command's handler and the current tab's mode (letter).
   handle the command given the submenu.
 
+to decide if a string has a letter menu:
+  if the string's length is not 1, say no.
+  put the string in a string called handler.
+  create a submenu.
+  get the submenu given the string and the current tab's mode (letter).
+  if the submenu is populated, destroy the submenu; say yes.
+  destroy the submenu.
+  say no.
+  
 to get a submenu given a handler and a mode (letter):
   if the handler is "a", get the submenu given the mode (a); exit.
   if the handler is "b", get the submenu given the mode (b); exit.
@@ -1782,6 +1808,7 @@ to handle rotate shape:
 to handle run:
   if the current tab's mode is not "editor", cluck; exit.
   handle save all.
+  untint the status.
   if the i/o error is not blank, exit.
   find a directory to compile.
   if the directory is blank,
@@ -1934,6 +1961,9 @@ to tint the status:
     put the status' pass color into the status' color; exit.
   put the status' fail color into the status' color.
 
+to untint the status:
+  put the white color into the status' color.
+
 to regression test returning a test result set:
   put 1 in the test result set's passed.
   put 0 in the test result set's failed.
@@ -1970,7 +2000,7 @@ to initialize the status:
   put the menu's commands' last's right into the status' left.
   put the lightest green color into the status' pass color.
   put the lightest red color into the status' fail color.
-  put the white color into the status' color.
+  untint the status.
 
 to initialize the switch:
   initialize the tabs.
