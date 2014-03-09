@@ -25,6 +25,22 @@ to add a name and a handler to a menu:
   put the white color into the command's color.
   put "left" into the command's alignment.
 
+to add a name to a submenu:
+  put the name into a string.
+  lowercase the string.
+  if the string ends with "…",
+    remove the last byte from the string.  
+  if the string ends with "...",
+    remove the last three bytes from the string.  
+  put "handle " then the string in a handler.
+  put "" in a shortcut.
+  add the name and the shortcut and the handler to the submenu. 
+
+to remove the last three bytes from a string:
+  remove the last byte from the string.
+  remove the last byte from the string.
+  remove the last byte from the string.
+
 to add a name and a handler to a submenu:
   add the name and "" and the handler to the submenu.
 
@@ -91,11 +107,15 @@ to adjust the dialog (buttons):
   repeat.
 
 to adjust the dialog (prompt):
-  put the dialog's roundy box's left plus 1/8 inch into the dialog's prompt box's left.
-  put the dialog's roundy box's top plus 1/24 inch into the dialog's prompt box's top.
+  put the dialog's roundy box's left plus 1/8 inch
+    into the dialog's prompt box's left.
+  put the dialog's roundy box's top plus 1/24 inch
+    into the dialog's prompt box's top.
   get a width given the dialog's prompt and the default font.
-  put the dialog's prompt box's left plus the width plus 1/12 inch into the dialog's prompt box's right.
-  put the dialog's roundy box's bottom minus 1/24 inch into the dialog's prompt box's bottom.
+  put the dialog's prompt box's left plus the width plus 1/12 inch
+    into the dialog's prompt box's right.
+  put the dialog's roundy box's bottom minus 1/24 inch
+    into the dialog's prompt box's bottom.
 
 to adjust the dialog (roundy box):
   put the bar's display and 1/12 inch into the dialog's roundy box.
@@ -120,9 +140,12 @@ to adjust a menu given a spot and a width:
   loop.
   get a command from the menu's commands.
   if the command is nil, break.
-  if the spot's x plus the command's width is greater than the right, put the original spot's x into the spot's x; add the command height to the spot's y.
+  if the spot's x plus the command's width is greater than the right,
+    put the original spot's x into the spot's x;
+    add the command height to the spot's y.
   put the spot and the spot into the command's roundy box.
-  add the command's width and the command height to the command's roundy box's right-bottom.
+  add the command's width and the command height
+    to the command's roundy box's right-bottom.
   add the command's width to the spot's x.
   repeat.
 
@@ -135,8 +158,10 @@ to adjust some tabs:
   if the tab is nil, exit.
   put the switch's box into the tab's box.
   add 1/4 inch to the tab's top.
-  if the tab is not the tabs' first, put the tab's previous' right into the tab's left.
-  if the tab is not the tabs' last, put the tab's left plus the width into the tab's right.
+  if the tab is not the tabs' first,
+    put the tab's previous' right into the tab's left.
+  if the tab is not the tabs' last,
+    put the tab's left plus the width into the tab's right.
   repeat.
 
 an alternative is a string.
@@ -340,7 +365,8 @@ the dialog is a thing with
 to draw the bar:
   unmask everything.
   draw the bar's box with the black color and the black color.
-  draw the bar's box with the desktop color and the desktop color and 1/8 inch (rounding the top).
+  draw the bar's box with the desktop color
+    and the desktop color and 1/8 inch (rounding the top).
   if the bar's mode is "dialog", draw the dialog; exit.
   draw the menu.
   draw the status.
@@ -370,7 +396,8 @@ to draw a button:
   unmask everything.
   draw the button's roundy box with the black color and the white color.
   mask outside the button's roundy box.
-  draw the button's name in the button's roundy box with the black color and the default font and "center".
+  draw the button's name in the button's roundy box
+    with the black color and the default font and "center".
 
 to draw some buttons:
   get a button from the buttons.
@@ -386,9 +413,12 @@ to draw a command:
   draw the command's roundy box with the black color and the color.
   put the command's roundy box into a box.
   adjust the box given 1/8 inch and 0 and -1/8 inch and 0.
-  mask outside the command's roundy box. \ don't mask to the box, menu letters are too big to fit
-  draw the command's name in the box with the black color and the command's font and the command's alignment.
-  draw the command's shortcut at the right of the box with the black color and the command's font.
+  \ don't mask to the box, menu letters are too big to fit
+  mask outside the command's roundy box.
+  draw the command's name in the box with the black color
+    and the command's font and the command's alignment.
+  draw the command's shortcut at the right of the box
+    with the black color and the command's font.
 
 to draw some commands:
   get a command from the commands.
@@ -407,7 +437,8 @@ to draw the dialog:
   unmask everything.
   draw the dialog's roundy box with the black color and the white color.
   mask outside the dialog's roundy box.
-  draw the dialog's prompt in the dialog's prompt box with the dialog's pen and the default font and "left".
+  draw the dialog's prompt in the dialog's prompt box
+    with the dialog's pen and the default font and "left".
   draw the dialog's text (editing).
   draw the dialog's buttons.
 
@@ -426,7 +457,7 @@ to draw the pad:
 to draw the status:
   unmask everything.
   draw the status' roundy box with the desktop color and the desktop color.
-  draw the status' roundy box with the black color and the white color.
+  draw the status' roundy box with the black color and the status' color.
   put the status' roundy box into a box.
   adjust the box given 1/8 inch and 0 and -1/8 inch and 0.
   mask outside the box.
@@ -443,10 +474,14 @@ to draw the switch:
 to draw a tab:
   if the tab is nil, exit.
   mask only outside the tab's box.
-  draw the tab's box with the desktop color and the desktop color and 1/8 inch (rounding the bottom).
-  if the tab's previous is not nil, draw the tab's box's left line with the black color.
-  if the tab is not the current tab, draw the tab's box's top line with the black color.
-  draw the tab's name in the center of the tab's box with the black color and the default font.
+  draw the tab's box with the desktop color
+    and the desktop color and 1/8 inch (rounding the bottom).
+  if the tab's previous is not nil,
+    draw the tab's box's left line with the black color.
+  if the tab is not the current tab,
+    draw the tab's box's top line with the black color.
+  draw the tab's name in the center of the tab's box
+    with the black color and the default font.
 
 to draw some tabs:
   get a tab from the tabs.
@@ -530,7 +565,10 @@ to find a free tab starting with a tab:
   repeat.
   put the tab into the free tab.
 
-the find mode is a string [find, check spelling, check spelling - entire document, check spelling - current page only].
+the find mode is a string.
+\ find, check spelling,
+\ check spelling - entire document,
+\ check spelling - current page only
 
 to find a tab given a spot:
   void the tab.
@@ -554,40 +592,51 @@ to format a string to fit in a box given a font:
 a free tab is a tab.
 
 to handle align given an alignment:
-  if the current tab's mode is "writer", handle align given the current tab's node's page and the alignment; exit.
+  if the current tab's mode is "writer",
+    handle align given the current tab's node's page and the alignment; exit.
   cluck.
 
 to handle border given a color:
-  if the current tab's mode is "writer", handle border given the current tab's node's page and the color; exit.
+  if the current tab's mode is "writer",
+    handle border given the current tab's node's page and the color; exit.
   cluck.
 
 to handle bring to front:
-  if the current tab's mode is "writer", handle bring to front given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle bring to front given the current tab's node's page; exit.
   cluck.
 
 to handle capitalize:
-  if the current tab's mode is "editor", handle capitalize given the current tab's node's source; exit.
-  if the current tab's mode is "writer", handle capitalize given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle capitalize given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle capitalize given the current tab's node's page; exit.
   cluck.
 
 to handle check spelling:
-  if the current tab's mode is "editor", handle check spelling given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle check spelling given the current tab's node's source; exit.
   cluck.
 
 to handle check spelling (current page only):
-  if the current tab's mode is "writer", handle check spelling given the current tab's node's page (current page only); exit.
+  if the current tab's mode is "writer",
+    handle check spelling given the current tab's node's page (current page only); exit.
   cluck.
 
 to handle check spelling (entire document):
-  if the current tab's mode is "writer", handle check spelling given the current tab's node's page (entire document); exit.
+  if the current tab's mode is "writer",
+    handle check spelling given the current tab's node's page (entire document); exit.
   cluck.
 
 to handle close:
-  if the current tab's mode is "writer", handle close (writer); exit.
+  if the current tab's mode is "writer",
+    handle close (writer); exit.
   handle close (other).
 
 to handle close (other):
-  if the current tab's node is root-level, cluck; deselect the nodettes in the current tab's node; show the desktop with status; exit.
+  if the current tab's node is root-level, cluck;
+    deselect the nodettes in the current tab's node;
+    show the desktop with status; exit.
   if the user is not willing to close the current tab's node, exit.
   show status "Closing...".
   close the current tab's node.
@@ -621,156 +670,127 @@ to handle close without drawing (writer):
 to handle a command:
   if the command is nil, exit.
   \ offer it dispatchers
-  if the command's handler is "a", handle the command (a); exit.
-  if the command's handler is "alignment...", handle the command (alignment...); exit.
-  if the command's handler is "b", handle the command (b); exit.
-  if the command's handler is "border...", handle the command (border...); exit.
-  if the command's handler is "c", handle the command (c); exit.
-  if the command's handler is "check spelling...", handle the command (check spelling...); exit.
-  if the command's handler is "color...", handle the command (color...); exit.
-  if the command's handler is "d", handle the command (d); exit.
-  if the command's handler is "e", handle the command (e); exit.
-  if the command's handler is "f", handle the command (f); exit.
-  if the command's handler is "fill...", handle the command (fill...); exit.
-  if the command's handler is "font height...", handle the command (font height...); exit.
-  if the command's handler is "g", handle the command (g); exit.
-  if the command's handler is "grid...", handle the command (grid...); exit.
-  if the command's handler is "h", handle the command (h); exit.
-  if the command's handler is "i", handle the command (i); exit.
-  if the command's handler is "j", handle the command (j); exit.
-  if the command's handler is "k", handle the command (k); exit.
-  if the command's handler is "l", handle the command (l); exit.
-  if the command's handler is "label...", handle the command (label...); exit.
-  if the command's handler is "m", handle the command (m); exit.
-  if the command's handler is "n", handle the command (n); exit.
-  if the command's handler is "o", handle the command (o); exit.
-  if the command's handler is "p", handle the command (p); exit.
-  if the command's handler is "pen...", handle the command (pen...); exit.
-  if the command's handler is "q", handle the command (q); exit.
-  if the command's handler is "r", handle the command (r); exit.
-  if the command's handler is "s", handle the command (s); exit.
-  if the command's handler is "sort...", handle the command (sort...); exit.
-  if the command's handler is "t", handle the command (t); exit.
-  if the command's handler is "u", handle the command (u); exit.
-  if the command's handler is "v", handle the command (v); exit.
-  if the command's handler is "w", handle the command (w); exit.
-  if the command's handler is "x", handle the command (x); exit.
-  if the command's handler is "y", handle the command (y); exit.
-  if the command's handler is "z", handle the command (z); exit.
+  put the command's handler in a string called handler.
+  if the handler's length is 1,  handle the command (letter);   exit.
+  if the handler is "alignment...", handle the command (alignment...); exit.
+  if the handler is "border...", handle the command (border...); exit.
+  if the handler is "check spelling...", handle the command (check spelling...); exit.
+  if the handler is "color...",  handle the command (color...); exit.
+  if the handler is "fill...",   handle the command (fill...);  exit.
+  if the handler is "font height...", handle the command (font height...); exit.
+  if the handler is "grid...",   handle the command (grid...);  exit.
+  if the handler is "label...",  handle the command (label...); exit.
+  if the handler is "pen...",    handle the command (pen...);   exit.
+  if the handler is "sort...",   handle the command (sort...);  exit.
   \ do it dispatchers
   show the desktop.
-  if the command's handler is "handle bring to front", handle bring to front; exit.
-  if the command's handler is "handle align given center", handle align given "center"; exit.
-  if the command's handler is "handle align given left", handle align given "left"; exit.
-  if the command's handler is "handle align given right", handle align given "right"; exit.
-  if the command's handler is "handle border", handle border given the command's color; exit.
-  if the command's handler is "handle fill", handle fill given the command's color; exit.
-  if the command's handler is "handle font height given 1 inch", handle font height given 1 inch; exit.
-  if the command's handler is "handle font height given 1/2 inch", handle font height given 1/2 inch; exit.
-  if the command's handler is "handle font height given 1/3 inch", handle font height given 1/3 inch; exit.
-  if the command's handler is "handle font height given 1/4 inch", handle font height given 1/4 inch; exit.
-  if the command's handler is "handle font height given 1/5 inch", handle font height given 1/5 inch; exit.
-  if the command's handler is "handle font height given 1/6 inch", handle font height given 1/6 inch; exit.
-  if the command's handler is "handle font height given 1/8 inch", handle font height given 1/8 inch; exit.
-  if the command's handler is "handle font height other", handle font height other; exit.
-  if the command's handler is "handle font name", handle font name; exit.
-  if the command's handler is "handle radius", handle radius; exit.
-  if the command's handler is "handle pen", handle pen given the command's color; exit.
-  if the command's handler is "handle capitalize", handle capitalize; exit.
-  if the command's handler is "handle check spelling", handle check spelling; exit.
-  if the command's handler is "handle check spelling (entire document)", handle check spelling (entire document); exit.
-  if the command's handler is "handle check spelling (current page only)", handle check spelling (current page only); exit.
-  if the command's handler is "handle close", handle close; exit.
-  if the command's handler is "handle close all", handle close all; exit.
-  if the command's handler is "handle comment", handle comment; exit.
-  if the command's handler is "handle compile", handle compile; exit.
-  if the command's handler is "handle copy", handle copy; exit.
-  if the command's handler is "handle cut", handle cut; exit.
-  if the command's handler is "handle decrypt", handle decrypt; exit.
-  if the command's handler is "handle duplicate", handle duplicate; exit.
-  if the command's handler is "handle enlarge", handle enlarge; exit.
-  if the command's handler is "handle encrypt", handle encrypt; exit.
-  if the command's handler is "handle extract globals", handle extract globals; exit.
-  if the command's handler is "handle extract routine headers", handle extract routine headers; exit.
-  if the command's handler is "handle extract types", handle extract types; exit.
-  if the command's handler is "handle extract nibble literal", handle extract nibble literal; exit.
-  if the command's handler is "handle find", handle find; exit.
-  if the command's handler is "handle find next", handle find next; exit.
-  if the command's handler is "handle flip", handle flip; exit.
-  if the command's handler is "handle get size", handle get size; exit.
-  if the command's handler is "handle grayscale", handle grayscale given yes; exit.
-  if the command's handler is "handle group", handle group; exit.
-  if the command's handler is "handle grid given no", handle grid given no; exit.
-  if the command's handler is "handle grid given yes", handle grid given yes; exit.
-  if the command's handler is "handle indent", handle indent; exit.
-  if the command's handler is "handle label given title", handle label given "title"; exit.
-  if the command's handler is "handle label given page number", handle label given "page number"; exit.
-  if the command's handler is "handle label given page number (even)", handle label given "page number (even)"; exit.
-  if the command's handler is "handle label given page number (odd)", handle label given "page number (odd)"; exit.
-  if the command's handler is "handle list", handle list; exit.
-  if the command's handler is "handle lowercase", handle lowercase; exit.
-  if the command's handler is "handle minimize", handle minimize; exit.
-  if the command's handler is "handle mirror", handle mirror; exit.
-  if the command's handler is "handle new directory", handle new directory; exit.
-  if the command's handler is "handle new document", handle new document; exit.
-  if the command's handler is "handle new ellipse", handle new shape given "ellipse"; exit.
-  if the command's handler is "handle new page", handle new page; exit.
-  if the command's handler is "handle new picture", handle new shape given "picture"; exit.
-  if the command's handler is "handle new polygon", handle new shape given "polygon"; exit.
-  if the command's handler is "handle new rectangle", handle new shape given "rectangle"; exit.
-  if the command's handler is "handle new text", handle new shape given "text"; exit.
-  if the command's handler is "handle new text file", handle new text file; exit.
-  if the command's handler is "handle open", handle open; exit.
-  if the command's handler is "handle open as dump", handle open as dump; exit.
-  if the command's handler is "handle open as text", handle open as text; exit.
-  if the command's handler is "handle outdent", handle outdent; exit.
-  if the command's handler is "handle paste", handle paste; exit.
-  if the command's handler is "handle print", handle print; exit.
-  if the command's handler is "handle quit", handle quit; exit.
-  if the command's handler is "handle redo", handle redo; exit.
-  if the command's handler is "handle reduce", handle reduce; exit.
-  if the command's handler is "handle rename", handle rename; exit.
-  if the command's handler is "handle renumber pages", handle renumber pages; exit.
-  if the command's handler is "handle reverse", handle reverse; exit.
-  if the command's handler is "handle rotate page", handle rotate page; exit.
-  if the command's handler is "handle rotate shape", handle rotate shape; exit.
-  if the command's handler is "handle run", handle run; exit.
-  if the command's handler is "handle save", handle save; exit.
-  if the command's handler is "handle save all", handle save all; exit.
-  if the command's handler is "handle save as pdf", handle save as pdf; exit.
-  if the command's handler is "handle select all", handle select all; exit.
-  if the command's handler is "handle send to back", handle send to back; exit.
-  if the command's handler is "handle measure", handle measure; exit.
-  if the command's handler is "handle smooth", handle smooth; exit.
-  if the command's handler is "handle yank given 1/8 inch", handle yank given 1/8 inch; exit.
-  if the command's handler is "handle yank given 1/12 inch", handle yank given 1/12 inch; exit.
-  if the command's handler is "handle yank given 1/16 inch", handle yank given 1/16 inch; exit.
-  if the command's handler is "handle yank given 1/24 inch", handle yank given 1/24 inch; exit.
-  if the command's handler is "handle yank given 1/32 inch", handle yank given 1/32 inch; exit.
-  if the command's handler is "handle yank given 1/48 inch", handle yank given 1/48 inch; exit.
-  if the command's handler is "handle yank given the tpp", handle yank given the tpp; exit.
-  if the command's handler is "handle sort definitions", handle sort definitions; exit.
-  if the command's handler is "handle sort selected lines", handle sort selected lines; exit.
-  if the command's handler is "handle sort nodettes by extension", handle sort nodettes given "extension"; exit.
-  if the command's handler is "handle sort nodettes by kind", handle sort nodettes given "kind"; exit.
-  if the command's handler is "handle sort nodettes by name", handle sort nodettes given "name"; exit.
-  if the command's handler is "handle stop", handle stop; exit.
-  if the command's handler is "handle uncomment", handle uncomment; exit.
-  if the command's handler is "handle undo", handle undo; exit.
-  if the command's handler is "handle ungrayscale", handle grayscale given no; exit.
-  if the command's handler is "handle ungroup", handle ungroup; exit.
-  if the command's handler is "handle unlabel", handle unlabel; exit.
-  if the command's handler is "handle uppercase", handle uppercase; exit.
-  if the command's handler is "handle version", handle version; exit.
+  if the handler is "handle bring to front", handle bring to front; exit.
+  if the handler is "handle align given center", handle align given "center"; exit.
+  if the handler is "handle align given left", handle align given "left"; exit.
+  if the handler is "handle align given right", handle align given "right"; exit.
+  if the handler is "handle border", handle border given the command's color; exit.
+  if the handler is "handle fill", handle fill given the command's color; exit.
+  if the handler is "handle font height given 1 inch", handle font height given 1 inch; exit.
+  if the handler is "handle font height given 1/2 inch", handle font height given 1/2 inch; exit.
+  if the handler is "handle font height given 1/3 inch", handle font height given 1/3 inch; exit.
+  if the handler is "handle font height given 1/4 inch", handle font height given 1/4 inch; exit.
+  if the handler is "handle font height given 1/5 inch", handle font height given 1/5 inch; exit.
+  if the handler is "handle font height given 1/6 inch", handle font height given 1/6 inch; exit.
+  if the handler is "handle font height given 1/8 inch", handle font height given 1/8 inch; exit.
+  if the handler is "handle font height other", handle font height other; exit.
+  if the handler is "handle font name", handle font name; exit.
+  if the handler is "handle radius", handle radius; exit.
+  if the handler is "handle pen", handle pen given the command's color; exit.
+  if the handler is "handle capitalize", handle capitalize; exit.
+  if the handler is "handle check spelling", handle check spelling; exit.
+  if the handler is "handle check spelling (entire document)", handle check spelling (entire document); exit.
+  if the handler is "handle check spelling (current page only)", handle check spelling (current page only); exit.
+  if the handler is "handle close", handle close; exit.
+  if the handler is "handle close all", handle close all; exit.
+  if the handler is "handle comment", handle comment; exit.
+  if the handler is "handle compile", handle compile; exit.
+  if the handler is "handle copy", handle copy; exit.
+  if the handler is "handle cut", handle cut; exit.
+  if the handler is "handle decrypt", handle decrypt; exit.
+  if the handler is "handle duplicate", handle duplicate; exit.
+  if the handler is "handle enlarge", handle enlarge; exit.
+  if the handler is "handle encrypt", handle encrypt; exit.
+  if the handler is "handle extract globals", handle extract globals; exit.
+  if the handler is "handle extract routine headers", handle extract routine headers; exit.
+  if the handler is "handle extract types", handle extract types; exit.
+  if the handler is "handle extract nibble literal", handle extract nibble literal; exit.
+  if the handler is "handle find", handle find; exit.
+  if the handler is "handle find next", handle find next; exit.
+  if the handler is "handle flip", handle flip; exit.
+  if the handler is "handle get size", handle get size; exit.
+  if the handler is "handle grayscale", handle grayscale given yes; exit.
+  if the handler is "handle group", handle group; exit.
+  if the handler is "handle grid given no", handle grid given no; exit.
+  if the handler is "handle grid given yes", handle grid given yes; exit.
+  if the handler is "handle indent", handle indent; exit.
+  if the handler is "handle label given title", handle label given "title"; exit.
+  if the handler is "handle label given page number", handle label given "page number"; exit.
+  if the handler is "handle label given page number (even)", handle label given "page number (even)"; exit.
+  if the handler is "handle label given page number (odd)", handle label given "page number (odd)"; exit.
+  if the handler is "handle list", handle list; exit.
+  if the handler is "handle lowercase", handle lowercase; exit.
+  if the handler is "handle minimize", handle minimize; exit.
+  if the handler is "handle mirror", handle mirror; exit.
+  if the handler is "handle new directory", handle new directory; exit.
+  if the handler is "handle new document", handle new document; exit.
+  if the handler is "handle new ellipse", handle new shape given "ellipse"; exit.
+  if the handler is "handle new page", handle new page; exit.
+  if the handler is "handle new picture", handle new shape given "picture"; exit.
+  if the handler is "handle new polygon", handle new shape given "polygon"; exit.
+  if the handler is "handle new rectangle", handle new shape given "rectangle"; exit.
+  if the handler is "handle new text", handle new shape given "text"; exit.
+  if the handler is "handle new text file", handle new text file; exit.
+  if the handler is "handle open", handle open; exit.
+  if the handler is "handle open as dump", handle open as dump; exit.
+  if the handler is "handle open as text", handle open as text; exit.
+  if the handler is "handle outdent", handle outdent; exit.
+  if the handler is "handle paste", handle paste; exit.
+  if the handler is "handle print", handle print; exit.
+  if the handler is "handle quit", handle quit; exit.
+  if the handler is "handle redo", handle redo; exit.
+  if the handler is "handle reduce", handle reduce; exit.
+  if the handler is "handle rename", handle rename; exit.
+  if the handler is "handle renumber pages", handle renumber pages; exit.
+  if the handler is "handle reverse", handle reverse; exit.
+  if the handler is "handle rotate page", handle rotate page; exit.
+  if the handler is "handle rotate shape", handle rotate shape; exit.
+  if the handler is "handle run", handle run; exit.
+  if the handler is "handle save", handle save; exit.
+  if the handler is "handle save all", handle save all; exit.
+  if the handler is "handle save as pdf", handle save as pdf; exit.
+  if the handler is "handle select all", handle select all; exit.
+  if the handler is "handle send to back", handle send to back; exit.
+  if the handler is "handle measure", handle measure; exit.
+  if the handler is "handle smooth", handle smooth; exit.
+  if the handler is "handle yank 1/8 inch", handle yank given 1/8 inch; exit.
+  if the handler is "handle yank 1/12 inch", handle yank given 1/12 inch; exit.
+  if the handler is "handle yank 1/16 inch", handle yank given 1/16 inch; exit.
+  if the handler is "handle yank 1/24 inch", handle yank given 1/24 inch; exit.
+  if the handler is "handle yank 1/32 inch", handle yank given 1/32 inch; exit.
+  if the handler is "handle yank 1/48 inch", handle yank given 1/48 inch; exit.
+  if the handler is "handle yank the tpp", handle yank given the tpp; exit.
+  if the handler is "handle sort definitions", handle sort definitions; exit.
+  if the handler is "handle sort selected lines", handle sort selected lines; exit.
+  if the handler is "handle sort nodettes by extension", handle sort nodettes given "extension"; exit.
+  if the handler is "handle sort nodettes by kind", handle sort nodettes given "kind"; exit.
+  if the handler is "handle sort nodettes by name", handle sort nodettes given "name"; exit.
+  if the handler is "handle stop", handle stop; exit.
+  if the handler is "handle uncomment", handle uncomment; exit.
+  if the handler is "handle undo", handle undo; exit.
+  if the handler is "handle ungrayscale", handle grayscale given no; exit.
+  if the handler is "handle ungroup", handle ungroup; exit.
+  if the handler is "handle unlabel", handle unlabel; exit.
+  if the handler is "handle uppercase", handle uppercase; exit.
+  if the handler is "handle version", handle version; exit.
+  if the handler is "handle regression tests passed", handle regression tests passed; exit.
+  if the handler is "handle regression tests failed", handle regression tests failed; exit.
   \ not properly dispatched
   debug "Internal error 763 - command not properly dispatched".
-
-to handle a command (a):
-  create a submenu.
-  if the current tab's mode is "writer", add "Align Left" and "handle align given left" to the submenu.
-  if the current tab's mode is "writer", add "Align Center" and "handle align given center" to the submenu.
-  if the current tab's mode is "writer", add "Align Right" and "handle align given right" to the submenu.
-  handle the command given the submenu.
 
 to handle a command (alignment...):
   create a submenu.
@@ -779,31 +799,10 @@ to handle a command (alignment...):
   add "Align Right" and "handle align given right" to the submenu.
   handle the command given the submenu.
 
-to handle a command (b):
-  create a submenu.
-  if the current tab's mode is "writer", add "Border..." and "border..." to the submenu.
-  if the current tab's mode is "writer", add "Bring to Front" and "handle bring to front" to the submenu.
-  handle the command given the submenu.
-
 to handle a command (border...):
   create a submenu.
   add swatches to the submenu given "handle border".
   handle the command given the submenu and the palette width.
-
-to handle a command (c):
-  create a submenu.
-  if the current tab's mode is "editor", add "Capitalize" and "handle capitalize" to the submenu.
-  if the current tab's mode is "writer", add "Capitalize" and "handle capitalize" to the submenu.
-  if the current tab's mode is "editor", add "Check Spelling" and "handle check spelling" to the submenu.
-  if the current tab's mode is "writer", add "Check Spelling..." and "check spelling..." to the submenu.
-  add "Close" and "W" and "handle close" to the submenu.
-  add "Close All" and "handle close all" to the submenu.
-  if the current tab's mode is "writer", add "Color..." and "color..." to the submenu.
-  if the current tab's mode is "editor", add "Comment" and "T" and "handle comment" to the submenu.
- if the current tab's mode is "editor",  add "Compile" and "M" and "handle compile" to the submenu.
-  add "Copy" and "C" and "handle copy" to the submenu.
-  add "Cut" and "X" and "handle cut" to the submenu.
-  handle the command given the submenu.
 
 to handle a command (check spelling...):
   create a submenu.
@@ -818,37 +817,206 @@ to handle a command (color...):
   add "Pen..." and "pen..." to the submenu.
   handle the command given the submenu.
 
-to handle a command (d):
+to handle a command (letter):
   create a submenu.
-  if the current tab's mode is "editor", add "Decrypt..." and "handle decrypt" to the submenu.
-  if the current tab's mode is "finder", add "Duplicate" and "D" and "handle duplicate" to the submenu.
-  if the current tab's mode is "docster", add "Duplicate" and "D" and "handle duplicate" to the submenu.
-  if the current tab's mode is "writer", add "Duplicate" and "D" and "handle duplicate" to the submenu.
+  get the submenu given the command's handler and the current tab's mode (letter).
   handle the command given the submenu.
 
-to handle a command (e):
-  create a submenu.
-  if the current tab's mode is "writer", add "Enlarge" and "E" and "handle enlarge" to the submenu.
-  if the current tab's mode is "editor", add "Encrypt..." and "handle encrypt" to the submenu.
-  if the current tab's mode is "editor", add "Extract Types" and "handle extract types" to the submenu.
-  if the current tab's mode is "editor", add "Extract Globals" and "handle extract globals" to the submenu.
-  if the current tab's mode is "editor", add "Extract Routine Headers" and "handle extract routine headers" to the submenu.
-  if the current tab's mode is "finder", add "Extract Nibble Literal" and "handle extract nibble literal" to the submenu.
-  handle the command given the submenu.
+to get a submenu given a handler and a mode (letter):
+  if the handler is "a", get the submenu given the mode (a); exit.
+  if the handler is "b", get the submenu given the mode (b); exit.
+  if the handler is "c", get the submenu given the mode (c); exit.
+  if the handler is "d", get the submenu given the mode (d); exit.
+  if the handler is "e", get the submenu given the mode (e); exit.
+  if the handler is "f", get the submenu given the mode (f); exit.
+  if the handler is "g", get the submenu given the mode (g); exit.
+  if the handler is "h", get the submenu given the mode (h); exit.
+  if the handler is "i", get the submenu given the mode (i); exit.
+  if the handler is "j", get the submenu given the mode (j); exit.
+  if the handler is "k", get the submenu given the mode (k); exit.
+  if the handler is "l", get the submenu given the mode (l); exit.
+  if the handler is "m", get the submenu given the mode (m); exit.
+  if the handler is "n", get the submenu given the mode (n); exit.
+  if the handler is "o", get the submenu given the mode (o); exit.
+  if the handler is "p", get the submenu given the mode (p); exit.
+  if the handler is "q", get the submenu given the mode (q); exit.
+  if the handler is "r", get the submenu given the mode (r); exit.
+  if the handler is "s", get the submenu given the mode (s); exit.
+  if the handler is "t", get the submenu given the mode (t); exit.
+  if the handler is "u", get the submenu given the mode (u); exit.
+  if the handler is "v", get the submenu given the mode (v); exit.
+  if the handler is "w", get the submenu given the mode (w); exit.
+  if the handler is "x", get the submenu given the mode (x); exit.
+  if the handler is "y", get the submenu given the mode (y); exit.
+  if the handler is "z", get the submenu given the mode (z); exit.
 
-to handle a command (f):
-  create a submenu.
-  if the current tab's mode is "editor", add "Find" and "F" and "handle find" to the submenu.
-  if the current tab's mode is "writer", add "Find" and "F" and "handle find" to the submenu.
-  if the current tab's mode is "editor", add "Find Next" and "N" and "handle find next" to the submenu.
-  if the current tab's mode is "writer", add "Find Next" and "N" and "handle find next" to the submenu.
-  if the current tab's mode is "writer", add "Fill..." and "fill..." to the submenu.
-  if the current tab's mode is "writer", add "Flip" and "handle flip" to the submenu.
-  if the current tab's mode is "editor", add "Font Height..." and "font height..." to the submenu.
-  if the current tab's mode is "editor", add "Font Name..." and "handle font name" to the submenu.
-  if the current tab's mode is "writer", add "Font Height..." and "font height..." to the submenu.
-  if the current tab's mode is "writer", add "Font Name..." and "handle font name" to the submenu.
-  handle the command given the submenu.
+to get a submenu given a mode (a):
+  if the current tab's mode is "writer", add "Align Left" and "handle align given left" to the submenu.
+  if the current tab's mode is "writer", add "Align Center" and "handle align given center" to the submenu.
+  if the current tab's mode is "writer", add "Align Right" and "handle align given right" to the submenu.
+
+to get a submenu given a mode (b):
+  if the mode is "writer", add "Border..." and "border..." to the submenu.
+  if the mode is "writer", add "Bring to Front" and "handle bring to front" to the submenu.
+
+to get a submenu given a mode (c):
+  if the mode is "editor", add "Capitalize" to the submenu.
+  if the mode is "writer", add "Capitalize" to the submenu.
+  if the mode is "editor", add "Check Spelling" to the submenu.
+  if the mode is "writer",
+    add "Check Spelling..." and "check spelling..." to the submenu.
+  add "Close" and "W" and "handle close" to the submenu.
+  add "Close All" to the submenu.
+  if the current tab's mode is "writer",
+    add "Color..." and "color..." to the submenu.
+  if the mode is "editor",
+    add "Comment" and "T" and "handle comment" to the submenu.
+  if the mode is "editor",
+    add "Compile" and "M" and "handle compile" to the submenu.
+  add "Copy" and "C" and "handle copy" to the submenu.
+  add "Cut" and "X" and "handle cut" to the submenu.
+
+to get a submenu given a mode (d):
+  if the mode is "editor", add "Decrypt..." to the submenu.
+  if the mode is "finder",
+    add "Duplicate" and "D" and "handle duplicate" to the submenu.
+  if the mode is "docster",
+    add "Duplicate" and "D" and "handle duplicate" to the submenu.
+  if the mode is "writer",
+    add "Duplicate" and "D" and "handle duplicate" to the submenu.
+
+to get a submenu given a mode (e):
+  if the mode is "writer", add "Enlarge" and "E" and "handle enlarge" to the submenu.
+  if the mode is "editor", add "Encrypt..." to the submenu.
+  if the mode is "editor", add "Extract Types" to the submenu.
+  if the mode is "editor", add "Extract Globals" to the submenu.
+  if the mode is "editor", add "Extract Routine Headers" to the submenu.
+  if the mode is "finder", add "Extract Nibble Literal" to the submenu.
+
+to get a submenu given a mode (f):
+  if the mode is "editor", add "Find" and "F" and "handle find" to the submenu.
+  if the mode is "writer", add "Find" and "F" and "handle find" to the submenu.
+  if the mode is "editor", add "Find Next" and "N" and "handle find next" to the submenu.
+  if the mode is "writer", add "Find Next" and "N" and "handle find next" to the submenu.
+  if the mode is "writer", add "Fill..." to the submenu.
+  if the mode is "writer", add "Flip" to the submenu.
+  if the mode is "editor", add "Font Height..." and "font height..." to the submenu.
+  if the mode is "editor", add "Font Name..." to the submenu.
+  if the mode is "writer", add "Font Height..." and "font height..." to the submenu.
+  if the mode is "writer", add "Font Name..." to the submenu.
+
+to get a submenu given a mode (g):
+  if the mode is "finder", add "Get Size" to the submenu.
+  if the mode is "writer", add "Grayscale" to the submenu.
+  if the mode is "writer", add "Grid..." and "grid..." to the submenu.
+  if the mode is "writer", add "Group" and "G" and "handle group" to the submenu.
+
+to get a submenu given a mode (h):
+  if the mode is "writer", add "Hide Grid" and "handle grid given no" to the submenu.
+
+to get a submenu given a mode (i):
+  if the mode is "editor", add "Indent" and "I" and "handle indent" to the submenu.
+
+to get a submenu given a mode (j):
+
+to get a submenu given a mode (k):
+
+to get a submenu given a mode (l):
+  if the mode is "editor", add "List" and "L" and "handle list" to the submenu.
+  if the mode is "editor", add "Lowercase" to the submenu.
+  if the mode is "writer", add "Label..." and "Label..." to the submenu.
+  if the mode is "writer", add "Lowercase" to the submenu.
+
+to get a submenu given a mode (m):
+  add "Minimize" and "handle minimize" to the submenu.
+  if the mode is "writer", add "Measure..." to the submenu.
+  if the mode is "writer", add "Mirror" to the submenu.
+
+to get a submenu given a mode (n):
+  if the mode is "finder", add "New Directory..." to the submenu.
+  if the mode is "finder", add "New Document..." to the submenu.
+  if the mode is "writer", add "New Ellipse" to the submenu.
+  if the mode is "docster", add "New Page" to the submenu.
+  if the mode is "writer", add "New Picture..." to the submenu.
+  if the mode is "writer", add "New Polygon" to the submenu.
+  if the mode is "writer", add "New Rectangle" to the submenu.
+  if the mode is "writer", add "New Text" to the submenu.
+  if the mode is "finder", add "New Text File..." to the submenu.
+
+to get a submenu given a mode (o):
+  if the mode is "finder",  add "Open" and "O" and "handle open" to the submenu.
+  if the mode is "docster", add "Open" and "O" and "handle open" to the submenu.
+  if the mode is "finder",  add "Open As Dump" to the submenu.
+  if the mode is "finder",  add "Open As Text" to the submenu.
+  if the mode is "editor",  add "Outdent" and "O" and "handle outdent" to the submenu.
+
+to get a submenu given a mode (p):
+  add "Paste" and "V" and "handle paste" to the submenu.
+  if the mode is "writer",  add "Pen..." and "pen..." to the submenu.
+  if the mode is "editor",  add "Print..." and "P" and "handle print" to the submenu.
+  if the mode is "docster", add "Print..." and "P" and "handle print" to the submenu.
+  if the mode is "writer",  add "Print..." and "P" and "handle print" to the submenu.
+
+to get a submenu given a mode (q):
+  add "Quit" and "Q" and "handle quit" to the submenu.
+
+to get a submenu given a mode (r):
+  if the mode is "writer", add "Radius..." to the submenu.
+  if the mode is "editor", add "Redo" and "Y" and "handle redo" to the submenu.
+  if the mode is "writer", add "Redo" and "Y" and "handle redo" to the submenu.
+  if the mode is "writer", add "Reduce" and "R" and "handle reduce" to the submenu.
+  if the mode is "finder", add "Rename..." to the submenu.
+  if the mode is "docster", add "Renumber Pages..." to the submenu.
+  if the mode is "editor", add "Reverse" to the submenu.
+  if the mode is "finder", add "Reverse" to the submenu.
+  if the mode is "writer", add "Rotate Page" to the submenu.
+  if the mode is "writer", add "Rotate Shape" and "J" and "handle rotate shape" to the submenu.
+  if the mode is "editor", add "Run" and "R" and "handle run" to the submenu.
+
+to get a submenu given a mode (s):
+  if the mode is "editor", add "Save" and "S" and "handle save" to the submenu.
+  if the mode is "docster", add "Save" and "S" and "handle save" to the submenu.
+  if the mode is "writer", add "Save" and "S" and "handle save" to the submenu.
+  add "Save All" and "handle save all" to the submenu.
+  if the mode is "docster", add "Save as PDF..." and "handle save as pdf" to the submenu.
+  add "Select All" and "A" and "handle select all" to the submenu.
+  if the mode is "writer", add "Send to Back" and "handle send to back" to the submenu.
+  if the mode is "writer", add "Show Grid" and "handle grid given yes" to the submenu.
+  if the mode is "writer", add "Smooth" and "M" and "handle smooth" to the submenu.
+  if the mode is "editor", add "Sort..." and "sort..." to the submenu.
+  if the mode is "finder", add "Sort..." and "sort..." to the submenu.
+  if the mode is "editor", add "Stop" to the submenu.
+
+to get a submenu given a mode (t):
+
+to get a submenu given a mode (u):
+  if the mode is "editor", add "Uncomment" and "U" and "handle uncomment" to the submenu.
+  if the mode is "editor", add "Undo" and "Z" and "handle undo" to the submenu.
+  if the mode is "writer", add "Undo" and "Z" and "handle undo" to the submenu.
+  if the mode is "writer", add "Ungrayscale" to the submenu.
+  if the mode is "writer", add "Ungroup" and "U" and "handle ungroup" to the submenu.
+  if the mode is "writer", add "Unlabel" to the submenu.
+  if the mode is "editor", add "Uppercase" to the submenu.
+  if the mode is "writer", add "Uppercase" to the submenu.
+
+to get a submenu given a mode (v):
+  add "Version" to the submenu.
+
+to get a submenu given a mode (w):
+
+to get a submenu given a mode (x):
+
+to get a submenu given a mode (y):
+  if the mode is not "writer", exit.
+  add "Yank 1/8"  to the submenu.
+  add "Yank 1/12" to the submenu.
+  add "Yank 1/16" to the submenu.
+  add "Yank 1/24" to the submenu.
+  add "Yank 1/32" to the submenu.
+  add "Yank 1/48" to the submenu.
+  add "Yank None" and "handle yank the tpp" to the submenu.
+
+to get a submenu given a mode (z):
 
 to handle a command (fill...):
   create a submenu.
@@ -867,40 +1035,10 @@ to handle a command (font height...):
   add "Other..." and "handle font height other" to the submenu.
   handle the command given the submenu.
 
-to handle a command (g):
-  create a submenu.
-  if the current tab's mode is "finder", add "Get Size" and "handle get size" to the submenu.
-  if the current tab's mode is "writer", add "Grayscale" and "handle grayscale" to the submenu.
-  if the current tab's mode is "writer", add "Grid..." and "grid..." to the submenu.
-  if the current tab's mode is "writer", add "Group" and "G" and "handle group" to the submenu.
-  handle the command given the submenu.
-
 to handle a command (grid...):
   create a submenu.
   add "Hide" and "handle grid given no" to the submenu.
   add "Show" and "handle grid given yes" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (h):
-  create a submenu.
-  if the current tab's mode is "writer", add "Hide Grid" and "handle grid given no" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (i):
-  create a submenu.
-  if the current tab's mode is "editor", add "Indent" and "I" and "handle indent" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (j):
-
-to handle a command (k):
-
-to handle a command (l):
-  create a submenu.
-  if the current tab's mode is "editor", add "List" and "L" and "handle list" to the submenu.
-  if the current tab's mode is "editor", add "Lowercase" and "handle lowercase" to the submenu.
-  if the current tab's mode is "writer", add "Label..." and "Label..." to the submenu.
-  if the current tab's mode is "writer", add "Lowercase" and "handle lowercase" to the submenu.
   handle the command given the submenu.
 
 to handle a command (label...):
@@ -911,84 +1049,10 @@ to handle a command (label...):
   add "Page Number (Odd)"  and "handle label given page number (odd)" to the submenu.
   handle the command given the submenu.
 
-to handle a command (m):
-  create a submenu.
-  add "Minimize" and "handle minimize" to the submenu.
-  if the current tab's mode is "writer", add "Measure..." and "handle measure" to the submenu.
-  if the current tab's mode is "writer", add "Mirror" and "handle mirror" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (n):
-  create a submenu.
-  if the current tab's mode is "finder", add "New Directory..." and "handle new directory" to the submenu.
-  if the current tab's mode is "finder", add "New Document..." and "handle new document" to the submenu.
-  if the current tab's mode is "writer", add "New Ellipse" and "handle new ellipse" to the submenu.
-  if the current tab's mode is "docster", add "New Page" and "handle new page" to the submenu.
-  if the current tab's mode is "writer", add "New Picture..." and "handle new picture" to the submenu.
-  if the current tab's mode is "writer", add "New Polygon" and "handle new polygon" to the submenu.
-  if the current tab's mode is "writer", add "New Rectangle" and "handle new rectangle" to the submenu.
-  if the current tab's mode is "writer", add "New Text" and "handle new text" to the submenu.
-  if the current tab's mode is "finder", add "New Text File..." and "handle new text file" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (o):
-  create a submenu.
-  if the current tab's mode is "finder", add "Open" and "O" and "handle open" to the submenu.
-  if the current tab's mode is "docster", add "Open" and "O" and "handle open" to the submenu.
-  if the current tab's mode is "finder", add "Open As Dump" and "handle open as dump" to the submenu.
-  if the current tab's mode is "finder", add "Open As Text" and "handle open as text" to the submenu.
-  if the current tab's mode is "editor", add "Outdent" and "O" and "handle outdent" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (p):
-  create a submenu.
-  add "Paste" and "V" and "handle paste" to the submenu.
-  if the current tab's mode is "writer", add "Pen..." and "pen..." to the submenu.
-  if the current tab's mode is "editor", add "Print..." and "P" and "handle print" to the submenu.
-  if the current tab's mode is "docster", add "Print..." and "P" and "handle print" to the submenu.
-  if the current tab's mode is "writer", add "Print..." and "P" and "handle print" to the submenu.
-  handle the command given the submenu.
-
 to handle a command (pen...):
   create a submenu.
   add swatches to the submenu given "handle pen".
   handle the command given the submenu and the palette width.
-
-to handle a command (q):
-  create a submenu.
-  add "Quit" and "Q" and "handle quit" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (r):
-  create a submenu.
-  if the current tab's mode is "writer", add "Radius..." and "handle radius" to the submenu.
-  if the current tab's mode is "editor", add "Redo" and "Y" and "handle redo" to the submenu.
-  if the current tab's mode is "writer", add "Redo" and "Y" and "handle redo" to the submenu.
-  if the current tab's mode is "writer", add "Reduce" and "R" and "handle reduce" to the submenu.
-  if the current tab's mode is "finder", add "Rename..." and "handle rename" to the submenu.
-  if the current tab's mode is "docster", add "Renumber Pages..." and "handle renumber pages" to the submenu.
-  if the current tab's mode is "editor", add "Reverse" and "handle reverse" to the submenu.
-  if the current tab's mode is "finder", add "Reverse" and "handle reverse" to the submenu.
-  if the current tab's mode is "writer", add "Rotate Page" and "handle rotate page" to the submenu.
-  if the current tab's mode is "writer", add "Rotate Shape" and "J" and "handle rotate shape" to the submenu.
-  if the current tab's mode is "editor", add "Run" and "R" and "handle run" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (s):
-  create a submenu.
-  if the current tab's mode is "editor", add "Save" and "S" and "handle save" to the submenu.
-  if the current tab's mode is "docster", add "Save" and "S" and "handle save" to the submenu.
-  if the current tab's mode is "writer", add "Save" and "S" and "handle save" to the submenu.
-  add "Save All" and "handle save all" to the submenu.
-  if the current tab's mode is "docster", add "Save as PDF..." and "handle save as pdf" to the submenu.
-  add "Select All" and "A" and "handle select all" to the submenu.
-  if the current tab's mode is "writer", add "Send to Back" and "handle send to back" to the submenu.
-  if the current tab's mode is "writer", add "Show Grid" and "handle grid given yes" to the submenu.
-  if the current tab's mode is "writer", add "Smooth" and "M" and "handle smooth" to the submenu.
-  if the current tab's mode is "editor", add "Sort..." and "sort..." to the submenu.
-  if the current tab's mode is "finder", add "Sort..." and "sort..." to the submenu.
-  if the current tab's mode is "editor", add "Stop" and "handle stop" to the submenu.
-  handle the command given the submenu.
 
 to handle a command (sort...):
   create a submenu.
@@ -999,43 +1063,8 @@ to handle a command (sort...):
   if the current tab's mode is "finder", add "By Extension"  and "handle sort nodettes by extension" to the submenu.
   handle the command given the submenu.
 
-to handle a command (t):
-
-to handle a command (u):
-  create a submenu.
-  if the current tab's mode is "editor", add "Uncomment" and "U" and "handle uncomment" to the submenu.
-  if the current tab's mode is "editor", add "Undo" and "Z" and "handle undo" to the submenu.
-  if the current tab's mode is "writer", add "Undo" and "Z" and "handle undo" to the submenu.
-  if the current tab's mode is "writer", add "Ungrayscale" and "handle ungrayscale" to the submenu.
-  if the current tab's mode is "writer", add "Ungroup" and "U" and "handle ungroup" to the submenu.
-  if the current tab's mode is "writer", add "Unlabel" and "handle unlabel" to the submenu.
-  if the current tab's mode is "editor", add "Uppercase" and "handle uppercase" to the submenu.
-  if the current tab's mode is "writer", add "Uppercase" and "handle uppercase" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (v):
-  create a submenu.
-  add "Version"  and "handle version" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (w):
-
-to handle a command (x):
-
-to handle a command (y):
-  create a submenu.
-  if the current tab's mode is "writer", add "Yank 1/8"  and "handle yank given 1/8 inch" to the submenu.
-  if the current tab's mode is "writer", add "Yank 1/12"  and "handle yank given 1/12 inch" to the submenu.
-  if the current tab's mode is "writer", add "Yank 1/16"  and "handle yank given 1/16 inch" to the submenu.
-  if the current tab's mode is "writer", add "Yank 1/24"  and "handle yank given 1/24 inch" to the submenu.
-  if the current tab's mode is "writer", add "Yank 1/32"  and "handle yank given 1/32 inch" to the submenu.
-  if the current tab's mode is "writer", add "Yank 1/48"  and "handle yank given 1/48 inch" to the submenu.
-  if the current tab's mode is "writer", add "Yank None"  and "handle yank given the tpp" to the submenu.
-  handle the command given the submenu.
-
-to handle a command (z):
-
-to handle a command given a submenu: handle the command given the submenu and the submenu width.
+to handle a command given a submenu:
+  handle the command given the submenu and the submenu width.
 
 to handle a command given a submenu and a width:
   put the command's left and the bar's display's bottom into a spot.
@@ -1179,7 +1208,22 @@ to handle an event (left click - menu):
   handle the command.
 
 to handle an event (left click - status):
+  create a command.
+  create a submenu.
+  if the regression tests passed,
+    add "All tests passed." and "handle regression tests passed" to the submenu.
+  if the regression tests failed,
+    add "One or more tests failed." and "handle regression tests failed" to the submenu.
+  handle the command given the submenu.
   track the desktop given the event.
+
+to decide if the regression tests passed:
+  if the status' color is the status' pass color, say yes.
+  say no.
+
+to decide if the regression tests failed:
+  if the status' color is the status' fail color, say yes.
+  say no.
 
 to handle an event (left click - switch):
   find a tab given the event's spot.
@@ -1368,7 +1412,8 @@ to handle an event given the dialog (select all):
   show the desktop.
 
 to handle an event given the dialog (set cursor):
-  if the event's spot is in the dialog's text, show the i-beam cursor; exit.
+  if the event's spot is in the dialog's text,
+    show the i-beam cursor; exit.
   show the arrow cursor.
 
 to handle an event given the dialog (undo):
@@ -1377,10 +1422,14 @@ to handle an event given the dialog (undo):
   show the desktop.
 
 to handle an event given a submenu:
-  if the event's kind is "key down", handle the event given the submenu (key down); exit.
-  if the event's kind is "left click", handle the event given the submenu (left click); exit.
-  if the event's kind is "refresh", handle the event given the submenu (refresh); exit.
-  if the event's kind is "set cursor", handle the event given the submenu (set cursor); exit.
+  if the event's kind is "key down",
+    handle the event given the submenu (key down); exit.
+  if the event's kind is "left click",
+    handle the event given the submenu (left click); exit.
+  if the event's kind is "refresh",
+    handle the event given the submenu (refresh); exit.
+  if the event's kind is "set cursor",
+    handle the event given the submenu (set cursor); exit.
 
 to handle an event given a submenu (key down):
   if the event's key is the escape key, relinquish control.
@@ -1392,7 +1441,8 @@ to handle an event given a submenu (left click - menu):
   relinquish control.
 
 to handle an event given a submenu (left click):
-  if the event's spot is in the submenu, handle the event given the submenu (left click - menu); exit.
+  if the event's spot is in the submenu,
+    handle the event given the submenu (left click - menu); exit.
   relinquish control.
   if the event's spot is in the menu, reque the event.
 
@@ -1421,74 +1471,96 @@ to handle events given a submenu:
   repeat.
 
 to handle extract globals:
-  if the current tab's mode is "editor", handle extract globals given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle extract globals given the current tab's node's source; exit.
   cluck.
 
 to handle extract nibble literal:
-  if the current tab's mode is "finder", handle extract nibble literal given the current tab's node; exit.
+  if the current tab's mode is "finder",
+    handle extract nibble literal given the current tab's node; exit.
   cluck.
 
 to handle extract routine headers:
-  if the current tab's mode is "editor", handle extract routine headers given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle extract routine headers given the current tab's node's source; exit.
   cluck.
 
 to handle extract types:
-  if the current tab's mode is "editor", handle extract types given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle extract types given the current tab's node's source; exit.
   cluck.
 
 to handle fill given a color:
-  if the current tab's mode is "writer", handle fill given the current tab's node's page and the color; exit.
+  if the current tab's mode is "writer",
+    handle fill given the current tab's node's page and the color; exit.
   cluck.
 
 to handle find:
-  if the current tab's mode is "editor", handle find given the current tab's node's source; exit.
-  if the current tab's mode is "writer", handle find given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle find given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle find given the current tab's node's page; exit.
   cluck.
 
 to handle find next:
-  if the current tab's mode is "editor", handle find next given the current tab's node's source; exit.
-  if the current tab's mode is "writer", handle find next given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle find next given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle find next given the current tab's node's page; exit.
   cluck.
 
 to handle flip:
-  if the current tab's mode is "writer", handle flip given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle flip given the current tab's node's page; exit.
   cluck.
 
 to handle font height given a font height:
-  if the current tab's mode is "editor", handle font height given the current tab's node's source and the font height; exit.
-  if the current tab's mode is "writer", handle font height given the current tab's node's page and the font height; exit.
+  if the current tab's mode is "editor",
+    handle font height given the current tab's node's source and the font height; exit.
+  if the current tab's mode is "writer",
+    handle font height given the current tab's node's page and the font height; exit.
   cluck.
 
 to handle font height other:
-  if the current tab's mode is "editor", handle font height other given the current tab's node's source; exit.
-  if the current tab's mode is "writer", handle font height other given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle font height other given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle font height other given the current tab's node's page; exit.
 
 to handle font name:
-  if the current tab's mode is "editor", handle font name given the current tab's node's source; exit.
-  if the current tab's mode is "writer", handle font name given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle font name given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle font name given the current tab's node's page; exit.
 
 to handle get size:
-  if the current tab's mode is "finder", handle get size given the current tab's node; exit.
+  if the current tab's mode is "finder",
+    handle get size given the current tab's node; exit.
   cluck.
 
 to handle grayscale given a flag:
-  if the current tab's mode is "writer", handle grayscale given the current tab's node's page and the flag; exit.
+  if the current tab's mode is "writer",
+    handle grayscale given the current tab's node's page and the flag; exit.
   cluck.
 
 to handle grid given a flag:
-  if the current tab's mode is "writer", handle grid given the current tab's node's page and the flag; exit.
+  if the current tab's mode is "writer",
+    handle grid given the current tab's node's page and the flag; exit.
   cluck.
 
 to handle group:
-  if the current tab's mode is "writer", handle group given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle group given the current tab's node's page; exit.
   cluck.
 
 to handle indent:
-  if the current tab's mode is "editor", handle indent given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle indent given the current tab's node's source; exit.
   cluck.
 
 to handle label given a label:
-  if the current tab's mode is "writer", handle label given the current tab's node's page and the label; exit.
+  if the current tab's mode is "writer",
+    handle label given the current tab's node's page and the label; exit.
   cluck.
 
 to handle list:
@@ -1496,47 +1568,58 @@ to handle list:
   handle save all.
   if the i/o error is not blank, exit.
   find a directory to compile.
-  if the directory is blank, show error "I'm not sure what to compile and list"; exit.
+  if the directory is blank,
+    show error "I'm not sure what to compile and list"; exit.
   compile the directory.
   show status "Listing...".
   list.
-  if the compiler's abort flag is set, handle compile or list or run error; exit.
+  if the compiler's abort flag is set,
+    handle compile or list or run error; exit.
   show status the compiler's timer's string then " ms".
 
 to handle lowercase:
-  if the current tab's mode is "editor", handle lowercase given the current tab's node's source; exit.
-  if the current tab's mode is "writer", handle lowercase given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle lowercase given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle lowercase given the current tab's node's page; exit.
   cluck.
 
 to handle measure:
-  if the current tab's mode is "writer", handle measure given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle measure given the current tab's node's page; exit.
   cluck.
 
 to handle minimize:
   minimize the main window.
 
 to handle mirror:
-  if the current tab's mode is "writer", handle mirror given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle mirror given the current tab's node's page; exit.
   cluck.
 
 to handle new directory:
-  if the current tab's mode is "finder", handle new directory given the current tab's node; exit.
+  if the current tab's mode is "finder",
+    handle new directory given the current tab's node; exit.
   cluck.
 
 to handle new document:
-  if the current tab's mode is "finder", handle new document given the current tab's node; exit.
+  if the current tab's mode is "finder",
+    handle new document given the current tab's node; exit.
   cluck.
 
 to handle new page:
-  if the current tab's mode is "docster", handle new page given the current tab's node's document; exit.
+  if the current tab's mode is "docster",
+    handle new page given the current tab's node's document; exit.
   cluck.
 
 to handle new shape given a kind:
-  if the current tab's mode is "writer", handle new shape given the current tab's node's page and the kind; exit.
+  if the current tab's mode is "writer",
+    handle new shape given the current tab's node's page and the kind; exit.
   cluck.
 
 to handle new text file:
-  if the current tab's mode is "finder", handle new text file given the current tab's node; exit.
+  if the current tab's mode is "finder",
+    handle new text file given the current tab's node; exit.
   cluck.
 
 to handle open:
@@ -1553,7 +1636,8 @@ to handle open (docster):
 to handle open (finder):
   if the current tab's mode is not "finder", cluck; exit.
   get some selected path links given the current tab's node.
-  if the selected path links are empty, show error "I'm not sure what you want me to open."; exit.
+  if the selected path links are empty,
+    show error "I'm not sure what you want me to open."; exit.
   show status "Opening...".
   put the current tab into a tab.
   loop.
@@ -1577,7 +1661,8 @@ to handle open (finder):
 to handle open as dump:
   if the current tab's mode is not "finder", cluck; exit.
   put the current tab's node's first selected nodette into a nodette.
-  if the nodette is nil, show error "I'm not sure what you want me to open."; exit.
+  if the nodette is nil,
+    show error "I'm not sure what you want me to open."; exit.
   if the nodette's kind is not "file", cluck; exit.
   show status "Opening...".
   open the nodette (file as dump).
@@ -1589,7 +1674,8 @@ to handle open as dump:
 to handle open as text:
   if the current tab's mode is not "finder", cluck; exit.
   put the current tab's node's first selected nodette into a nodette.
-  if the nodette is nil, show error "I'm not sure what you want me to open."; exit.
+  if the nodette is nil,
+    show error "I'm not sure what you want me to open."; exit.
   if the nodette's kind is not "file", cluck; exit.
   show status "Opening...".
   open the nodette (file as text).
@@ -1600,31 +1686,41 @@ to handle open as text:
 
 to handle open without drawing (docster):
   put the current tab's node's document's first selected page into an page.
-  if the page is nil, show error "I'm not sure what you want me to open."; exit.
+  if the page is nil,
+    show error "I'm not sure what you want me to open."; exit.
   focus on the page in the current tab's node's document.
   put the page into the current tab's node's page.
   open the current tab's node's page.
   switch the current tab to the current tab's node.
 
 to handle outdent:
-  if the current tab's mode is "editor", handle outdent given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle outdent given the current tab's node's source; exit.
   cluck.
 
 to handle paste:
-  if the current tab's mode is "finder", handle paste given the current tab's node; exit.
-  if the current tab's mode is "editor", handle paste given the current tab's node's source; exit.
-  if the current tab's mode is "docster", handle paste given the current tab's node's document; exit.
-  if the current tab's mode is "writer", handle paste given the current tab's node's page; exit.
+  if the current tab's mode is "finder",
+    handle paste given the current tab's node; exit.
+  if the current tab's mode is "editor",
+    handle paste given the current tab's node's source; exit.
+  if the current tab's mode is "docster",
+    handle paste given the current tab's node's document; exit.
+  if the current tab's mode is "writer",
+    handle paste given the current tab's node's page; exit.
   cluck.
 
 to handle pen given a color:
-  if the current tab's mode is "writer", handle pen given the current tab's node's page and the color; exit.
+  if the current tab's mode is "writer",
+    handle pen given the current tab's node's page and the color; exit.
   cluck.
 
 to handle print:
-  if the current tab's mode is "editor", handle print given the current tab's node's source; exit.
-  if the current tab's mode is "docster", handle print given the current tab's node's document; exit.
-  if the current tab's mode is "writer", handle print given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle print given the current tab's node's source; exit.
+  if the current tab's mode is "docster",
+    handle print given the current tab's node's document; exit.
+  if the current tab's mode is "writer",
+    handle print given the current tab's node's page; exit.
   cluck.
 
 to handle quit:
@@ -1640,37 +1736,47 @@ to handle quit:
   repeat.
 
 to handle radius:
-  if the current tab's mode is "writer", handle radius given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle radius given the current tab's node's page; exit.
   cluck.
 
 to handle redo:
-  if the current tab's mode is "editor", handle redo given the current tab's node's source; exit.
-  if the current tab's mode is "writer", handle redo given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle redo given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle redo given the current tab's node's page; exit.
   cluck.
 
 to handle reduce:
-  if the current tab's mode is "writer", handle reduce given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle reduce given the current tab's node's page; exit.
   cluck.
 
 to handle rename:
-  if the current tab's mode is "finder", handle rename given the current tab's node; exit.
+  if the current tab's mode is "finder",
+    handle rename given the current tab's node; exit.
   cluck.
 
 to handle renumber pages:
-  if the current tab's mode is "docster", handle renumber pages given the current tab's node's document; exit.
+  if the current tab's mode is "docster",
+    handle renumber pages given the current tab's node's document; exit.
   cluck.
 
 to handle reverse:
-  if the current tab's mode is "finder", handle reverse given the current tab's node; exit.
-  if the current tab's mode is "editor", handle reverse given the current tab's node's source; exit.
+  if the current tab's mode is "finder",
+    handle reverse given the current tab's node; exit.
+  if the current tab's mode is "editor",
+    handle reverse given the current tab's node's source; exit.
   cluck.
 
 to handle rotate page:
-  if the current tab's mode is "writer", handle rotate page given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle rotate page given the current tab's node's page; exit.
   cluck.
 
 to handle rotate shape:
-  if the current tab's mode is "writer", handle rotate shape given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle rotate shape given the current tab's node's page; exit.
   cluck.
 
 to handle run:
@@ -1678,9 +1784,11 @@ to handle run:
   handle save all.
   if the i/o error is not blank, exit.
   find a directory to compile.
-  if the directory is blank, show error "I'm not sure what you want me to compile."; exit.
+  if the directory is blank,
+    show error "I'm not sure what you want me to compile."; exit.
   compile the directory.
-  if the compiler's abort flag is set, handle compile or list or run error; exit.
+  if the compiler's abort flag is set,
+    handle compile or list or run error; exit.
   show status "Running...".
   start the current process given the compiler's exe path.
   if the i/o error is not blank, show error the i/o error; exit.
@@ -1708,34 +1816,44 @@ to handle save all:
   show error the i/o error.
 
 to handle save as pdf:
-  if the current tab's mode is "docster", handle save as pdf given the current tab's node's document; exit.
+  if the current tab's mode is "docster",
+    handle save as pdf given the current tab's node's document; exit.
   cluck.
 
 to handle select all:
-  if the current tab's mode is "finder", handle select all given the current tab's node; exit.
-  if the current tab's mode is "editor", handle select all given the current tab's node's source; exit.
-  if the current tab's mode is "docster", handle select all given the current tab's node's document; exit.
-  if the current tab's mode is "writer", handle select all given the current tab's node's page; exit.
+  if the current tab's mode is "finder",
+    handle select all given the current tab's node; exit.
+  if the current tab's mode is "editor",
+    handle select all given the current tab's node's source; exit.
+  if the current tab's mode is "docster",
+    handle select all given the current tab's node's document; exit.
+  if the current tab's mode is "writer",
+    handle select all given the current tab's node's page; exit.
   cluck.
 
 to handle send to back:
-  if the current tab's mode is "writer", handle send to back given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle send to back given the current tab's node's page; exit.
   cluck.
 
 to handle smooth:
-  if the current tab's mode is "writer", handle smooth given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle smooth given the current tab's node's page; exit.
   cluck.
 
 to handle sort definitions:
-  if the current tab's mode is "editor", handle sort definitions given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle sort definitions given the current tab's node's source; exit.
   cluck.
 
 to handle sort nodettes given a string:
-  if the current tab's mode is "finder", handle sort nodettes given the current tab's node and the string; exit.
+  if the current tab's mode is "finder",
+    handle sort nodettes given the current tab's node and the string; exit.
   cluck.
 
 to handle sort selected lines:
-  if the current tab's mode is "editor", handle sort selected lines given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle sort selected lines given the current tab's node's source; exit.
   cluck.
 
 to handle stop:
@@ -1745,32 +1863,44 @@ to handle stop:
   show status "Stopped".
 
 to handle uncomment:
-  if the current tab's mode is "editor", handle uncomment given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle uncomment given the current tab's node's source; exit.
   cluck.
 
 to handle undo:
-  if the current tab's mode is "editor", handle undo given the current tab's node's source; exit.
-  if the current tab's mode is "writer", handle undo given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle undo given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle undo given the current tab's node's page; exit.
   cluck.
 
 to handle ungroup:
-  if the current tab's mode is "writer", handle ungroup given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle ungroup given the current tab's node's page; exit.
   cluck.
 
 to handle unlabel:
-  if the current tab's mode is "writer", handle unlabel given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle unlabel given the current tab's node's page; exit.
   cluck.
 
 to handle uppercase:
-  if the current tab's mode is "editor", handle uppercase given the current tab's node's source; exit.
-  if the current tab's mode is "writer", handle uppercase given the current tab's node's page; exit.
+  if the current tab's mode is "editor",
+    handle uppercase given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle uppercase given the current tab's node's page; exit.
   cluck.
 
 to handle version:
   show status the module's name.
 
+to handle regression tests passed:
+
+to handle regression tests failed:
+
 to handle yank given a number:
-  if the current tab's mode is "writer", handle yank given the current tab's node's page and the number; exit.
+  if the current tab's mode is "writer",
+    handle yank given the current tab's node's page and the number; exit.
   cluck.
 
 a handler is a string.
@@ -1783,6 +1913,30 @@ to initialize:
   initialize the compiler.
   fill the tabs.
   switch to the tabs' first.
+  regression test.
+
+a result set has a number called passed
+  and a number called failed.
+
+to regression test:
+  regression test returning a test result set.
+  put the test result set into the status' test result set.
+  tint the status.
+
+to put a test result set into another test result set:
+  put the test result set's passed
+    into the other test result set's passed.
+  put the test result set's failed
+    into the other test result set's failed.
+
+to tint the status:
+  if the status' test result set's failed is 0,
+    put the status' pass color into the status' color; exit.
+  put the status' fail color into the status' color.
+
+to regression test returning a test result set:
+  put 1 in the test result set's passed.
+  put 0 in the test result set's failed.
 
 to initialize the bar:
   put "normal" into the bar's mode.
@@ -1814,6 +1968,9 @@ to initialize the pad:
 to initialize the status:
   put the bar's display and 1/12 inch into the status' roundy box.
   put the menu's commands' last's right into the status' left.
+  put the lightest green color into the status' pass color.
+  put the lightest red color into the status' fail color.
+  put the white color into the status' color.
 
 to initialize the switch:
   initialize the tabs.
@@ -1896,7 +2053,12 @@ to show status a string:
   put the string into the status' string.
   show the status.
 
-the status has a roundy box and a string.
+a pass color is a color.
+
+a fail color is a color.
+
+the status has a roundy box and a string
+  and a color and a pass color and a fail color and a test result set.
 
 a submenu is a menu.
 
