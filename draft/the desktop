@@ -264,6 +264,7 @@ the current tab is a tab.
 
 to decide if an event is any shortcut:
   if the event is nil, say no.
+  if the event's key is between the f1-key and the f12-key, say yes.
   if the event is not modified, say no.
   if the event's key is between the a-key and the z-key, say yes.
   say no.
@@ -702,9 +703,9 @@ to handle a command:
   \ do it dispatchers
   show the desktop.
   if the handler is "handle bring to front", handle bring to front; exit.
-  if the handler is "handle align given center", handle align given "center"; exit.
-  if the handler is "handle align given left", handle align given "left"; exit.
-  if the handler is "handle align given right", handle align given "right"; exit.
+  if the handler is "handle align center", handle align given "center"; exit.
+  if the handler is "handle align left",   handle align given "left"; exit.
+  if the handler is "handle align right",  handle align given "right"; exit.
   if the handler is "handle border", handle border given the command's color; exit.
   if the handler is "handle fill", handle fill given the command's color; exit.
   if the handler is "handle font height given 1 inch", handle font height given 1 inch; exit.
@@ -811,9 +812,9 @@ to handle a command:
 
 to handle a command (alignment...):
   create a submenu.
-  add "Align Left" and "handle align given left" to the submenu.
-  add "Align Center" and "handle align given center" to the submenu.
-  add "Align Right" and "handle align given right" to the submenu.
+  add "Align Left" to the submenu.
+  add "Align Center" to the submenu.
+  add "Align Right" to the submenu.
   handle the command given the submenu.
 
 to handle a command (border...):
@@ -1121,6 +1122,7 @@ to handle compile:
   show status the compiler's timer's string then " ms".
 
 to handle compile or list or run error:
+  untint the status.
   if the compiler's abort path is blank, show error the compiler's abort message; exit.
   loop.
   get a tab from the tabs.
@@ -1219,7 +1221,23 @@ to handle an event (key down - shortcut):
   if the event's key is the x-key, handle cut; exit.
   if the event's key is the y-key, handle redo; exit.
   if the event's key is the z-key, handle undo; exit.
+  \ Visual Studio's shortcuts are listed at:
+  \ http://www.dofactory.com/ShortCutKeys/ShortCutKeys.aspx
+  \ the f1-key is for context-sensitive help.
+  \ Windows Explorer uses the f2-key for renaming.
+  \ f3 is for find or find next.  Shift-f3 is for find previous.
+  if the event's key is the f3-key, handle find next; exit.
+  \ the f5-key is for refresh.  For example, to run a program being compiled or interpreted.
+  if the event's key is the f5-key and the current tab's mode is "editor", handle run; exit.
+  \ the f6-key is for moving between panes or windows.
+  \ In Microsoft Office, the f9-key recalculates or updates calculated fields.
+  \ the f11-key is for toggling full-screen mode.  
+  if the event's key is any function key, exit.
   cluck.
+
+to decide if a key is any function key:
+  if the key is between the f1-key and the f12-key, say yes.
+  say no.
 
 to handle an event (key down):
   if the event is any shortcut, handle the event (key down - shortcut); exit.

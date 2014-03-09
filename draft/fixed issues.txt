@@ -1,0 +1,117 @@
+This file lists issues that have been fixed
+in the Plain English programming environment.
+The Plain English programming environment is called Cal.
+Currently, the file has a .txt extension,
+so that it will not be compiled into the executable.
+
+The list of outstanding issues is in issues.txt.
+
+\ ======================================   
+
+Here is how the issues are rated:
+  Of course, all of the ratings are guesses.
+  A difficulty rating can be one of the following:
+     Already done.
+     Already done, but would be easier with an alias.
+     Already done, but the natural alias conflicts
+                   with another feature of Cal.
+     Trivial.  It needs just a short procedure.
+     Easy.  It needs less than a screenful of code.
+     Medium.
+     Hard.
+     Profound.  It needs a different way of doing things,
+       which is either not easy to design, or is hard
+       to make consistent with the project's design goals.
+  An implementation difficulty rating is a difficulty rating.
+    It describes how hard it is to implement a feature or bug-fix.
+  A demoing difficulty rating is a difficulty rating.
+    It describes how hard it is to try out the feature or bug-fix,
+    to be confident that it works.
+  A testing difficulty rating is a difficulty rating.
+    It describes how hard it is to write automated unit tests
+    for the feature, to be confident that other feature changes
+    and/or refactorings do not break the feature.
+    Automated unit tests can be run frequently
+   (such as every time the program is compiled),
+    so most tests need to be very fast.
+  A benefit rating can be one of the following:
+    Probably a very bad idea.  Would not work well,
+      or would make other things not work well.
+    Probably does more harm than good.
+    Might do more harm than good.
+    Neutral.
+    Minor benefit.
+    Important.
+    Very important.
+    Critical.
+  An audience can be one of the following:
+    An Osmosian Master.
+      A programmer who chooses to only program in Plain English.
+    A Windows programmer.  An English-speaking programmer
+      who uses a native-Windows computer, and expects
+      more Windows-like functionality than an Osmosian Master.
+    A Linux programmer.  An English-speaking programmer
+      who uses a *nix computer and expects
+      more Windows-like functionality than an Osmosian Master.
+      Because Cal is currently available only for Wintel platforms,
+      a Linux programmer will use WINE to run Cal.
+   An application user.  A person who uses Plain English
+      because of a cool feature available in it
+      (such as the editor, or the pdf writer),
+      but avoids adding new procedures.
+   (Please add more audiences as needed.)
+A status rating can be one of the following:
+   A vague idea.
+   A request.  It is possible to think about how it might be done,
+     and what the trade-offs might be.
+   Designed.
+   Implemented.
+   Demonstrated.
+   Tested.  (With automated unit tests.)
+   Refactored.  It has been incorporated into the program
+     in a way that makes the overall system as simple as practical.
+   Won't do.  While any user is welcome to implement any feature
+     on their own computer, there are no plans to implement the feature
+     in the standard version of the software.
+  The request date.
+  Who made the request.
+  Who implemented the request.
+  Who tested the implementation.
+
+\ ======================================   
+   
+The following requests have been completed.
+The program's change log is implicit
+in the source code repository's change log.
+Occasionally, more fixed items should be moved from issues.txt.
+
+022 - not applicable.  CAL-3040 already compiles all
+  files (that do not have extensions) that are in
+  the project directory, regardless of whether
+  they are open in the editor.
+
+023 - not applicable.  The documentation already discusses
+  which files CAL compiles.
+  
+026.  The End key works similarly to other environments.
+  Currently:
+    The End key moves the cursor to the end of the current line.
+    Ctrl-End moves the cursor to the end of the current file.
+  Audience:  programmers.
+  Status:  Demonstrated.  This feature is part of CAL-3040.
+  Implementation difficulty:  Done, as part of CAL-3040.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Profound.
+
+027.  The Home key works similarly to other environments.
+  Currently:
+    The Home key moves the cursor to the start of the current line.
+    Ctrl-Home moves the cursor to the start of the current file.
+  Audience:  programmers.
+  Status:  Demonstrated.  This feature is part of CAL-3040.
+  Implementation difficulty:  Done, as part of CAL-3040.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Profound.
+
+
+

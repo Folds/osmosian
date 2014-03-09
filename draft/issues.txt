@@ -4,81 +4,15 @@ The Plain English programming environment is called Cal.
 Currently, the file has a .txt extension,
 so that it will not be compiled into the executable.
 
-Here is a possible way of rating feature requests:
-  Of course, all of the ratings are guesses.
-  A difficulty rating can be one of the following:
-     Already done.
-     Already done, but would be easier with an alias.
-     Already done, but the natural alias conflicts
-                   with another feature of Cal.
-     Trivial.  It needs just a short procedure.
-     Easy.  It needs less than a screenful of code.
-     Medium.
-     Hard.
-     Profound.  It needs a different way of doing things,
-       which is either not easy to design, or is hard
-       to make consistent with the project's design goals.
-  An implementation difficulty rating is a difficulty rating.
-    It describes how hard it is to implement a feature or bug-fix.
-  A demoing difficulty rating is a difficulty rating.
-    It describes how hard it is to try out the feature or bug-fix,
-    to be confident that it works.
-  A testing difficulty rating is a difficulty rating.
-    It describes how hard it is to write automated unit tests
-    for the feature, to be confident that other feature changes
-    and/or refactorings do not break the feature.
-    Automated unit tests can be run frequently
-   (such as every time the program is compiled),
-    so most tests need to be very fast.
-  A benefit rating can be one of the following:
-    Probably a very bad idea.  Would not work well,
-      or would make other things not work well.
-    Probably does more harm than good.
-    Might do more harm than good.
-    Neutral.
-    Minor benefit.
-    Important.
-    Very important.
-    Critical.
-  An audience can be one of the following:
-    An Osmosian Master.
-      A programmer who chooses to only program in Plain English.
-    A Windows programmer.  An English-speaking programmer
-      who uses a native-Windows computer, and expects
-      more Windows-like functionality than an Osmosian Master.
-    A Linux programmer.  An English-speaking programmer
-      who uses a *nix computer and expects
-      more Windows-like functionality than an Osmosian Master.
-      Because Cal is currently available only for Wintel platforms,
-      a Linux programmer will use WINE to run Cal.
-   An application user.  A person who uses Plain English
-      because of a cool feature available in it
-      (such as the editor, or the pdf writer),
-      but avoids adding new procedures.
-   (Please add more audiences as needed.)
-A status rating can be one of the following:
-   A vague idea.
-   A request.  It is possible to think about how it might be done,
-     and what the trade-offs might be.
-   Designed.
-   Implemented.
-   Demonstrated.
-   Tested.  (With automated unit tests.)
-   Refactored.  It has been incorporated into the program
-     in a way that makes the overall system as simple as practical.
-   Won't do.  While any user is welcome to implement any feature
-     on their own computer, there are no plans to implement the feature
-     in the standard version of the software.
-  The request date.
-  Who made the request.
-  Who implemented the request.
-  Who tested the implementation.
+Fixed issues.txt explains how the issues are rated.
 
-\ ======================================   
+\ ======================================
+   
 The following requests have been completed.
 The program's change log is implicit
 in the source code repository's change log.
 These items should occasionally be moved to fixed issues.txt.
+
 
 \ ======================================   
 The following requests are roughly sorted
@@ -98,6 +32,38 @@ from higher priority to lower priority.
   Testing difficulty:  Trivial.
   Requested by Jasper Paulsen on March 7, 2014.
 
+003.  Gray out (and disable) unused menu letters.
+  Cal has an alphabetical menu structure.
+  Currently, many of the letters do not have menu items.
+  These blank menu letters look like they have menus, though.
+  This is confusing to users, and makes it hard
+  for them to learn what menus are available.
+  Status:  Demonstrated.
+  Benefit:  Important.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Audience:  all users.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+003b (067).  Add F3 as a shortcut for find next.
+  Audience:  Windows programmers.
+  Status:  Demonstrated.
+  Benefit:  Minor.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 9, 2014.
+
+003c (068). Add F5 as a shortcut for run (from the editor window).
+  Audience:  Windows programmers.
+  Status:  Implemented.
+  Benefit:  Minor.
+  Implementation difficulty:  Trivial.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 9, 2014.
+
 002.  Update the documentation once the program has automated testing.
 Automated tests make debugging easier.
   Audience:  Windows programmers and Linux programmers.
@@ -106,19 +72,6 @@ Automated tests make debugging easier.
   Implementation difficulty:  Easy.
   Demoing difficulty:  Easy.
   Testing difficulty:  not applicable
-  Requested by Jasper Paulsen on March 7, 2014.
-
-003.  Gray out (and disable) unused menu letters.
-  Cal has an alphabetical menu structure.
-  Currently, many of the letters do not have menu items.
-  These blank menu letters look like they have menus, though.
-  This is confusing to users, and makes it hard
-  for them to learn what menus are available.
-  Benefit:  Important.
-  Implementation difficulty:  Medium.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Medium.
-  Audience:  all users.
   Requested by Jasper Paulsen on March 7, 2014.
 
 004.  Allow true vertical panning.
@@ -326,7 +279,7 @@ while a letter's menu is visible.
   Testing difficulty:  Hard.
   Requested by Jasper Paulsen on March 7, 2014.
 
-0014.  Update the documentation after new cursors are added.
+014.  Update the documentation after new cursors are added.
   Status:  request.
   Benefit:  Important -- the documentation needs to be accurate.
   Implementation difficulty:  Easy.
@@ -354,7 +307,7 @@ while a letter's menu is visible.
   Testing difficulty:  Hard.
   Requested by Jasper Paulsen on March 7, 2014.
 
-016b.  Allow user to enter font heights in decimal inches.
+016b (066).  Allow user to enter font heights in decimal inches.
   Audience:  Windows programmers.
   Status:  request.
   Benefit:  Minor.
@@ -411,40 +364,9 @@ regardless of whether the file's tab is visible.
   Benefit:  Important -- this will help break large source
             files into smaller files.
   Requested by Jasper Paulsen on March 7, 2014.
-  
-022.  Allow compiling files that are not open in the editor.
-  Currently, files need to be opened in the editor
-  before they can be compiled and run.
-  A project file could be added, with block(s) like:
-  To include the sources:
-    Include "the editor".
-    Include "the ascii codes".
-    If we are regression testing, include the tests.
-  To include the tests:
-    Include "test the editor".
-    Include "test the ascii codes".    
-  Each line would specify a file to be included in the compilation.
-  If the file is a duplicate, only one instance would be included.
-  For example, if the file is already open in the editor,
-  the include statement would not cause the file to be re-opened.
-  Audience:  programmers.
-  Status:  request.
-  Benefit:  Important -- this would make it easier to break up
-            large source code files into shorter files.
-  Implementation difficulty:  easy.
-  Demoing difficulty:  easy.
-  Testing difficulty:  medium.  
-  Requested by Jasper Paulsen on March 7, 2014.
 
-023.  Update the documentation to discuss the project file.
-  Audience:  programmers.
-  Status:  request.
-  Benefit:  Important -- the documentation needs to be accurate.
-  Implementation difficulty:  Medium.
-  Demo difficulty:  Easy.
-  Test difficulty:  not applicable.
-  Requested by Jasper Paulsen on March 7, 2014.
-    
+022 through 023 are done.
+
 024.  Make it easy to search all files in a project,
 regardless of whether the file is open in the editor.
 If the the search item finds files that are not open yet,
@@ -466,33 +388,13 @@ open the files that are found.
   Demo difficulty:  Easy.
   Test difficulty:  not applicable.
   Requested by Jasper Paulsen on March 7, 2014.
+
+026 through 027 are done.
     
-026.  Implement the End key in the Editor.
-  This would be similar to the Page Down key,
-  except it would go to the end of the file.
+028.  Update the documentation (or F1-help, or a wiki) to discuss scrolling via the Ctrl-Home and Ctrl-End keys.
   Audience:  programmers.
   Status:  request.
-  Benefit:  Minor -- this would make it easier to navigate in large files.
-  Implementation difficulty:  Trivial.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Profound.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-027.  Implement the Home key in the Editor.
-  This would be similar to the Page Up key,
-  except it would go to the top of the file.
-  Audience:  programmers.
-  Status:  request.
-  Benefit:  Minor -- this would make it easier to navigate in large files.
-  Implementation difficulty:  Trivial.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Profound.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-028.  Update the documentation to discuss scrolling via the Home and End keys.
-  Audience:  programmers.
-  Status:  request.
-  Benefit:  Important -- the documentation needs to be accurate.
+  Benefit:  Minor - this would make it easier to navigate in large files.
   Implementation difficulty:  Easy.
   Demo difficulty:  Easy.
   Test difficulty:  not applicable.
@@ -927,6 +829,12 @@ with an adjustable slider between them.
 \ ======================================   
 \ Recent requests that have been prioritized higher than here.
 066.  See 016b.
+
+067.  See 003b.
+
+068.  See 003c.
+
+
 
 \ ======================================   
 Unsorted requests:
