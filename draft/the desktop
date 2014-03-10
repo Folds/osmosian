@@ -15,41 +15,6 @@ to add a color and a handler to a menu:
   put the handler into the command's handler.
   put the color into the command's color.
 
-to add a name and a handler to a menu:
-  if the menu is nil, exit.
-  create a command.
-  append the command to the menu's commands.
-  put the command height into the command's width.
-  put the name into the command's name.
-  put the handler into the command's handler.
-  put the white color into the command's color.
-  put "left" into the command's alignment.
-
-to add a name and a handler to a submenu:
-  add the name and "" and the handler to the submenu.
-
-to add a name and a shortcut and a handler to a submenu:
-  if the submenu is nil, exit.
-  create a command.
-  append the command to the submenu's commands.
-  put the submenu width into the command's width.
-  put the name into the command's name.
-  put the shortcut into the command's shortcut.
-  put the handler into the command's handler.
-  put the white color into the command's color.
-  put "left" into the command's alignment.
-
-to add a name to a submenu:
-  put the name into a string.
-  lowercase the string.
-  if the string ends with "…",
-    remove the last byte from the string.  
-  if the string ends with "...",
-    remove the last three bytes from the string.  
-  put "handle " then the string in a handler.
-  put "" in a shortcut.
-  add the name and the shortcut and the handler to the submenu. 
-
 to add one to a number:
   put the number plus 1 in the number.
 
@@ -237,19 +202,6 @@ the command height is a height equal to 1/3 inch.
 to create the dialog:
   allocate memory for the dialog.
   put the black color into the dialog's pen.
-
-to create a menu:
-  allocate memory for the menu.
-  put the big-a byte into a byte.
-  loop.
-  if the byte is greater than the big-z byte, break.
-  put the byte into a string.
-  add the string and the string to the menu.
-  put "center" into the menu's commands' last's  alignment.
-  add 1 to the byte.
-  repeat.
-  put the bar's display's left-top into a spot.
-  adjust the menu given the spot and 26 times the swatch width.
 
 to create a submenu:
   allocate memory for the submenu.
@@ -601,10 +553,6 @@ to finalize the desktop:
 
 to finalize the pad:
 
-to finalize the status:
-  destroy the status' all test results.
-  destroy the status' failures.
-
 to finalize the switch:
 
 to find a button given a key:
@@ -917,18 +865,6 @@ to handle a command (fill...):
   create a submenu.
   add swatches to the submenu given "handle fill".
   handle the command given the submenu and the palette width.
-
-to handle a command (font height...):
-  create a submenu.
-  add "1 Inch" and "handle font height given 1 inch" to the submenu.
-  add "1/2 Inch" and "handle font height given 1/2 inch" to the submenu.
-  add "1/3 Inch" and "handle font height given 1/3 inch" to the submenu.
-  add "1/4 Inch" and "handle font height given 1/4 inch" to the submenu.
-  add "1/5 Inch" and "handle font height given 1/5 inch" to the submenu.
-  add "1/6 Inch" and "handle font height given 1/6 inch" to the submenu.
-  add "1/8 Inch" and "handle font height given 1/8 inch" to the submenu.
-  add "Other..." and "handle font height other" to the submenu.
-  handle the command given the submenu.
 
 to handle a command (grid...):
   create a submenu.
@@ -1477,12 +1413,6 @@ to handle font height given a font height:
     handle font height given the current tab's node's page and the font height; exit.
   cluck.
 
-to handle font height other:
-  if the current tab's mode is "editor",
-    handle font height other given the current tab's node's source; exit.
-  if the current tab's mode is "writer",
-    handle font height other given the current tab's node's page; exit.
-
 to handle get size:
   if the current tab's mode is "finder",
     handle get size given the current tab's node; exit.
@@ -1814,6 +1744,7 @@ to handle stop:
   show status "Stopped".
 
 to handle test result:
+  tint the status.
 
 to handle uncomment:
   if the current tab's mode is "editor",
@@ -1891,13 +1822,6 @@ to initialize the pad:
   put the screen's right into the pad's right.
   put the switch's top into the pad's bottom.
 
-to initialize the status:
-  put the bar's display and 1/12 inch into the status' roundy box.
-  put the menu's commands' last's right into the status' left.
-  put the lightest green color into the status' pass color.
-  put the lightest red color into the status' fail color.
-  untint the status.
-
 to initialize the switch:
   initialize the tabs.
   put 1/4 inch plus 1/3 inch into the switch's height.
@@ -1917,8 +1841,6 @@ to initialize some tabs:
 an interpretation is a string.
 
 the menu is a menu.
-
-a menu is a thing with some commands.
 
 a mode is a string.
 
@@ -2232,11 +2154,6 @@ to show status a string:
   put the string into the status' string.
   show the status.
 
-the status has a roundy box and a string
-  and a color and a pass color and a fail color
-  and a result set called all test results
-  and a result set called failures.
-
 a submenu is a menu.
 
 the submenu width is a width equal to 2 inches.
@@ -2447,17 +2364,147 @@ to handle font name:
   if the current tab's mode is "writer",
     handle font name given the current tab's node's page; exit.
 
-to get the font name given a source returning a string:
-  if the source is nil, put the default font's name in the string; exit.
-  get the font name given the source's text returning the string.
+to widen a submenu to a width:
+  if the submenu is nil, exit.
+  loop.
+    get a command from the submenu's commands.
+    if the command is nil, exit.
+    widen the command to the width.
+  repeat.
 
-to get the font name given a page returning a string:
-  if the page is nil, put the default font's name in the string; exit.
-  get the font name given the page's text returning the string.
+to create a button:
+  allocate memory for the button.
 
-to get the font name given a text returning a string:
-  if the text is nil, put the default font's name in the string; exit.
-  put the text's font's name in the string.
+to create a command:
+  allocate memory for the command.
+  put the clear color into the command's color.
+  put the default font into the command's font.
+  put 1/12 inch into the command's roundy box's radius.
+  put "left" into the command's alignment.
+
+to get a font given a source:
+  if the source is nil, put the default font in the font; exit.
+  get the font given the source's text.
+
+to get a font given a page:
+  if the page is nil, put the default font in the font; exit.
+  get the font given the page's text.
+
+to get a font given a text:
+  if the text is nil, put the default font in the font; exit.
+  put the text's font in the font.
+
+to refont a submenu:
+  if the submenu is nil, exit.
+  get a current font.  
+  loop.
+    get a command from the submenu's commands.
+    if the command is nil, exit.
+    put the current font's name into the command's font's name.
+  repeat.
+
+to get a font:
+  if the current tab's mode is "editor",
+    get the font given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    get the font given the current tab's node's page; exit.
+  put the default font in the font.
+
+to add a name and a handler to a menu:
+  if the menu is nil, exit.
+  create a command.
+  append the command to the menu's commands.
+  put the command height into the command's width.
+  put the name into the command's name.
+  put the handler into the command's handler.
+  put the white color into the command's color.
+  put "left" into the command's alignment.
+
+to add a name to a submenu:
+  put the name into a string.
+  lowercase the string.
+  if the string ends with "…",
+    remove the last byte from the string.  
+  if the string ends with "...",
+    remove the last three bytes from the string.  
+  put "handle " then the string in a handler.
+  put "" in a shortcut.
+  add the name and the shortcut and the handler to the submenu. 
+
+to add a name and a handler to a submenu:
+  add the name and "" and the handler to the submenu.
+
+to add a name and a shortcut and a handler to a submenu:
+  add the name and the shortcut and the handler
+    and the white color to the submenu.
+
+to handle font height other:
+  if the current tab's mode is "editor",
+    handle font height other given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle font height other given the current tab's node's page; exit.
+
+to handle a command (font height...):
+  create a submenu.
+  add "1 Inch" and "handle font height given 1 inch" to the submenu.
+  add "1/2 Inch" and "handle font height given 1/2 inch" to the submenu.
+  add "1/3 Inch" and "handle font height given 1/3 inch" to the submenu.
+  add "1/4 Inch" and "handle font height given 1/4 inch" to the submenu.
+  add "1/5 Inch" and "handle font height given 1/5 inch" to the submenu.
+  add "1/6 Inch" and "handle font height given 1/6 inch" to the submenu.
+  add "1/8 Inch" and "handle font height given 1/8 inch" to the submenu.
+  add "Other..." and "handle font height other" to the submenu.
+  get a font.
+  describe the font's height returning a string.
+  highlight the string in the submenu.
+  handle the command given the submenu.
+
+to highlight a string in a submenu:
+  loop.
+    get a command from the submenu's commands.
+    if the command is nil, break.
+    if the command's name is the string,
+      put the lightest yellow color in the command's color; break.
+    if the command's name is "Other...",
+      put the lightest yellow color in the command's color; break.
+  repeat.
+
+to describe a font height returning a string:
+  put the font height / 1 inch into a ratio.
+  convert the ratio to a ratio string.
+  put the ratio string then " Inch" into the string.
+
+to add a name and a shortcut and a handler and a color to a submenu:
+  if the submenu is nil, exit.
+  create a command.
+  append the command to the submenu's commands.
+  put the submenu width into the command's width.
+  put the name into the command's name.
+  put the shortcut into the command's shortcut.
+  put the handler into the command's handler.
+  put the color into the command's color.
+  put "left" into the command's alignment.
+
+to add a name and a handler and a color to a submenu:
+  add the name and "" and the handler and the color to the submenu.
+
+to add a font height to a submenu given a highlight color:
+  put the font height / 1 inch into a ratio.
+  convert the ratio to a ratio string.
+  put the ratio string then " Inch" into a string called itemname.
+  put "handle font height given "
+    then the ratio string then " inch" into a string called handler.
+  put the white color into a color.
+  get a font.
+  if the font height is the font's height,
+    put the highlight color into the color.
+  add the itemname and the handler and the color to the submenu.
+
+the status has a roundy box and a string
+  and a color and a pass color and a fail color
+  and a result set called all test results
+  and a result set called failures
+  and a command.
 
 to handle a command (tests failed...):
   widen the command to 7 inches.
@@ -2487,8 +2534,6 @@ to handle a command (tests failed...):
   widen the submenu to the command's width.
   refont the submenu.
   handle the command given the submenu.
-  destroy the submenu.
-  destroy the command.
 
 to handle a command (tests passed...):
   widen the command to 7 inches.
@@ -2516,36 +2561,24 @@ to handle a command (tests passed...):
   refont the submenu.
   gray out the submenu.
   handle the command given the submenu.
-  destroy the submenu.
-  destroy the command.
 
 to handle an event (left click - status):
   tint the status.
-  create a command.
-  widen the command to 3 inches.
-  put the status' roundy box's right minus the command's width
+  widen the status' command to 3 inches.
+  put the status' roundy box's right
+    minus the status' command's width
     into a number called left.
-  put the left into the command's roundy box's left.
+  put the left into the status' command's roundy box's left.
   create a submenu.
   summarize the status' all test results returning a string.
   if the regression tests passed,
     add the string and "tests passed..." to the submenu.
   if the regression tests failed,
     add the string and "tests failed..." to the submenu.
-  widen the submenu to the command's width.
-  refont the submenu.
-  handle the command given the submenu.
-  destroy the submenu.
-  destroy the command.
+  widen the submenu to the status' command's width.
+  refont the submenu.  
+  handle the status' command given the submenu.
   track the desktop given the event.
-
-to widen a submenu to a width:
-  if the submenu is nil, exit.
-  loop.
-    get a command from the submenu's commands.
-    if the command is nil, exit.
-    widen the command to the width.
-  repeat.
 
 a command is a thing with
   a roundy box,
@@ -2553,34 +2586,31 @@ a command is a thing with
   a color, a font, an alignment,
   a name, a shortcut, and a handler.
 
-to create a button:
-  allocate memory for the button.
+to finalize the status:
+  destroy the status' all test results.
+  destroy the status' failures.
+  destroy the status' command.
 
-to create a command:
-  allocate memory for the command.
-  put the clear color into the command's color.
-  put the default font into the command's font.
-  put 1/12 inch into the command's roundy box's radius.
-  put "left" into the command's alignment.
-
-\to change a text given a font name:
-\  if the text is nil, exit.
-\  put the font name into the text's font's name.
-\  wrap the text.
-
-to refont a submenu:
-  if the submenu is nil, exit.
-  get the font name returning a string.  
+to create a menu:
+  allocate memory for the menu.
+  put the big-a byte into a byte.
   loop.
-    get a command from the submenu's commands.
-    if the command is nil, exit.
-    put the string into the command's font's name.
+  if the byte is greater than the big-z byte, break.
+  put the byte into a string.
+  add the string and the string to the menu.
+  put "center" into the menu's commands' last's  alignment.
+  add 1 to the byte.
   repeat.
+  put the bar's display's left-top into a spot.
+  adjust the menu given the spot and 26 times the swatch width.
 
-to get the font name returning a string:
-  if the current tab's mode is "editor",
-    get the font name given the current tab's node's source returning the string; exit.
-  if the current tab's mode is "editor",
-    get the font name given the current tab's node's page returning the string; exit.
-  put the default font's name in the string.
+to initialize the status:
+  allocate memory for the status' command.
+  put the bar's display and 1/12 inch into the status' roundy box.
+  put the menu's commands' last's right into the status' left.
+  put the lightest green color into the status' pass color.
+  put the lightest red color into the status' fail color.
+  untint the status.
+
+a menu is a thing with some commands.
 

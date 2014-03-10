@@ -79,6 +79,7 @@ sample.exe
 sample.zip
 source.txt
 draft/draft.exe
+draft/backtrace*.txt
 osmosian.exe
 notes.txt
 
