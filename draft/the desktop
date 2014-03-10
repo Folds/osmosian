@@ -25,22 +25,6 @@ to add a name and a handler to a menu:
   put the white color into the command's color.
   put "left" into the command's alignment.
 
-to add a name to a submenu:
-  put the name into a string.
-  lowercase the string.
-  if the string ends with "…",
-    remove the last byte from the string.  
-  if the string ends with "...",
-    remove the last three bytes from the string.  
-  put "handle " then the string in a handler.
-  put "" in a shortcut.
-  add the name and the shortcut and the handler to the submenu. 
-
-to remove the last three bytes from a string:
-  remove the last byte from the string.
-  remove the last byte from the string.
-  remove the last byte from the string.
-
 to add a name and a handler to a submenu:
   add the name and "" and the handler to the submenu.
 
@@ -54,6 +38,20 @@ to add a name and a shortcut and a handler to a submenu:
   put the handler into the command's handler.
   put the white color into the command's color.
   put "left" into the command's alignment.
+
+to add a name to a submenu:
+  put the name into a string.
+  lowercase the string.
+  if the string ends with "…",
+    remove the last byte from the string.  
+  if the string ends with "...",
+    remove the last three bytes from the string.  
+  put "handle " then the string in a handler.
+  put "" in a shortcut.
+  add the name and the shortcut and the handler to the submenu. 
+
+to add one to a number:
+  put the number plus 1 in the number.
 
 to add swatches to a submenu given a handler:
   if the submenu is nil, exit.
@@ -138,15 +136,15 @@ to adjust a menu given a spot and a width:
   privatize the spot.
   put the spot's x plus the width into a right coord.
   loop.
-  get a command from the menu's commands.
-  if the command is nil, break.
-  if the spot's x plus the command's width is greater than the right,
-    put the original spot's x into the spot's x;
-    add the command height to the spot's y.
-  put the spot and the spot into the command's roundy box.
-  add the command's width and the command height
-    to the command's roundy box's right-bottom.
-  add the command's width to the spot's x.
+    get a command from the menu's commands.
+    if the command is nil, break.
+    if the spot's x plus the command's width is greater than the right,
+      put the original spot's x into the spot's x;
+      add the command height to the spot's y.
+    put the spot and the spot into the command's roundy box.
+    add the command's width and the command height
+      to the command's roundy box's right-bottom.
+    add the command's width to the spot's x.
   repeat.
 
 to adjust some tabs:
@@ -167,6 +165,19 @@ to adjust some tabs:
 an alternative is a string.
 
 the answer is a string.
+
+to append the failures from a test result set to another test result set:
+  loop.
+    get a test result from the test result set's test results.
+    if the test result is nil, exit.
+    if the test result is not OK,
+      append the test result to the other test result set.
+  repeat.
+
+to append a test result to a result set:
+  append the test result to the result set's test results.
+  if the test result is OK, add one to the result set's passed.
+  if the test result is not OK, add one to the result set's failed.
 
 to ask a question:
   ask the question with "".
@@ -215,6 +226,12 @@ to cancel the dialog:
   if the dialog's text is not nil, put "" into the answer.
   relinquish control.
 
+to choose a color for a command (temporary color):
+  put the command's color into the color.
+  if the color is clear, put the white color into the color.
+  if the command is pointless,
+    put the desktop color into the color.
+
 the command height is a height equal to 1/3 inch.
 
 a command is a thing with
@@ -256,15 +273,29 @@ to create a submenu:
 to create a tab:
   allocate memory for the tab.
 
+to create a test result:
+  allocate memory for the test result.
+
 the current menu is a menu.
 
 the current process is a process.
 
 the current tab is a tab.
 
+to decide if 3-way-match given an expectation and a string and an interpretation:
+  if the expectation is not the string, say no.
+  if the expectation is the interpretation, say yes.
+  say no.
+
+to decide if a command is pointless:
+  put the command's handler in a string called handler.
+  if the handler's length is not 1, say no.
+  if the handler has a letter menu, say no.
+  say yes.
+
 to decide if an event is any shortcut:
   if the event is nil, say no.
-  if the event's key is between the f1-key and the f12-key, say yes.
+  if the event's key is any function key, say yes.
   if the event is not modified, say no.
   if the event's key is between the a-key and the z-key, say yes.
   say no.
@@ -275,6 +306,10 @@ to decide if an event is ctrl-tab:
   if the event's key is not the tab key, say no.
   if the event's ctrl flag is not set, say no.
   say yes.
+
+to decide if a key is any function key:
+  if the key is between the f1-key and the f12-key, say yes.
+  say no.
 
 to decide if a node should be read-only:
   if the node is nil, say  no.
@@ -287,6 +322,38 @@ to decide if a node should be read-only:
   if the tab's node's kind is not "file", repeat.
   if the tab's node's path is the node's path, say yes.
   repeat.
+
+to decide if a number is at least another number:
+  if the number is less than the other number, say no.
+  say yes.
+
+to decide if a number is at most another number:
+  if the number is greater than the other number, say no.
+  say yes.
+
+to decide if a number is more than another number:
+  if the number is greater than the other number, say yes.
+  say no.
+
+to decide if one should be hidden given a number and another number:
+  put the number in a number called passed.
+  put the other number in a number called quota.
+  if the passed is not 1, say no.
+  if the quota is greater than 0, say no.
+  say yes.
+
+to decide if the regression tests failed:
+  if the status' all test results' failed is 0, say no.
+  say yes.
+
+to decide if the regression tests passed:
+  if the status' all test results is OK, say yes.
+  say no.
+
+to decide if a result set is OK:
+  if the result set's passed is 0, say no.
+  if the result set's failed is 0, say yes.
+  say no.
 
 to decide if a spot is in the bar:
   if the spot is in the bar's box, say yes.
@@ -327,11 +394,31 @@ to decide if a spot is in a tab:
   if the spot is in the tab's box, say yes.
   say no.
 
+to decide if a string has a letter menu:
+  if the string's length is not 1, say no.
+  put the string in a string called handler.
+  create a submenu.
+  populate the submenu given the string and the current tab's mode (letter).
+  if the submenu is populated, destroy the submenu; say yes.
+  destroy the submenu.
+  say no.
+
+to decide if a submenu is populated:
+  if the submenu is nil, say no.
+  get a command from the submenu's commands.
+  if the command is nil, say no.
+  say yes.
+
 to decide if a tab is free:
   if the tab is nil, say no.
   if the tab's node is nil, say no.
   if the tab's node's kind is not "root", say no.
   say yes.
+
+to decide if a test result is OK:
+  if the test result's interpretation
+    is the test result's expectation, say yes.
+  say no.
 
 to decide if the user is sure:
   ask "Are you quite sure?" with choices "Yes" and "No".
@@ -348,12 +435,19 @@ to decide if the user is willing to close a node:
   if the i/o error is not blank, show error the i/o error; say no.
   say yes.
 
+to describe a test result given a string called context and a string called test name:
+  put the context in the test result's context.
+  put the test name in the test result's test name.
+
 the desktop color is a color.
 
 to destroy a tab:
   if the tab is nil, exit.
   destroy the tab's node's root node.
   deallocate the tab.
+
+to destroy a test result set:
+  destroy the test result set's test results.
 
 the dialog is a thing with
   a kind [choice, error, input],
@@ -420,18 +514,6 @@ to draw a command:
   draw the command's shortcut at the right of the box
     with the black color and the command's font.
 
-to choose a color for a command (temporary color):
-  put the command's color into the color.
-  if the color is clear, put the white color into the color.
-  if the command is pointless,
-    put the lightest gray color into the color.
-  
-to decide if a command is pointless:
-  put the command's handler in a string called handler.
-  if the handler's length is not 1, say no.
-  if the handler has a letter menu, say no.
-  say yes.
-
 to draw some commands:
   get a command from the commands.
   if the command is nil, exit.
@@ -457,12 +539,6 @@ to draw the dialog:
 to draw a menu:
   if the menu is nil, exit.
   draw the menu's commands.
-
-to decide if a submenu is populated:
-  if the submenu is nil, say no.
-  get a command from the submenu's commands.
-  if the command is nil, say no.
-  say yes.
 
 to draw the pad:
   mask only outside the pad's box.
@@ -507,6 +583,13 @@ to draw some tabs:
   draw the tab.
   repeat.
 
+an expectation is a string.
+
+a fail color is a color.
+
+to fail a test result given a string called expectation and a string called actual:
+  populate the test result given the expectation and the actual and the actual.
+
 to fill some tabs:
   get a tab from the tabs.
   if the tab is nil, exit.
@@ -535,6 +618,8 @@ to finalize the desktop:
 to finalize the pad:
 
 to finalize the status:
+  destroy the status' all test results.
+  destroy the status' failures.
 
 to finalize the switch:
 
@@ -608,6 +693,14 @@ to format a string to fit in a box given a font:
   repeat.
 
 a free tab is a tab.
+
+to gray out a submenu:
+  if the submenu is nil, exit.
+  loop.
+    get a command from the submenu's commands.
+    if the command is nil, exit.
+    put the desktop color in the command's color.
+  repeat.
 
 to handle align given an alignment:
   if the current tab's mode is "writer",
@@ -700,6 +793,8 @@ to handle a command:
   if the handler is "label...",  handle the command (label...); exit.
   if the handler is "pen...",    handle the command (pen...);   exit.
   if the handler is "sort...",   handle the command (sort...);  exit.
+  if the handler is "tests passed...", handle the command (tests passed...); exit.
+  if the handler is "tests failed...", handle the command (tests failed...); exit.
   \ do it dispatchers
   show the desktop.
   if the handler is "handle bring to front", handle bring to front; exit.
@@ -752,6 +847,7 @@ to handle a command:
   if the handler is "handle label given page number (odd)", handle label given "page number (odd)"; exit.
   if the handler is "handle list", handle list; exit.
   if the handler is "handle lowercase", handle lowercase; exit.
+  if the handler is "handle measure", handle measure; exit.
   if the handler is "handle minimize", handle minimize; exit.
   if the handler is "handle mirror", handle mirror; exit.
   if the handler is "handle new directory", handle new directory; exit.
@@ -783,7 +879,7 @@ to handle a command:
   if the handler is "handle save as pdf", handle save as pdf; exit.
   if the handler is "handle select all", handle select all; exit.
   if the handler is "handle send to back", handle send to back; exit.
-  if the handler is "handle measure", handle measure; exit.
+  if the handler is "handle test result", handle test result; exit.
   if the handler is "handle smooth", handle smooth; exit.
   if the handler is "handle yank 1/8 inch", handle yank given 1/8 inch; exit.
   if the handler is "handle yank 1/12 inch", handle yank given 1/12 inch; exit.
@@ -805,8 +901,6 @@ to handle a command:
   if the handler is "handle unlabel", handle unlabel; exit.
   if the handler is "handle uppercase", handle uppercase; exit.
   if the handler is "handle version", handle version; exit.
-  if the handler is "handle regression tests passed", handle regression tests passed; exit.
-  if the handler is "handle regression tests failed", handle regression tests failed; exit.
   \ not properly dispatched
   debug "Internal error 763 - command not properly dispatched".
 
@@ -834,216 +928,6 @@ to handle a command (color...):
   add "Fill..." and "fill..." to the submenu.
   add "Pen..." and "pen..." to the submenu.
   handle the command given the submenu.
-
-to handle a command (letter):
-  create a submenu.
-  get the submenu given the command's handler and the current tab's mode (letter).
-  handle the command given the submenu.
-
-to decide if a string has a letter menu:
-  if the string's length is not 1, say no.
-  put the string in a string called handler.
-  create a submenu.
-  get the submenu given the string and the current tab's mode (letter).
-  if the submenu is populated, destroy the submenu; say yes.
-  destroy the submenu.
-  say no.
-  
-to get a submenu given a handler and a mode (letter):
-  if the handler is "a", get the submenu given the mode (a); exit.
-  if the handler is "b", get the submenu given the mode (b); exit.
-  if the handler is "c", get the submenu given the mode (c); exit.
-  if the handler is "d", get the submenu given the mode (d); exit.
-  if the handler is "e", get the submenu given the mode (e); exit.
-  if the handler is "f", get the submenu given the mode (f); exit.
-  if the handler is "g", get the submenu given the mode (g); exit.
-  if the handler is "h", get the submenu given the mode (h); exit.
-  if the handler is "i", get the submenu given the mode (i); exit.
-  if the handler is "j", get the submenu given the mode (j); exit.
-  if the handler is "k", get the submenu given the mode (k); exit.
-  if the handler is "l", get the submenu given the mode (l); exit.
-  if the handler is "m", get the submenu given the mode (m); exit.
-  if the handler is "n", get the submenu given the mode (n); exit.
-  if the handler is "o", get the submenu given the mode (o); exit.
-  if the handler is "p", get the submenu given the mode (p); exit.
-  if the handler is "q", get the submenu given the mode (q); exit.
-  if the handler is "r", get the submenu given the mode (r); exit.
-  if the handler is "s", get the submenu given the mode (s); exit.
-  if the handler is "t", get the submenu given the mode (t); exit.
-  if the handler is "u", get the submenu given the mode (u); exit.
-  if the handler is "v", get the submenu given the mode (v); exit.
-  if the handler is "w", get the submenu given the mode (w); exit.
-  if the handler is "x", get the submenu given the mode (x); exit.
-  if the handler is "y", get the submenu given the mode (y); exit.
-  if the handler is "z", get the submenu given the mode (z); exit.
-
-to get a submenu given a mode (a):
-  if the current tab's mode is "writer", add "Align Left" and "handle align given left" to the submenu.
-  if the current tab's mode is "writer", add "Align Center" and "handle align given center" to the submenu.
-  if the current tab's mode is "writer", add "Align Right" and "handle align given right" to the submenu.
-
-to get a submenu given a mode (b):
-  if the mode is "writer", add "Border..." and "border..." to the submenu.
-  if the mode is "writer", add "Bring to Front" and "handle bring to front" to the submenu.
-
-to get a submenu given a mode (c):
-  if the mode is "editor", add "Capitalize" to the submenu.
-  if the mode is "writer", add "Capitalize" to the submenu.
-  if the mode is "editor", add "Check Spelling" to the submenu.
-  if the mode is "writer",
-    add "Check Spelling..." and "check spelling..." to the submenu.
-  add "Close" and "W" and "handle close" to the submenu.
-  add "Close All" to the submenu.
-  if the current tab's mode is "writer",
-    add "Color..." and "color..." to the submenu.
-  if the mode is "editor",
-    add "Comment" and "T" and "handle comment" to the submenu.
-  if the mode is "editor",
-    add "Compile" and "M" and "handle compile" to the submenu.
-  add "Copy" and "C" and "handle copy" to the submenu.
-  add "Cut" and "X" and "handle cut" to the submenu.
-
-to get a submenu given a mode (d):
-  if the mode is "editor", add "Decrypt..." to the submenu.
-  if the mode is "finder",
-    add "Duplicate" and "D" and "handle duplicate" to the submenu.
-  if the mode is "docster",
-    add "Duplicate" and "D" and "handle duplicate" to the submenu.
-  if the mode is "writer",
-    add "Duplicate" and "D" and "handle duplicate" to the submenu.
-
-to get a submenu given a mode (e):
-  if the mode is "writer", add "Enlarge" and "E" and "handle enlarge" to the submenu.
-  if the mode is "editor", add "Encrypt..." to the submenu.
-  if the mode is "editor", add "Extract Types" to the submenu.
-  if the mode is "editor", add "Extract Globals" to the submenu.
-  if the mode is "editor", add "Extract Routine Headers" to the submenu.
-  if the mode is "finder", add "Extract Nibble Literal" to the submenu.
-
-to get a submenu given a mode (f):
-  if the mode is "editor", add "Find" and "F" and "handle find" to the submenu.
-  if the mode is "writer", add "Find" and "F" and "handle find" to the submenu.
-  if the mode is "editor", add "Find Next" and "N" and "handle find next" to the submenu.
-  if the mode is "writer", add "Find Next" and "N" and "handle find next" to the submenu.
-  if the mode is "writer", add "Fill..." to the submenu.
-  if the mode is "writer", add "Flip" to the submenu.
-  if the mode is "editor", add "Font Height..." and "font height..." to the submenu.
-  if the mode is "editor", add "Font Name..." to the submenu.
-  if the mode is "writer", add "Font Height..." and "font height..." to the submenu.
-  if the mode is "writer", add "Font Name..." to the submenu.
-
-to get a submenu given a mode (g):
-  if the mode is "finder", add "Get Size" to the submenu.
-  if the mode is "writer", add "Grayscale" to the submenu.
-  if the mode is "writer", add "Grid..." and "grid..." to the submenu.
-  if the mode is "writer", add "Group" and "G" and "handle group" to the submenu.
-
-to get a submenu given a mode (h):
-  if the mode is "writer", add "Hide Grid" and "handle grid given no" to the submenu.
-
-to get a submenu given a mode (i):
-  if the mode is "editor", add "Indent" and "I" and "handle indent" to the submenu.
-
-to get a submenu given a mode (j):
-
-to get a submenu given a mode (k):
-
-to get a submenu given a mode (l):
-  if the mode is "editor", add "List" and "L" and "handle list" to the submenu.
-  if the mode is "editor", add "Lowercase" to the submenu.
-  if the mode is "writer", add "Label..." and "Label..." to the submenu.
-  if the mode is "writer", add "Lowercase" to the submenu.
-
-to get a submenu given a mode (m):
-  add "Minimize" and "handle minimize" to the submenu.
-  if the mode is "writer", add "Measure..." to the submenu.
-  if the mode is "writer", add "Mirror" to the submenu.
-
-to get a submenu given a mode (n):
-  if the mode is "finder", add "New Directory..." to the submenu.
-  if the mode is "finder", add "New Document..." to the submenu.
-  if the mode is "writer", add "New Ellipse" to the submenu.
-  if the mode is "docster", add "New Page" to the submenu.
-  if the mode is "writer", add "New Picture..." to the submenu.
-  if the mode is "writer", add "New Polygon" to the submenu.
-  if the mode is "writer", add "New Rectangle" to the submenu.
-  if the mode is "writer", add "New Text" to the submenu.
-  if the mode is "finder", add "New Text File..." to the submenu.
-
-to get a submenu given a mode (o):
-  if the mode is "finder",  add "Open" and "O" and "handle open" to the submenu.
-  if the mode is "docster", add "Open" and "O" and "handle open" to the submenu.
-  if the mode is "finder",  add "Open As Dump" to the submenu.
-  if the mode is "finder",  add "Open As Text" to the submenu.
-  if the mode is "editor",  add "Outdent" and "O" and "handle outdent" to the submenu.
-
-to get a submenu given a mode (p):
-  add "Paste" and "V" and "handle paste" to the submenu.
-  if the mode is "writer",  add "Pen..." and "pen..." to the submenu.
-  if the mode is "editor",  add "Print..." and "P" and "handle print" to the submenu.
-  if the mode is "docster", add "Print..." and "P" and "handle print" to the submenu.
-  if the mode is "writer",  add "Print..." and "P" and "handle print" to the submenu.
-
-to get a submenu given a mode (q):
-  add "Quit" and "Q" and "handle quit" to the submenu.
-
-to get a submenu given a mode (r):
-  if the mode is "writer", add "Radius..." to the submenu.
-  if the mode is "editor", add "Redo" and "Y" and "handle redo" to the submenu.
-  if the mode is "writer", add "Redo" and "Y" and "handle redo" to the submenu.
-  if the mode is "writer", add "Reduce" and "R" and "handle reduce" to the submenu.
-  if the mode is "finder", add "Rename..." to the submenu.
-  if the mode is "docster", add "Renumber Pages..." to the submenu.
-  if the mode is "editor", add "Reverse" to the submenu.
-  if the mode is "finder", add "Reverse" to the submenu.
-  if the mode is "writer", add "Rotate Page" to the submenu.
-  if the mode is "writer", add "Rotate Shape" and "J" and "handle rotate shape" to the submenu.
-  if the mode is "editor", add "Run" and "R" and "handle run" to the submenu.
-
-to get a submenu given a mode (s):
-  if the mode is "editor", add "Save" and "S" and "handle save" to the submenu.
-  if the mode is "docster", add "Save" and "S" and "handle save" to the submenu.
-  if the mode is "writer", add "Save" and "S" and "handle save" to the submenu.
-  add "Save All" and "handle save all" to the submenu.
-  if the mode is "docster", add "Save as PDF..." and "handle save as pdf" to the submenu.
-  add "Select All" and "A" and "handle select all" to the submenu.
-  if the mode is "writer", add "Send to Back" and "handle send to back" to the submenu.
-  if the mode is "writer", add "Show Grid" and "handle grid given yes" to the submenu.
-  if the mode is "writer", add "Smooth" and "M" and "handle smooth" to the submenu.
-  if the mode is "editor", add "Sort..." and "sort..." to the submenu.
-  if the mode is "finder", add "Sort..." and "sort..." to the submenu.
-  if the mode is "editor", add "Stop" to the submenu.
-
-to get a submenu given a mode (t):
-
-to get a submenu given a mode (u):
-  if the mode is "editor", add "Uncomment" and "U" and "handle uncomment" to the submenu.
-  if the mode is "editor", add "Undo" and "Z" and "handle undo" to the submenu.
-  if the mode is "writer", add "Undo" and "Z" and "handle undo" to the submenu.
-  if the mode is "writer", add "Ungrayscale" to the submenu.
-  if the mode is "writer", add "Ungroup" and "U" and "handle ungroup" to the submenu.
-  if the mode is "writer", add "Unlabel" to the submenu.
-  if the mode is "editor", add "Uppercase" to the submenu.
-  if the mode is "writer", add "Uppercase" to the submenu.
-
-to get a submenu given a mode (v):
-  add "Version" to the submenu.
-
-to get a submenu given a mode (w):
-
-to get a submenu given a mode (x):
-
-to get a submenu given a mode (y):
-  if the mode is not "writer", exit.
-  add "Yank 1/8"  to the submenu.
-  add "Yank 1/12" to the submenu.
-  add "Yank 1/16" to the submenu.
-  add "Yank 1/24" to the submenu.
-  add "Yank 1/32" to the submenu.
-  add "Yank 1/48" to the submenu.
-  add "Yank None" and "handle yank the tpp" to the submenu.
-
-to get a submenu given a mode (z):
 
 to handle a command (fill...):
   create a submenu.
@@ -1076,6 +960,11 @@ to handle a command (label...):
   add "Page Number (Odd)"  and "handle label given page number (odd)" to the submenu.
   handle the command given the submenu.
 
+to handle a command (letter):
+  create a submenu.
+  populate the submenu given the command's handler and the current tab's mode (letter).
+  handle the command given the submenu.
+
 to handle a command (pen...):
   create a submenu.
   add swatches to the submenu given "handle pen".
@@ -1083,12 +972,75 @@ to handle a command (pen...):
 
 to handle a command (sort...):
   create a submenu.
-  if the current tab's mode is "editor", add "Defintions"  and "handle sort definitions" to the submenu.
-  if the current tab's mode is "editor", add "Selected Lines"  and "handle sort selected lines" to the submenu.
-  if the current tab's mode is "finder", add "By Kind"  and "handle sort nodettes by kind" to the submenu.
-  if the current tab's mode is "finder", add "By Name"  and "handle sort nodettes by name" to the submenu.
-  if the current tab's mode is "finder", add "By Extension"  and "handle sort nodettes by extension" to the submenu.
+  if the current tab's mode is "editor",
+    add "Definitions"  and "handle sort definitions" to the submenu.
+  if the current tab's mode is "editor",
+    add "Selected Lines"  and "handle sort selected lines" to the submenu.
+  if the current tab's mode is "finder",
+    add "By Kind"  and "handle sort nodettes by kind" to the submenu.
+  if the current tab's mode is "finder",
+    add "By Name"  and "handle sort nodettes by name" to the submenu.
+  if the current tab's mode is "finder",
+    add "By Extension"  and "handle sort nodettes by extension" to the submenu.
   handle the command given the submenu.
+
+to handle a command (tests failed...):
+  widen the command to 7 inches.
+  put the status' roundy box's right minus the command's width
+    into a number called left.
+  if the left is less than the bar's display's left,
+    put the bar's display's left into the left.
+  put the left into the command's roundy box's left.
+  create a submenu.
+  put the regression test quota in a number called quota.
+  put the status' failures' failed in a number called failed.
+  put the failed then " tests failed" in a string called summary.
+  if the failed is at most the quota,
+    append ":" to the summary.
+  If the failed is more than the quota,
+    append ".  The first " then the quota then " are:" to the summary.
+  Add the summary and "handle test result" to the submenu.
+  put 1 in a number called counter.
+  Loop.
+    if the counter is greater than the quota, break.
+    get a test result from the status' failures' test results.
+    if the test result is nil, break.
+    summarize the test result returning a string.
+    Add the string and "handle test result" to the submenu.
+    add 1 to the counter.
+  Repeat.
+  widen the submenu to the command's width.
+  handle the command given the submenu.
+  destroy the submenu.
+  destroy the command.
+
+to handle a command (tests passed...):
+  widen the command to 7 inches.
+  put the status' roundy box's right minus the command's width
+    into a number called left.
+  if the left is less than the bar's display's left,
+    put the bar's display's left into the left.
+  put the left into the command's roundy box's left.
+  create a submenu.
+  put the regression test quota in a number called quota.
+  put the status' all test results' passed in a number called passed.
+  summarize success given the passed and the quota
+    returning a string called summary.
+  Add the summary and "handle test result" to the submenu.
+  put 1 in a number called counter.
+  Loop.
+    if the counter is greater than the quota, break.
+    get a test result from the status' all test results' test results.
+    if the test result is nil, break.
+    summarize the test result returning a string.
+    Add the string and "handle test result" to the submenu.
+    add 1 to the counter.
+  Repeat.
+  widen the submenu to the command's width.
+  gray out the submenu.
+  handle the command given the submenu.
+  destroy the submenu.
+  destroy the command.
 
 to handle a command given a submenu:
   handle the command given the submenu and the submenu width.
@@ -1108,7 +1060,8 @@ to handle a command given a submenu and a width:
   refresh the cursor.
 
 to handle comment:
-  if the current tab's mode is "editor", handle comment given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle comment given the current tab's node's source; exit.
   cluck.
 
 to handle compile:
@@ -1136,21 +1089,30 @@ to handle compile or list or run error:
   show error the compiler's abort message.
 
 to handle copy:
-  if the current tab's mode is "finder", handle copy given the current tab's node; exit.
-  if the current tab's mode is "editor", handle copy given the current tab's node's source; exit.
-  if the current tab's mode is "docster", handle copy given the current tab's node's document; exit.
-  if the current tab's mode is "writer", handle copy given the current tab's node's page; exit.
+  if the current tab's mode is "finder",
+    handle copy given the current tab's node; exit.
+  if the current tab's mode is "editor",
+    handle copy given the current tab's node's source; exit.
+  if the current tab's mode is "docster",
+    handle copy given the current tab's node's document; exit.
+  if the current tab's mode is "writer",
+    handle copy given the current tab's node's page; exit.
   cluck.
 
 to handle cut:
-  if the current tab's mode is "finder", handle cut given the current tab's node; exit.
-  if the current tab's mode is "editor", handle cut given the current tab's node's source; exit.
-  if the current tab's mode is "docster", handle cut given the current tab's node's document; exit.
-  if the current tab's mode is "writer", handle cut given the current tab's node's page; exit.
+  if the current tab's mode is "finder",
+    handle cut given the current tab's node; exit.
+  if the current tab's mode is "editor",
+    handle cut given the current tab's node's source; exit.
+  if the current tab's mode is "docster",
+    handle cut given the current tab's node's document; exit.
+  if the current tab's mode is "writer",
+    handle cut given the current tab's node's page; exit.
   cluck.
 
 to handle decrypt:
-  if the current tab's mode is "editor", handle decrypt given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle decrypt given the current tab's node's source; exit.
   cluck.
 
 to handle the dialog:
@@ -1166,17 +1128,22 @@ to handle the dialog:
   refresh the cursor.
 
 to handle duplicate:
-  if the current tab's mode is "finder", handle duplicate given the current tab's node; exit.
-  if the current tab's mode is "docster", handle duplicate given the current tab's node's document; exit.
-  if the current tab's mode is "writer", handle duplicate given the current tab's node's page; exit.
+  if the current tab's mode is "finder",
+    handle duplicate given the current tab's node; exit.
+  if the current tab's mode is "docster",
+    handle duplicate given the current tab's node's document; exit.
+  if the current tab's mode is "writer",
+    handle duplicate given the current tab's node's page; exit.
   cluck.
 
 to handle encrypt:
-  if the current tab's mode is "editor", handle encrypt given the current tab's node's source; exit.
+  if the current tab's mode is "editor",
+    handle encrypt given the current tab's node's source; exit.
   cluck.
 
 to handle enlarge:
-  if the current tab's mode is "writer", handle enlarge given the current tab's node's page; exit.
+  if the current tab's mode is "writer",
+    handle enlarge given the current tab's node's page; exit.
   cluck.
 
 to handle an event:
@@ -1235,39 +1202,40 @@ to handle an event (key down - shortcut):
   if the event's key is any function key, exit.
   cluck.
 
-to decide if a key is any function key:
-  if the key is between the f1-key and the f12-key, say yes.
-  say no.
-
 to handle an event (key down):
   if the event is any shortcut, handle the event (key down - shortcut); exit.
   if the event is ctrl-tab, handle the event (key down - ctrl-tab); exit.
-  if the current tab's mode is "finder", handle the event given the current tab's node (key down); exit.
-  if the current tab's mode is "editor", handle the event given the current tab's node's source (key down); exit.
-  if the current tab's mode is "docster", handle the event given the current tab's node's document (key down); exit.
-  if the current tab's mode is "writer", handle the event given the current tab's node's page (key down); exit.
+  if the current tab's mode is "finder",
+    handle the event given the current tab's node (key down); exit.
+  if the current tab's mode is "editor",
+    handle the event given the current tab's node's source (key down); exit.
+  if the current tab's mode is "docster",
+    handle the event given the current tab's node's document (key down); exit.
+  if the current tab's mode is "writer",
+    handle the event given the current tab's node's page (key down); exit.
 
 to handle an event (left click - menu):
   find a command given the menu and the event's spot.
   handle the command.
 
 to handle an event (left click - status):
+  tint the status.
   create a command.
+  widen the command to 3 inches.
+  put the status' roundy box's right minus the command's width
+    into a number called left.
+  put the left into the command's roundy box's left.
   create a submenu.
+  summarize the status' all test results returning a string.
   if the regression tests passed,
-    add "All tests passed." and "handle regression tests passed" to the submenu.
+    add the string and "tests passed..." to the submenu.
   if the regression tests failed,
-    add "One or more tests failed." and "handle regression tests failed" to the submenu.
+    add the string and "tests failed..." to the submenu.
+  widen the submenu to the command's width.
   handle the command given the submenu.
+  destroy the submenu.
+  destroy the command.
   track the desktop given the event.
-
-to decide if the regression tests passed:
-  if the status' color is the status' pass color, say yes.
-  say no.
-
-to decide if the regression tests failed:
-  if the status' color is the status' fail color, say yes.
-  say no.
 
 to handle an event (left click - switch):
   find a tab given the event's spot.
@@ -1284,42 +1252,64 @@ to handle an event (left click):
   if the event's spot is in the menu, handle the event (left click - menu); exit.
   if the event's spot is in the status, handle the event (left click - status); exit.
   if the event's spot is in the switch, handle the event (left click - switch); exit.
-  if the current tab's mode is "finder", handle the event given the current tab's node (left click); exit.
-  if the current tab's mode is "editor", handle the event given the current tab's node's source (left click); exit.
-  if the current tab's mode is "docster", handle the event given the current tab's node's document (left click); exit.
-  if the current tab's mode is "writer", handle the event given the current tab's node's page (left click); exit.
+  if the current tab's mode is "finder",
+    handle the event given the current tab's node (left click); exit.
+  if the current tab's mode is "editor",
+    handle the event given the current tab's node's source (left click); exit.
+  if the current tab's mode is "docster",
+    handle the event given the current tab's node's document (left click); exit.
+  if the current tab's mode is "writer",
+    handle the event given the current tab's node's page (left click); exit.
 
 to handle an event (left double click):
   if the event's spot is in the bar, exit.
   if the event's spot is in the switch, exit.
-  if the current tab's mode is "finder", handle the event given the current tab's node (left double click); exit.
-  if the current tab's mode is "editor", handle the event given the current tab's node's source (left double click); exit.
-  if the current tab's mode is "docster", handle the event given the current tab's node's document (left double click); exit.
-  if the current tab's mode is "writer", handle the event given the current tab's node's page (left double click); exit.
+  if the current tab's mode is "finder",
+    handle the event given the current tab's node (left double click); exit.
+  if the current tab's mode is "editor",
+    handle the event given the current tab's node's source (left double click); exit.
+  if the current tab's mode is "docster",
+    handle the event given the current tab's node's document (left double click); exit.
+  if the current tab's mode is "writer",
+    handle the event given the current tab's node's page (left double click); exit.
 
 to handle an event (refresh):
   show the desktop with status.
 
 to handle an event (right click):
-  if the current tab's mode is "finder", handle the event given the current tab's node (right click); exit.
-  if the current tab's mode is "editor", handle the event given the current tab's node's source (right click); exit.
-  if the current tab's mode is "docster", handle the event given the current tab's node's document (right click); exit.
-  if the current tab's mode is "writer", handle the event given the current tab's node's page (right click); exit.
+  if the current tab's mode is "finder",
+    handle the event given the current tab's node (right click); exit.
+  if the current tab's mode is "editor",
+    handle the event given the current tab's node's source (right click); exit.
+  if the current tab's mode is "docster",
+    handle the event given the current tab's node's document (right click); exit.
+  if the current tab's mode is "writer",
+    handle the event given the current tab's node's page (right click); exit.
 
 to handle an event (set cursor):
-  if the current tab's mode is "finder", handle the event given the current tab's node (set cursor); exit.
-  if the current tab's mode is "editor", handle the event given the current tab's node's source (set cursor); exit.
-  if the current tab's mode is "docster", handle the event given the current tab's node's document (set cursor); exit.
-  if the current tab's mode is "writer", handle the event given the current tab's node's page (set cursor); exit.
+  if the current tab's mode is "finder",
+    handle the event given the current tab's node (set cursor); exit.
+  if the current tab's mode is "editor",
+    handle the event given the current tab's node's source (set cursor); exit.
+  if the current tab's mode is "docster",
+    handle the event given the current tab's node's document (set cursor); exit.
+  if the current tab's mode is "writer",
+    handle the event given the current tab's node's page (set cursor); exit.
   show the arrow cursor.
 
 to handle an event given the dialog:
-  if the event's kind is "key down", handle the event given the dialog (key down); exit.
-  if the event's kind is "left click", handle the event given the dialog (left click); exit.
-  if the event's kind is "left double click", handle the event given the dialog (left double click); exit.
-  if the event's kind is "refresh", handle the event given the dialog (refresh); exit.
-  if the event's kind is "right click", handle the event given the dialog (right click); exit.
-  if the event's kind is "set cursor", handle the event given the dialog (set cursor); exit.
+  if the event's kind is "key down",
+    handle the event given the dialog (key down); exit.
+  if the event's kind is "left click",
+    handle the event given the dialog (left click); exit.
+  if the event's kind is "left double click",
+    handle the event given the dialog (left double click); exit.
+  if the event's kind is "refresh",
+    handle the event given the dialog (refresh); exit.
+  if the event's kind is "right click",
+    handle the event given the dialog (right click); exit.
+  if the event's kind is "set cursor",
+    handle the event given the dialog (set cursor); exit.
 
 to handle an event given the dialog (copy):
   if nothing is selected in the dialog's text, cluck; exit.
@@ -1335,8 +1325,10 @@ to handle an event given the dialog (key down - backspace key):
   show the desktop.
 
 to handle an event given the dialog (key down - choice):
-  if the event's key is the enter key, put "yes" into the answer; relinquish control; exit.
-  if the event's key is the escape key, put "cancel" into the answer; relinquish control; exit.
+  if the event's key is the enter key,
+    put "yes" into the answer; relinquish control; exit.
+  if the event's key is the escape key,
+    put "cancel" into the answer; relinquish control; exit.
   find a button given the event's key.
   if the button is nil, exit.
   put the button's name into the answer.
@@ -1365,16 +1357,26 @@ to handle an event given the dialog (key down - home key):
   show the desktop.
 
 to handle an event given the dialog (key down - input):
-  if the event is any shortcut, handle the event given the dialog (key down - shortcut); exit.
-  if the event's byte is printable, handle the event given the dialog (key down - printable key); exit.
-  if the event's key is the backspace key, handle the event given the dialog (key down - backspace key); exit.
-  if the event's key is the delete key, handle the event given the dialog (key down - delete key); exit.
-  if the event's key is the end key, handle the event given the dialog (key down - end key); exit.
-  if the event's key is the enter key, handle the event given the dialog (key down - enter key); exit.
-  if the event's key is the escape key, handle the event given the dialog (key down - escape key); exit.
-  if the event's key is the home key, handle the event given the dialog (key down - home key); exit.
-  if the event's key is the left-arrow key, handle the event given the dialog (key down - left-arrow key); exit.
-  if the event's key is the right-arrow key, handle the event given the dialog (key down - right-arrow key); exit.
+  if the event is any shortcut,
+    handle the event given the dialog (key down - shortcut); exit.
+  if the event's byte is printable,
+    handle the event given the dialog (key down - printable key); exit.
+  if the event's key is the backspace key,
+    handle the event given the dialog (key down - backspace key); exit.
+  if the event's key is the delete key,
+    handle the event given the dialog (key down - delete key); exit.
+  if the event's key is the end key,
+    handle the event given the dialog (key down - end key); exit.
+  if the event's key is the enter key,
+    handle the event given the dialog (key down - enter key); exit.
+  if the event's key is the escape key,
+    handle the event given the dialog (key down - escape key); exit.
+  if the event's key is the home key,
+    handle the event given the dialog (key down - home key); exit.
+  if the event's key is the left-arrow key,
+    handle the event given the dialog (key down - left-arrow key); exit.
+  if the event's key is the right-arrow key,
+    handle the event given the dialog (key down - right-arrow key); exit.
 
 to handle an event given the dialog (key down - left-arrow key):
   handle the event given the dialog's text (left-arrow key).
@@ -1425,9 +1427,12 @@ to handle an event given the dialog (left click - input):
   relinquish control.
 
 to handle an event given the dialog (left click):
-  if the dialog's kind is "choice", handle the event given the dialog (left click - choice); exit.
-  if the dialog's kind is "error", handle the event given the dialog (left click - error); exit.
-  if the dialog's kind is "input", handle the event given the dialog (left click - input); exit.
+  if the dialog's kind is "choice",
+    handle the event given the dialog (left click - choice); exit.
+  if the dialog's kind is "error",
+    handle the event given the dialog (left click - error); exit.
+  if the dialog's kind is "input",
+    handle the event given the dialog (left click - input); exit.
 
 to handle an event given the dialog (left double click):
   if the dialog's text is nil, exit.
@@ -1907,6 +1912,8 @@ to handle stop:
   stop the current process.
   show status "Stopped".
 
+to handle test result:
+
 to handle uncomment:
   if the current tab's mode is "editor",
     handle uncomment given the current tab's node's source; exit.
@@ -1939,10 +1946,6 @@ to handle uppercase:
 to handle version:
   show status the module's name.
 
-to handle regression tests passed:
-
-to handle regression tests failed:
-
 to handle yank given a number:
   if the current tab's mode is "writer",
     handle yank given the current tab's node's page and the number; exit.
@@ -1959,32 +1962,6 @@ to initialize:
   fill the tabs.
   switch to the tabs' first.
   regression test.
-
-a result set has a number called passed
-  and a number called failed.
-
-to regression test:
-  regression test returning a test result set.
-  put the test result set into the status' test result set.
-  tint the status.
-
-to put a test result set into another test result set:
-  put the test result set's passed
-    into the other test result set's passed.
-  put the test result set's failed
-    into the other test result set's failed.
-
-to tint the status:
-  if the status' test result set's failed is 0,
-    put the status' pass color into the status' color; exit.
-  put the status' fail color into the status' color.
-
-to untint the status:
-  put the white color into the status' color.
-
-to regression test returning a test result set:
-  put 1 in the test result set's passed.
-  put 0 in the test result set's failed.
 
 to initialize the bar:
   put "normal" into the bar's mode.
@@ -2036,6 +2013,8 @@ to initialize some tabs:
   append the tab to the tabs.
   repeat.
 
+an interpretation is a string.
+
 the menu is a menu.
 
 a menu is a thing with some commands.
@@ -2046,11 +2025,262 @@ the pad has a box.
 
 the palette width is a width equal to 2-1/3 inches.
 
+a pass color is a color.
+
+to pass a test result given a string called expectation and a string called actual:
+  populate the test result given the expectation and the actual and the expectation.
+
+to populate a submenu given a handler and a mode (letter):
+  if the handler is "a", populate the submenu given the mode (a); exit.
+  if the handler is "b", populate the submenu given the mode (b); exit.
+  if the handler is "c", populate the submenu given the mode (c); exit.
+  if the handler is "d", populate the submenu given the mode (d); exit.
+  if the handler is "e", populate the submenu given the mode (e); exit.
+  if the handler is "f", populate the submenu given the mode (f); exit.
+  if the handler is "g", populate the submenu given the mode (g); exit.
+  if the handler is "h", populate the submenu given the mode (h); exit.
+  if the handler is "i", populate the submenu given the mode (i); exit.
+  if the handler is "j", populate the submenu given the mode (j); exit.
+  if the handler is "k", populate the submenu given the mode (k); exit.
+  if the handler is "l", populate the submenu given the mode (l); exit.
+  if the handler is "m", populate the submenu given the mode (m); exit.
+  if the handler is "n", populate the submenu given the mode (n); exit.
+  if the handler is "o", populate the submenu given the mode (o); exit.
+  if the handler is "p", populate the submenu given the mode (p); exit.
+  if the handler is "q", populate the submenu given the mode (q); exit.
+  if the handler is "r", populate the submenu given the mode (r); exit.
+  if the handler is "s", populate the submenu given the mode (s); exit.
+  if the handler is "t", populate the submenu given the mode (t); exit.
+  if the handler is "u", populate the submenu given the mode (u); exit.
+  if the handler is "v", populate the submenu given the mode (v); exit.
+  if the handler is "w", populate the submenu given the mode (w); exit.
+  if the handler is "x", populate the submenu given the mode (x); exit.
+  if the handler is "y", populate the submenu given the mode (y); exit.
+  if the handler is "z", populate the submenu given the mode (z); exit.
+
+to populate a submenu given a mode (a):
+  if the current tab's mode is "writer", add "Align Left" to the submenu.
+  if the current tab's mode is "writer", add "Align Center" to the submenu.
+  if the current tab's mode is "writer", add "Align Right" to the submenu.
+
+to populate a submenu given a mode (b):
+  if the mode is "writer", add "Border..." and "border..." to the submenu.
+  if the mode is "writer", add "Bring to Front" and "handle bring to front" to the submenu.
+
+to populate a submenu given a mode (c):
+  if the mode is "editor", add "Capitalize" to the submenu.
+  if the mode is "writer", add "Capitalize" to the submenu.
+  if the mode is "editor", add "Check Spelling" to the submenu.
+  if the mode is "writer",
+    add "Check Spelling..." and "check spelling..." to the submenu.
+  add "Close" and "W" and "handle close" to the submenu.
+  add "Close All" to the submenu.
+  if the current tab's mode is "writer",
+    add "Color..." and "color..." to the submenu.
+  if the mode is "editor",
+    add "Comment" and "T" and "handle comment" to the submenu.
+  if the mode is "editor",
+    add "Compile" and "M" and "handle compile" to the submenu.
+  add "Copy" and "C" and "handle copy" to the submenu.
+  add "Cut" and "X" and "handle cut" to the submenu.
+
+to populate a submenu given a mode (d):
+  if the mode is "editor", add "Decrypt..." to the submenu.
+  if the mode is "finder",
+    add "Duplicate" and "D" and "handle duplicate" to the submenu.
+  if the mode is "docster",
+    add "Duplicate" and "D" and "handle duplicate" to the submenu.
+  if the mode is "writer",
+    add "Duplicate" and "D" and "handle duplicate" to the submenu.
+
+to populate a submenu given a mode (e):
+  if the mode is "writer", add "Enlarge" and "E" and "handle enlarge" to the submenu.
+  if the mode is "editor", add "Encrypt..." to the submenu.
+  if the mode is "editor", add "Extract Types" to the submenu.
+  if the mode is "editor", add "Extract Globals" to the submenu.
+  if the mode is "editor", add "Extract Routine Headers" to the submenu.
+  if the mode is "finder", add "Extract Nibble Literal" to the submenu.
+
+to populate a submenu given a mode (f):
+  if the mode is "editor", add "Find" and "F" and "handle find" to the submenu.
+  if the mode is "writer", add "Find" and "F" and "handle find" to the submenu.
+  if the mode is "editor", add "Find Next" and "N" and "handle find next" to the submenu.
+  if the mode is "writer", add "Find Next" and "N" and "handle find next" to the submenu.
+  if the mode is "writer", add "Fill..." to the submenu.
+  if the mode is "writer", add "Flip" to the submenu.
+  if the mode is "editor", add "Font Height..." and "font height..." to the submenu.
+  if the mode is "editor", add "Font Name..." to the submenu.
+  if the mode is "writer", add "Font Height..." and "font height..." to the submenu.
+  if the mode is "writer", add "Font Name..." to the submenu.
+
+to populate a submenu given a mode (g):
+  if the mode is "finder", add "Get Size" to the submenu.
+  if the mode is "writer", add "Grayscale" to the submenu.
+  if the mode is "writer", add "Grid..." and "grid..." to the submenu.
+  if the mode is "writer", add "Group" and "G" and "handle group" to the submenu.
+
+to populate a submenu given a mode (h):
+  if the mode is "writer", add "Hide Grid" and "handle grid given no" to the submenu.
+
+to populate a submenu given a mode (i):
+  if the mode is "editor", add "Indent" and "I" and "handle indent" to the submenu.
+
+to populate a submenu given a mode (j):
+
+to populate a submenu given a mode (k):
+
+to populate a submenu given a mode (l):
+  if the mode is "editor", add "List" and "L" and "handle list" to the submenu.
+  if the mode is "editor", add "Lowercase" to the submenu.
+  if the mode is "writer", add "Label..." and "Label..." to the submenu.
+  if the mode is "writer", add "Lowercase" to the submenu.
+
+to populate a submenu given a mode (m):
+  add "Minimize" and "handle minimize" to the submenu.
+  if the mode is "writer", add "Measure..." to the submenu.
+  if the mode is "writer", add "Mirror" to the submenu.
+
+to populate a submenu given a mode (n):
+  if the mode is "finder", add "New Directory..." to the submenu.
+  if the mode is "finder", add "New Document..." to the submenu.
+  if the mode is "writer", add "New Ellipse" to the submenu.
+  if the mode is "docster", add "New Page" to the submenu.
+  if the mode is "writer", add "New Picture..." to the submenu.
+  if the mode is "writer", add "New Polygon" to the submenu.
+  if the mode is "writer", add "New Rectangle" to the submenu.
+  if the mode is "writer", add "New Text" to the submenu.
+  if the mode is "finder", add "New Text File..." to the submenu.
+
+to populate a submenu given a mode (o):
+  if the mode is "finder",  add "Open" and "O" and "handle open" to the submenu.
+  if the mode is "docster", add "Open" and "O" and "handle open" to the submenu.
+  if the mode is "finder",  add "Open As Dump" to the submenu.
+  if the mode is "finder",  add "Open As Text" to the submenu.
+  if the mode is "editor",  add "Outdent" and "O" and "handle outdent" to the submenu.
+
+to populate a submenu given a mode (p):
+  add "Paste" and "V" and "handle paste" to the submenu.
+  if the mode is "writer",  add "Pen..." and "pen..." to the submenu.
+  if the mode is "editor",  add "Print..." and "P" and "handle print" to the submenu.
+  if the mode is "docster", add "Print..." and "P" and "handle print" to the submenu.
+  if the mode is "writer",  add "Print..." and "P" and "handle print" to the submenu.
+
+to populate a submenu given a mode (q):
+  add "Quit" and "Q" and "handle quit" to the submenu.
+
+to populate a submenu given a mode (r):
+  if the mode is "writer", add "Radius..." to the submenu.
+  if the mode is "editor", add "Redo" and "Y" and "handle redo" to the submenu.
+  if the mode is "writer", add "Redo" and "Y" and "handle redo" to the submenu.
+  if the mode is "writer", add "Reduce" and "R" and "handle reduce" to the submenu.
+  if the mode is "finder", add "Rename..." to the submenu.
+  if the mode is "docster", add "Renumber Pages..." to the submenu.
+  if the mode is "editor", add "Reverse" to the submenu.
+  if the mode is "finder", add "Reverse" to the submenu.
+  if the mode is "writer", add "Rotate Page" to the submenu.
+  if the mode is "writer", add "Rotate Shape" and "J" and "handle rotate shape" to the submenu.
+  if the mode is "editor", add "Run" and "R" and "handle run" to the submenu.
+
+to populate a submenu given a mode (s):
+  if the mode is "editor", add "Save" and "S" and "handle save" to the submenu.
+  if the mode is "docster", add "Save" and "S" and "handle save" to the submenu.
+  if the mode is "writer", add "Save" and "S" and "handle save" to the submenu.
+  add "Save All" and "handle save all" to the submenu.
+  if the mode is "docster", add "Save as PDF..." and "handle save as pdf" to the submenu.
+  add "Select All" and "A" and "handle select all" to the submenu.
+  if the mode is "writer", add "Send to Back" and "handle send to back" to the submenu.
+  if the mode is "writer", add "Show Grid" and "handle grid given yes" to the submenu.
+  if the mode is "writer", add "Smooth" and "M" and "handle smooth" to the submenu.
+  if the mode is "editor", add "Sort..." and "sort..." to the submenu.
+  if the mode is "finder", add "Sort..." and "sort..." to the submenu.
+  if the mode is "editor", add "Stop" to the submenu.
+
+to populate a submenu given a mode (t):
+
+to populate a submenu given a mode (u):
+  if the mode is "editor", add "Uncomment" and "U" and "handle uncomment" to the submenu.
+  if the mode is "editor", add "Undo" and "Z" and "handle undo" to the submenu.
+  if the mode is "writer", add "Undo" and "Z" and "handle undo" to the submenu.
+  if the mode is "writer", add "Ungrayscale" to the submenu.
+  if the mode is "writer", add "Ungroup" and "U" and "handle ungroup" to the submenu.
+  if the mode is "writer", add "Unlabel" to the submenu.
+  if the mode is "editor", add "Uppercase" to the submenu.
+  if the mode is "writer", add "Uppercase" to the submenu.
+
+to populate a submenu given a mode (v):
+  add "Version" to the submenu.
+
+to populate a submenu given a mode (w):
+
+to populate a submenu given a mode (x):
+
+to populate a submenu given a mode (y):
+  if the mode is not "writer", exit.
+  add "Yank 1/8"  to the submenu.
+  add "Yank 1/12" to the submenu.
+  add "Yank 1/16" to the submenu.
+  add "Yank 1/24" to the submenu.
+  add "Yank 1/32" to the submenu.
+  add "Yank 1/48" to the submenu.
+  add "Yank None" and "handle yank the tpp" to the submenu.
+
+to populate a submenu given a mode (z):
+
+to populate a test result given a string called expectation
+    and a string called actual and a string called interpretation:
+  put the expectation in the test result's expectation.
+  put the actual in the test result's actual value.
+  put the interpretation in the test result's interpretation.   
+
 a prompt is a string.
+
+to put a test result set into another test result set:
+  put the test result set's passed
+    into the other test result set's passed.
+  put the test result set's failed
+    into the other test result set's failed.
 
 a question is a string.
 
+to regression test:
+  regression test returning the status' all test results.
+  append the failures from the status' all test results
+    to the status' failures.
+  tint the status.
+
+to regression test appending to a test result set (the desktop):
+  regression test appending to the test result set (the status).
+
+to regression test appending to a test result set (the status - minimum width):
+  create a test result.
+  describe the test result given "the status" and "minimum width".
+  put the status' width in a string called actual.
+  put 1/2 inch in a number called minimum.
+  put "at least " then the minimum in a string called expectation.
+  if the status' width is at least the minimum,
+    pass the test result given the expectation and the actual.
+  if the status' width is not at least the minimum,
+    fail the test result given the expectation and the actual.
+  append the test result to the test result set.
+
+to regression test appending to a test result set (the status):
+  regression test appending to the test result set (the status - minimum width).
+
+the regression test quota is a number equal to 5.
+
+to regression test returning a test result set:
+  regression test appending to the test result set (the desktop).
+
+to remove the last three bytes from a string:
+  remove the last byte from the string.
+  remove the last byte from the string.
+  remove the last byte from the string.
+
 a reply is a string.
+
+a result set has a number called passed,
+  a number called failed,
+  and some test results.
 
 to run:
   start up.
@@ -2101,16 +2331,96 @@ to show status a string:
   put the string into the status' string.
   show the status.
 
-a pass color is a color.
-
-a fail color is a color.
-
 the status has a roundy box and a string
-  and a color and a pass color and a fail color and a test result set.
+  and a color and a pass color and a fail color
+  and a result set called all test results
+  and a result set called failures.
 
 a submenu is a menu.
 
 the submenu width is a width equal to 2 inches.
+
+to summarize failure given a number and another number returning a string:
+  put the number in a number called failed.
+  put the other number in a number called quota.
+  if the failed is less than 1,
+    put "No tests failed." in the string; exit.
+  if one should be hidden given the failed and the quota,
+    put "The test failed." in the string; exit.
+  if the quota is less than 1,
+    put "All " then the passed then " tests failed." in the string; exit.
+  if the failed is 1,
+    put "The test failed.  It was:" in the string; exit.
+  if the quota is 1,
+    put "All " then the failed then " tests failed.  The first 1 is:" in the string; exit.
+  put "All " then the failed then " tests failed" in the string.
+  if the failed is at most the quota,
+    append ":" to the string.
+  if the failed is more than the quota,
+    append ".  The first " then the quota then " were:" to the string.
+
+to summarize failure given a number called failed returning a string:
+  if the failed is 0, put "No tests failed." into the string; exit.
+  if the failed is 1, put "The test failed." into the string; exit.
+  put "All " then the failed then " tests failed." into the string. 
+
+to summarize success given a number and another number returning a string:
+  put the number in a number called passed.
+  put the other number in a number called quota.
+  if the passed is less than 1,
+    put "No tests passed." in the string; exit.
+  if one should be hidden given the passed and the quota,
+    put "The test passed." in the string; exit.
+  if the quota is less than 1,
+    put "All " then the passed then " tests passed." in the string; exit.
+  if the passed is 1,
+    put "The test passed.  It was:" in the string; exit.
+  if the quota is 1,
+    put "All " then the passed then " tests passed.  The first 1 is:" in the string; exit.
+  put "All " then the passed then " tests passed" in the string.
+  if the passed is at most the quota,
+    append ":" to the string.
+  if the passed is more than the quota,
+    append ".  The first " then the quota then " were:" to the string.
+
+to summarize success given a number called passed returning a string:
+  if the passed is 0, put "No tests passed." into the string; exit.
+  if the passed is 1, put "The test passed." into the string; exit.
+  put "All " then the passed then " tests passed." into the string.
+
+to summarize a test result returning a string:
+  summarize the test result returning the string (description).
+  put the test result's expectation in an expectation.
+  put the test result's actual value in a string called actual.
+  put the test result's interpretation in an interpretation.
+  append "  Expected '" then the expectation then "'" to the string.
+  if 3-way-match given the expectation and the actual and the interpretation,
+    append ", which I got." to the string; exit.
+  if the expectation is the interpretation,
+    append ", and got '" then the actual then "'"
+      then ", which is OK." to the string; exit.
+  if the actual is the expectation,
+    append ", but I got '" then the actual then "'"
+      then ", so the test failed." to the string; exit.
+  append ", but I got '" then the actual then "'" to the string.
+  append " which is '" then the interpretation then "'" to the string.
+  append ", so the test failed." to the string.
+
+to summarize a test result returning a string (description):
+  put "In " then the test result's context
+    then ", tried " then the test result's test name then "." in the string.
+
+to summarize a test result set returning a string:
+  put the test result set's passed in a number called passed.
+  put the test result set's failed in a number called failed.
+  put the passed plus the failed in a number called total.
+  if the test result set is OK,
+    summarize success given the passed returning the string; exit.
+  if the test result set is not OK,
+    summarize failure given the failed returning the string;
+    append "Just " then the passed then " / " then the total then "were OK."
+      to the string; exit.
+  put "The tests have not run yet." into the string.
 
 the swatch width is a width equal to 1/3 inch.
 
@@ -2162,6 +2472,20 @@ a tab is a thing with
 
 the tabs are some tabs.
 
+a test result is a thing with
+  a string called context,
+  a string called test name,
+  an expectation,
+  a string called actual value, and
+  an interpretation.
+
+to tint the status:
+  if the regression tests passed,
+    put the status' pass color into the status' color; exit.
+  if the regression tests failed,
+    put the status' fail color into the status' color; exit.
+  untint the status.
+
 to track the desktop given an event:
   if the event is nil, exit.
   loop.
@@ -2200,8 +2524,26 @@ to track a tab returning a flag:
   if the tab is the other tab, repeat.
   set the flag.
   remove the tab from the tabs.
-  if the other tab's left is less than the tab's left, insert the tab into the tabs before the other tab.
-  if the other tab's left is greater than the tab's left, insert the tab into the tabs after the other tab.
+  if the other tab's left is less than the tab's left,
+    insert the tab into the tabs before the other tab.
+  if the other tab's left is greater than the tab's left,
+    insert the tab into the tabs after the other tab.
   adjust the tabs.
   show the desktop.
+  repeat.
+
+to untint the status:
+  put the white color into the status' color.
+
+to widen a command to a width:
+  put the width into the command's width.
+  put the width plus the command's roundy box's left
+    into the command's roundy box's right.
+
+to widen a submenu to a width:
+  if the submenu is nil, exit.
+  loop.
+    get a command from the submenu's commands.
+    if the command is nil, exit.
+    widen the command to the width.
   repeat.

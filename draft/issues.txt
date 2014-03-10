@@ -18,20 +18,6 @@ These items should occasionally be moved to fixed issues.txt.
 The following requests are roughly sorted
 from higher priority to lower priority.
 
-001.  By default, run automated unit tests immediately after each compilation.
-  This could be disabled by a configuration option.
-  Show the results in a convenient way.  If necessary,
-  the tests can be manually grouped into a high-level procedure.
-  Audience:  programmers.
-  Status:  request.
-  Benefit:  Critical.  Frequently running a comprehensive
-    automated test suite makes it much easier, safer, and faster
-    to refactor and/or add features.
-  Implementation difficulty:  Medium.
-  Demoing difficulty:  Trivial.
-  Testing difficulty:  Trivial.
-  Requested by Jasper Paulsen on March 7, 2014.
-
 003.  Gray out (and disable) unused menu letters.
   Cal has an alphabetical menu structure.
   Currently, many of the letters do not have menu items.
