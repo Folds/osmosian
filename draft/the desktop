@@ -234,22 +234,6 @@ to choose a color for a command (temporary color):
 
 the command height is a height equal to 1/3 inch.
 
-a command is a thing with
-  a roundy box,
-  a width,
-  a color, a font, an alignment,
-  a name, a shortcut, and a handler.
-
-to create a button:
-  allocate memory for the button.
-
-to create a command:
-  allocate memory for the command.
-  put the clear color into the command's color.
-  put the default font into the command's font.
-  put 1/12 inch into the command's roundy box's radius.
-  put "left" into the command's alignment.
-
 to create the dialog:
   allocate memory for the dialog.
   put the black color into the dialog's pen.
@@ -984,64 +968,6 @@ to handle a command (sort...):
     add "By Extension"  and "handle sort nodettes by extension" to the submenu.
   handle the command given the submenu.
 
-to handle a command (tests failed...):
-  widen the command to 7 inches.
-  put the status' roundy box's right minus the command's width
-    into a number called left.
-  if the left is less than the bar's display's left,
-    put the bar's display's left into the left.
-  put the left into the command's roundy box's left.
-  create a submenu.
-  put the regression test quota in a number called quota.
-  put the status' failures' failed in a number called failed.
-  put the failed then " tests failed" in a string called summary.
-  if the failed is at most the quota,
-    append ":" to the summary.
-  If the failed is more than the quota,
-    append ".  The first " then the quota then " are:" to the summary.
-  Add the summary and "handle test result" to the submenu.
-  put 1 in a number called counter.
-  Loop.
-    if the counter is greater than the quota, break.
-    get a test result from the status' failures' test results.
-    if the test result is nil, break.
-    summarize the test result returning a string.
-    Add the string and "handle test result" to the submenu.
-    add 1 to the counter.
-  Repeat.
-  widen the submenu to the command's width.
-  handle the command given the submenu.
-  destroy the submenu.
-  destroy the command.
-
-to handle a command (tests passed...):
-  widen the command to 7 inches.
-  put the status' roundy box's right minus the command's width
-    into a number called left.
-  if the left is less than the bar's display's left,
-    put the bar's display's left into the left.
-  put the left into the command's roundy box's left.
-  create a submenu.
-  put the regression test quota in a number called quota.
-  put the status' all test results' passed in a number called passed.
-  summarize success given the passed and the quota
-    returning a string called summary.
-  Add the summary and "handle test result" to the submenu.
-  put 1 in a number called counter.
-  Loop.
-    if the counter is greater than the quota, break.
-    get a test result from the status' all test results' test results.
-    if the test result is nil, break.
-    summarize the test result returning a string.
-    Add the string and "handle test result" to the submenu.
-    add 1 to the counter.
-  Repeat.
-  widen the submenu to the command's width.
-  gray out the submenu.
-  handle the command given the submenu.
-  destroy the submenu.
-  destroy the command.
-
 to handle a command given a submenu:
   handle the command given the submenu and the submenu width.
 
@@ -1217,25 +1143,6 @@ to handle an event (key down):
 to handle an event (left click - menu):
   find a command given the menu and the event's spot.
   handle the command.
-
-to handle an event (left click - status):
-  tint the status.
-  create a command.
-  widen the command to 3 inches.
-  put the status' roundy box's right minus the command's width
-    into a number called left.
-  put the left into the command's roundy box's left.
-  create a submenu.
-  summarize the status' all test results returning a string.
-  if the regression tests passed,
-    add the string and "tests passed..." to the submenu.
-  if the regression tests failed,
-    add the string and "tests failed..." to the submenu.
-  widen the submenu to the command's width.
-  handle the command given the submenu.
-  destroy the submenu.
-  destroy the command.
-  track the desktop given the event.
 
 to handle an event (left click - switch):
   find a tab given the event's spot.
@@ -1575,12 +1482,6 @@ to handle font height other:
     handle font height other given the current tab's node's source; exit.
   if the current tab's mode is "writer",
     handle font height other given the current tab's node's page; exit.
-
-to handle font name:
-  if the current tab's mode is "editor",
-    handle font name given the current tab's node's source; exit.
-  if the current tab's mode is "writer",
-    handle font name given the current tab's node's page; exit.
 
 to handle get size:
   if the current tab's mode is "finder",
@@ -2540,6 +2441,104 @@ to widen a command to a width:
   put the width plus the command's roundy box's left
     into the command's roundy box's right.
 
+to handle font name:
+  if the current tab's mode is "editor",
+    handle font name given the current tab's node's source; exit.
+  if the current tab's mode is "writer",
+    handle font name given the current tab's node's page; exit.
+
+to get the font name given a source returning a string:
+  if the source is nil, put the default font's name in the string; exit.
+  get the font name given the source's text returning the string.
+
+to get the font name given a page returning a string:
+  if the page is nil, put the default font's name in the string; exit.
+  get the font name given the page's text returning the string.
+
+to get the font name given a text returning a string:
+  if the text is nil, put the default font's name in the string; exit.
+  put the text's font's name in the string.
+
+to handle a command (tests failed...):
+  widen the command to 7 inches.
+  put the status' roundy box's right minus the command's width
+    into a number called left.
+  if the left is less than the bar's display's left,
+    put the bar's display's left into the left.
+  put the left into the command's roundy box's left.
+  create a submenu.
+  put the regression test quota in a number called quota.
+  put the status' failures' failed in a number called failed.
+  put the failed then " tests failed" in a string called summary.
+  if the failed is at most the quota,
+    append ":" to the summary.
+  If the failed is more than the quota,
+    append ".  The first " then the quota then " are:" to the summary.
+  Add the summary and "handle test result" to the submenu.
+  put 1 in a number called counter.
+  Loop.
+    if the counter is greater than the quota, break.
+    get a test result from the status' failures' test results.
+    if the test result is nil, break.
+    summarize the test result returning a string.
+    Add the string and "handle test result" to the submenu.
+    add 1 to the counter.
+  Repeat.
+  widen the submenu to the command's width.
+  refont the submenu.
+  handle the command given the submenu.
+  destroy the submenu.
+  destroy the command.
+
+to handle a command (tests passed...):
+  widen the command to 7 inches.
+  put the status' roundy box's right minus the command's width
+    into a number called left.
+  if the left is less than the bar's display's left,
+    put the bar's display's left into the left.
+  put the left into the command's roundy box's left.
+  create a submenu.
+  put the regression test quota in a number called quota.
+  put the status' all test results' passed in a number called passed.
+  summarize success given the passed and the quota
+    returning a string called summary.
+  Add the summary and "handle test result" to the submenu.
+  put 1 in a number called counter.
+  Loop.
+    if the counter is greater than the quota, break.
+    get a test result from the status' all test results' test results.
+    if the test result is nil, break.
+    summarize the test result returning a string.
+    Add the string and "handle test result" to the submenu.
+    add 1 to the counter.
+  Repeat.
+  widen the submenu to the command's width.
+  refont the submenu.
+  gray out the submenu.
+  handle the command given the submenu.
+  destroy the submenu.
+  destroy the command.
+
+to handle an event (left click - status):
+  tint the status.
+  create a command.
+  widen the command to 3 inches.
+  put the status' roundy box's right minus the command's width
+    into a number called left.
+  put the left into the command's roundy box's left.
+  create a submenu.
+  summarize the status' all test results returning a string.
+  if the regression tests passed,
+    add the string and "tests passed..." to the submenu.
+  if the regression tests failed,
+    add the string and "tests failed..." to the submenu.
+  widen the submenu to the command's width.
+  refont the submenu.
+  handle the command given the submenu.
+  destroy the submenu.
+  destroy the command.
+  track the desktop given the event.
+
 to widen a submenu to a width:
   if the submenu is nil, exit.
   loop.
@@ -2547,3 +2546,41 @@ to widen a submenu to a width:
     if the command is nil, exit.
     widen the command to the width.
   repeat.
+
+a command is a thing with
+  a roundy box,
+  a width,
+  a color, a font, an alignment,
+  a name, a shortcut, and a handler.
+
+to create a button:
+  allocate memory for the button.
+
+to create a command:
+  allocate memory for the command.
+  put the clear color into the command's color.
+  put the default font into the command's font.
+  put 1/12 inch into the command's roundy box's radius.
+  put "left" into the command's alignment.
+
+\to change a text given a font name:
+\  if the text is nil, exit.
+\  put the font name into the text's font's name.
+\  wrap the text.
+
+to refont a submenu:
+  if the submenu is nil, exit.
+  get the font name returning a string.  
+  loop.
+    get a command from the submenu's commands.
+    if the command is nil, exit.
+    put the string into the command's font's name.
+  repeat.
+
+to get the font name returning a string:
+  if the current tab's mode is "editor",
+    get the font name given the current tab's node's source returning the string; exit.
+  if the current tab's mode is "editor",
+    get the font name given the current tab's node's page returning the string; exit.
+  put the default font's name in the string.
+
