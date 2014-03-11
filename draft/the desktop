@@ -1,11 +1,9 @@
 \ copyright © 2006 the osmosian order (3040)
 
-to add a button to the dialog given a string:
-  if the string is blank, void the button; exit.
-  if the dialog is nil, exit.
-  create the button.
-  append the button to the dialog's buttons.
-  put the string into the button's name.
+\ the desktop's pad includes the dialog.
+\ the dialog's code is in another file.
+\ the dialog shares space with the menus and the status,
+\ so it is not visible when they are, and vice versa.
 
 to add a color and a handler to a menu:
   if the menu is nil, exit.
@@ -106,50 +104,6 @@ to add swatches to a submenu given a handler and a color:
   if the color's lightness is less than 125, exit.
   repeat.
 
-to adjust the dialog:
-  if the dialog is nil, exit.
-  adjust the dialog (buttons).
-  adjust the dialog (roundy box).
-  adjust the dialog (prompt).
-  adjust the dialog (text).
-
-to adjust the dialog (buttons):
-  put the bar's display and 1/12 inch into a roundy box.
-  put the roundy box's right minus the button width into the roundy box's left.
-  loop.
-  get a button from the dialog's buttons (backwards).
-  if the button is nil, exit. 
-  put the roundy box into the button's roundy box.
-  move the roundy box left the button width.
-  repeat.
-
-to adjust the dialog (prompt):
-  put the dialog's roundy box's left plus 1/8 inch
-    into the dialog's prompt box's left.
-  put the dialog's roundy box's top plus 1/24 inch
-    into the dialog's prompt box's top.
-  get a width given the dialog's prompt and the default font.
-  put the dialog's prompt box's left plus the width plus 1/12 inch
-    into the dialog's prompt box's right.
-  put the dialog's roundy box's bottom minus 1/24 inch
-    into the dialog's prompt box's bottom.
-
-to adjust the dialog (roundy box):
-  put the bar's display and 1/12 inch into the dialog's roundy box.
-  if the dialog's buttons are empty, exit.
-  put the dialog's first button's left into the dialog's roundy box's right.
-
-to adjust the dialog (text):
-  if the dialog's text is nil, exit.
-  set the dialog's text's horizontal scroll flag.
-  select every byte in the dialog's text.
-  put the dialog's pen into the dialog's text's pen.
-  put the dialog's prompt box's right into a box's left.
-  put the dialog's prompt box's top into the box's top.
-  put the dialog's roundy box's right minus 1/8 inch into the box's right.
-  put the dialog's prompt box's bottom into the box's bottom.
-  change the dialog's text given the box.
-
 to adjust a menu given a spot and a width:
   if the menu is nil, exit.
   privatize the spot.
@@ -181,10 +135,6 @@ to adjust some tabs:
     put the tab's left plus the width into the tab's right.
   repeat.
 
-an alternative is a string.
-
-the answer is a string.
-
 to append the failures from a test result set to another test result set:
   loop.
     get a test result from the test result set's test results.
@@ -198,52 +148,7 @@ to append a test result to a result set:
   if the test result is OK, add one to the result set's passed.
   if the test result is not OK, add one to the result set's failed.
 
-to ask a question:
-  ask the question with "".
-
-to ask a question with choices a string and another string:
-  ask the question with choices the string and the other string and "".
-
-to ask a question with choices a string and another string and a third string:
-  create the dialog.
-  put "choice" into the dialog's kind.
-  put the question into the dialog's prompt.
-  add a button to the dialog given the string.
-  add another button to the dialog given the other string.
-  add a third button to the dialog given the third string.
-  handle the dialog.
-  destroy the dialog.
-
-to ask a question with a default number:
-  convert the default to a string.
-  ask the question with the string.
-
-to ask a question with a default ratio:
-  convert the default to a string.
-  ask the question with the string.
-
-to ask a question with a default string:
-  create the dialog.
-  put "input" into the dialog's kind.
-  put the question into the dialog's prompt.
-  add a button to the dialog given "M'Kay".
-  add another button to the dialog given "Cancel".
-  create the dialog's text.
-  put the default into the dialog's text.
-  handle the dialog.
-  destroy the dialog.
-
 the bar has a height, a box, a display box and a mode.
-
-a button is a thing with a roundy box and a name.
-
-the button width is 2/3 inch.
-
-to cancel the dialog:
-  if the dialog is nil, exit.
-  if the dialog's text is nil, put "cancel" into the answer.
-  if the dialog's text is not nil, put "" into the answer.
-  relinquish control.
 
 to choose a color for a command (temporary color):
   put the command's color into the color.
@@ -259,19 +164,12 @@ a command is a thing with
   a color, a font, an alignment,
   a name, a shortcut, and a handler.
 
-to create a button:
-  allocate memory for the button.
-
 to create a command:
   allocate memory for the command.
   put the clear color into the command's color.
   put the default font into the command's font.
   put 1/12 inch into the command's roundy box's radius.
   put "left" into the command's alignment.
-
-to create the dialog:
-  allocate memory for the dialog.
-  put the black color into the dialog's pen.
 
 to create a menu:
   allocate memory for the menu.
@@ -376,11 +274,6 @@ to decide if a spot is in the bar:
   if the spot is in the bar's box, say yes.
   say no.
 
-to decide if a spot is in a button:
-  if the button is nil, say no.
-  if the spot is in the button's roundy box, say yes.
-  say no.
-
 to decide if a spot is in a command:
   if the command is nil, say no.
   if the spot is in the command's roundy box, say yes.
@@ -437,21 +330,6 @@ to decide if a test result is OK:
     is the test result's expectation, say yes.
   say no.
 
-to decide if the user is sure:
-  ask "Are you quite sure?" with choices "Yes" and "No".
-  if the answer is "yes", say yes.
-  say no.
-
-to decide if the user is willing to close a node:
-  if the node is nil, say yes.
-  if the node is not modified, say yes.
-  ask "Save?" with choices "Yes" and "No" and "Cancel".
-  if the answer is "cancel", say no.
-  if the answer is "no", say yes.
-  save the node.
-  if the i/o error is not blank, show error the i/o error; say no.
-  say yes.
-
 to describe a font height returning a string:
   put the font height / 1 inch into a ratio.
   convert the ratio to a ratio string.
@@ -470,14 +348,6 @@ to destroy a tab:
 
 to destroy a test result set:
   destroy the test result set's test results.
-
-the dialog is a thing with
-  a kind [choice, error, input],
-  a roundy box,
-  a prompt box, a prompt,
-  a pen color,
-  a text,
-  some buttons.
 
 to draw the bar:
   unmask everything.
@@ -508,20 +378,6 @@ to draw a box with a border color and a fill color and a radius (rounding the to
   subtract the tpp from the box's top.
   draw the box with the clear color and the fill.
 
-to draw a button:
-  if the button is nil, exit.
-  unmask everything.
-  draw the button's roundy box with the black color and the white color.
-  mask outside the button's roundy box.
-  draw the button's name in the button's roundy box
-    with the black color and the default font and "center".
-
-to draw some buttons:
-  get a button from the buttons.
-  if the button is nil, exit.
-  draw the button.
-  repeat.
-
 to draw a command:
   if the command is nil, exit.
   unmask everything.
@@ -547,16 +403,6 @@ to draw the desktop:
   draw the switch.
   draw the pad.
   draw the current menu.
-
-to draw the dialog:
-  if the dialog is nil, exit.
-  unmask everything.
-  draw the dialog's roundy box with the black color and the white color.
-  mask outside the dialog's roundy box.
-  draw the dialog's prompt in the dialog's prompt box
-    with the dialog's pen and the default font and "left".
-  draw the dialog's text (editing).
-  draw the dialog's buttons.
 
 to draw a menu:
   if the menu is nil, exit.
@@ -645,27 +491,6 @@ to finalize the status:
   destroy the status' command.
 
 to finalize the switch:
-
-to find a button given a key:
-  void the button.
-  if the dialog is nil, exit.
-  loop.
-  get the button from the dialog's buttons.
-  if the button is nil, exit.
-  if the button's name is blank, repeat.
-  put the button's name's first's target into a byte.
-  uppercase the byte.
-  if the byte is the key, exit.
-  repeat.
-
-to find a button given a spot:
-  void the button.
-  if the dialog is nil, exit.
-  loop.
-  get the button from the dialog's buttons.
-  if the button is nil, exit.
-  if the spot is in the button, exit.
-  repeat.
 
 to find a command given a menu and a spot:
   void the command.
@@ -1144,18 +969,6 @@ to handle decrypt:
     handle decrypt given the current tab's node's source; exit.
   cluck.
 
-to handle the dialog:
-  if the dialog is nil, exit.
-  flush all events.
-  adjust the dialog.
-  switch the bar to "dialog".
-  handle events given the dialog.
-  switch the bar to "normal" without drawing.
-  if the answer is blank, show the desktop.
-  if the dialog's text is nil, show the desktop.
-  flush all events.
-  refresh the cursor.
-
 to handle duplicate:
   if the current tab's mode is "finder",
     handle duplicate given the current tab's node; exit.
@@ -1325,179 +1138,6 @@ to handle an event (set cursor):
     handle the event given the current tab's node's page (set cursor); exit.
   show the arrow cursor.
 
-to handle an event given the dialog:
-  if the event's kind is "key down",
-    handle the event given the dialog (key down); exit.
-  if the event's kind is "left click",
-    handle the event given the dialog (left click); exit.
-  if the event's kind is "left double click",
-    handle the event given the dialog (left double click); exit.
-  if the event's kind is "refresh",
-    handle the event given the dialog (refresh); exit.
-  if the event's kind is "right click",
-    handle the event given the dialog (right click); exit.
-  if the event's kind is "set cursor",
-    handle the event given the dialog (set cursor); exit.
-
-to handle an event given the dialog (copy):
-  if nothing is selected in the dialog's text, cluck; exit.
-  handle copy given the dialog's text.
-
-to handle an event given the dialog (cut):
-  if nothing is selected in the dialog's text, cluck; exit.
-  handle cut given the dialog's text.
-  show the desktop.
-
-to handle an event given the dialog (key down - backspace key):
-  handle the event given the dialog's text (backspace key).
-  show the desktop.
-
-to handle an event given the dialog (key down - choice):
-  if the event's key is the enter key,
-    put "yes" into the answer; relinquish control; exit.
-  if the event's key is the escape key,
-    put "cancel" into the answer; relinquish control; exit.
-  find a button given the event's key.
-  if the button is nil, exit.
-  put the button's name into the answer.
-  relinquish control.
-
-to handle an event given the dialog (key down - delete key):
-  handle the event given the dialog's text (delete key).
-  show the desktop.
-
-to handle an event given the dialog (key down - end key):
-  handle the event given the dialog's text (end key).
-  show the desktop.
-
-to handle an event given the dialog (key down - enter key):
-  extract the answer from the dialog's text.
-  relinquish control.
-
-to handle an event given the dialog (key down - error):
-  cancel the dialog.
-
-to handle an event given the dialog (key down - escape key):
-  cancel the dialog.
-
-to handle an event given the dialog (key down - home key):
-  handle the event given the dialog's text (home key).
-  show the desktop.
-
-to handle an event given the dialog (key down - input):
-  if the event is any shortcut,
-    handle the event given the dialog (key down - shortcut); exit.
-  if the event's byte is printable,
-    handle the event given the dialog (key down - printable key); exit.
-  if the event's key is the backspace key,
-    handle the event given the dialog (key down - backspace key); exit.
-  if the event's key is the delete key,
-    handle the event given the dialog (key down - delete key); exit.
-  if the event's key is the end key,
-    handle the event given the dialog (key down - end key); exit.
-  if the event's key is the enter key,
-    handle the event given the dialog (key down - enter key); exit.
-  if the event's key is the escape key,
-    handle the event given the dialog (key down - escape key); exit.
-  if the event's key is the home key,
-    handle the event given the dialog (key down - home key); exit.
-  if the event's key is the left-arrow key,
-    handle the event given the dialog (key down - left-arrow key); exit.
-  if the event's key is the right-arrow key,
-    handle the event given the dialog (key down - right-arrow key); exit.
-
-to handle an event given the dialog (key down - left-arrow key):
-  handle the event given the dialog's text (left-arrow key).
-  show the desktop.
-
-to handle an event given the dialog (key down - printable key):
-  handle the event given the dialog's text (printable key).
-  show the desktop.
-
-to handle an event given the dialog (key down - right-arrow key):
-  handle the event given the dialog's text (right-arrow key).
-  show the desktop.
-
-to handle an event given the dialog (key down - shortcut):
-  if the event's key is the a-key, handle the event given the dialog (select all).
-  if the event's key is the c-key, handle the event given the dialog (copy).
-  if the event's key is the v-key, handle the event given the dialog (paste).
-  if the event's key is the x-key, handle the event given the dialog (cut).
-  if the event's key is the y-key, handle the event given the dialog (redo).
-  if the event's key is the z-key, handle the event given the dialog (undo).
-
-to handle an event given the dialog (key down):
-  if the dialog's kind is "choice", handle the event given the dialog (key down - choice); exit.
-  if the dialog's kind is "error", handle the event given the dialog (key down - error); exit.
-  if the dialog's kind is "input", handle the event given the dialog (key down - input); exit.
-
-to handle an event given the dialog (left click - choice):
-  if the event's spot is not in the bar, cancel the dialog; exit.
-  find a button given the event's spot.
-  if the button is nil, exit.
-  put the button's name into the answer.
-  relinquish control.
-
-to handle an event given the dialog (left click - error):
-  if the event's spot is not in the bar, cancel the dialog; exit.
-  find a button given the event's spot.
-  if the button is nil, exit.
-  put the button's name into the answer.
-  relinquish control.
-
-to handle an event given the dialog (left click - input):
-  if the event's spot is not in the bar, cancel the dialog; exit.
-  if the event's spot is in the dialog's text, track the dialog given the event; exit.
-  find a button given the event's spot.
-  if the button is nil, exit.
-  if the button's name is "cancel", cancel the dialog; exit.
-  extract the answer from the dialog's text.
-  relinquish control.
-
-to handle an event given the dialog (left click):
-  if the dialog's kind is "choice",
-    handle the event given the dialog (left click - choice); exit.
-  if the dialog's kind is "error",
-    handle the event given the dialog (left click - error); exit.
-  if the dialog's kind is "input",
-    handle the event given the dialog (left click - input); exit.
-
-to handle an event given the dialog (left double click):
-  if the dialog's text is nil, exit.
-  handle the event given the dialog's text (left double click).
-  show the desktop.
-
-to handle an event given the dialog (paste):
-  if there is not text on the windows clipboard, cluck; exit.
-  handle paste given the dialog's text.
-  show the desktop.
-
-to handle an event given the dialog (redo):
-  if the dialog's text cannot be redone, cluck; exit.
-  handle redo given the dialog's text.
-  show the desktop.
-
-to handle an event given the dialog (refresh):
-  show the desktop.
-
-to handle an event given the dialog (right click):
-  if the event's spot is in the bar, exit.
-  cancel the dialog.
-
-to handle an event given the dialog (select all):
-  handle select all given the dialog's text.
-  show the desktop.
-
-to handle an event given the dialog (set cursor):
-  if the event's spot is in the dialog's text,
-    show the i-beam cursor; exit.
-  show the arrow cursor.
-
-to handle an event given the dialog (undo):
-  if the dialog's text cannot be undone, cluck; exit.
-  handle undo given the dialog's text.
-  show the desktop.
-
 to handle an event given a submenu:
   if the event's kind is "key down",
     handle the event given the submenu (key down); exit.
@@ -1533,12 +1173,6 @@ to handle events:
   deque an event.
   if the event is nil, exit.
   handle the event.
-  repeat.
-
-to handle events given the dialog:
-  deque an event.
-  if the event is nil, exit.
-  handle the event given the dialog.
   repeat.
 
 to handle events given a submenu:
@@ -1803,7 +1437,7 @@ to handle print:
 to handle quit:
   if the user is not sure, exit.
   loop.
-  show status "Quiting...".
+  show status "Quitting...".
   get a tab from the tabs.
   if the tab is nil, relinquish control; exit.
   if the tab's node is not modified, repeat.
@@ -2365,16 +1999,6 @@ to show the desktop with a string:
   put the string into the status' string.
   show the desktop.
 
-to show error a string:
-  create the dialog.
-  put "error" into the dialog's kind.
-  put the red color into the dialog's pen.
-  put the string into the dialog's prompt.
-  add a button to the dialog given "M'kay".
-  cluck.
-  handle the dialog.
-  destroy the dialog.
-
 to show the status:
   draw the status.
   refresh the screen given the status' roundy box.
@@ -2531,24 +2155,6 @@ to track the desktop given an event:
   put the mouse's spot into a spot.
   if the spot's x is greater than the screen's right, move the main window right; repeat.
   if the spot's x is less than the screen's left, move the main window left; repeat.
-  repeat.
-
-to track the dialog given an event:
-  if the dialog is nil, exit.
-  if the dialog's text is nil, exit.
-  if the event is nil, exit.
-  extend any selection in the dialog's text given the event's spot.
-  if the event's shift flag is not set, deselect the dialog's text.
-  clear a selection.
-  loop.
-  if a flag is set, show the desktop with status.
-  if the mouse's left button is up, exit.
-  put the mouse's spot into a spot.
-  autoscroll the dialog's text given the spot and the flag.
-  extend any selection in the dialog's text given the spot.
-  if the dialog's text's selection is the selection, repeat.
-  set the flag.
-  put the dialog's text's selection into the selection.
   repeat.
 
 to track a tab returning a flag:
