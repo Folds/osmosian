@@ -414,6 +414,13 @@ to put a hue and a saturation and a lightness into a color:
 
 the red color is a color.
 
+a rgb is a record with
+  a byte called blue byte,
+  a byte called green byte,
+  a byte called red byte.
+
+a rgb pointer is a pointer to a rgb.
+
 a saturation is a number [0 to 1000].
 
 the sky color is a color.

@@ -8,7 +8,9 @@
 \   there is always at least one row.
 \   there is always a return byte at the end of the last row.
 
-the a-key is a key equal to 65. 
+\ the colors are defined and manipulated in 'colors'.
+\ the bytes and the keys are defined and manipulated in 'characters'
+\ (but 'characters' does not handle events.)
 
 an abc is a record with
   a number called abca,
@@ -23,26 +25,6 @@ an abcc is a number.
 
 an absolute position is a number.
 
-the accent byte is a byte equal to 96.
-
-the accent key is a key equal to 192.
-
-the acknowledge byte is a byte equal to 6.
-
-the acute-accent byte is a byte equal to 180.
-
-to add a byte to another byte:
-  intel $8B8508000000. \ mov eax,[ebp+8] \ the byte
-  intel $0FB600. \ movzx eax,[eax]
-  intel $8B9D0C000000. \ mov ebx,[ebp+12] \ the other byte
-  intel $0003. \ add [ebx],al
-
-to add a byte to a number:
-  intel $8B8508000000. \ mov eax,[ebp+8] \ the byte
-  intel $0FB600. \ movzx eax,[eax]
-  intel $8B9D0C000000. \ mov ebx,[ebp+12] \ the number
-  intel $0103. \ add [ebx],eax
-
 to add a number and another number to a pair:
   add the number to the pair's x.
   add the other number to the pair's y.
@@ -52,14 +34,6 @@ to add a number to another number:
   intel $8B00. \ mov eax,[eax]
   intel $8B9D0C000000. \ mov ebx,[ebp+12] \ the other number
   intel $0103. \ add [ebx],eax
-
-to add a number to a byte:
-  intel $8B8508000000. \ mov eax,[ebp+8] \ the number
-  intel $8B00. \ mov eax,[eax]
-  intel $8B9D0C000000. \ mov ebx,[ebp+12] \ the byte
-  intel $0FB60B. \ movzx ecx,[ebx]
-  intel $03C8. \ add ecx,eax
-  intel $880B. \ mov [ebx],cl
 
 to add a number to a pair:
   add the number to the pair's x.
@@ -156,11 +130,7 @@ to align a text given an alignment:
 
 an alignment is a string [center, left, or right].
 
-the alt key is a key equal to 18.
-
 an amount is a number.
-
-the ampersand byte is a byte equal to 38.
 
 an anchor is a position.
 
@@ -286,10 +256,6 @@ to assign a pointer given a byte count:
   call "kernel32.dll" "HeapAlloc" with the heap pointer and 8 [heap_zero_memory] and the byte count returning the pointer.
   if the pointer is not nil, add 1 to the heap count; exit.
 
-the asterisk byte is a byte equal to 42.
-
-the at-sign byte is a byte equal to 64.
-
 to autoscroll a text given a spot and a flag:
   if the text is nil, clear the flag; exit.
   put the text's font's height into a number.
@@ -306,14 +272,6 @@ to autoscroll a text given a spot and a flag:
   set the flag.
   scroll the text given the difference.
   wait for 50 milliseconds.
-
-the b-key is a key equal to 66.
-
-the backslash byte is a byte equal to 92.
-
-the backspace key is a key equal to 8.
-
-the bar byte is a byte equal to 124.
 
 a baseline is a number.
 
@@ -428,129 +386,7 @@ to begin a sheet given a box and a title string (pdf style):
 to begin a sheet given a title string:
   begin a portrait sheet given the title.
 
-the bell byte is a byte equal to 7.
-
-the big-a byte is a byte equal to 65.
-
-the big-a-acute byte is a byte equal to 193.
-
-the big-a-circumflex byte is a byte equal to 194.
-
-the big-a-diaeresis byte is a byte equal to 196.
-
-the big-a-grave byte is a byte equal to 192.
-
-the big-a-ring byte is a byte equal to 197.
-
-the big-a-tilde byte is a byte equal to 195.
-
-the big-ae byte is a byte equal to 198.
-
-the big-b byte is a byte equal to 66.
-
-the big-c byte is a byte equal to 67.
-
-the big-c-cedilla byte is a byte equal to 199.
-
-the big-d byte is a byte equal to 68.
-
-the big-e byte is a byte equal to 69.
-
-the big-e-acute byte is a byte equal to 201.
-
-the big-e-circumflex byte is a byte equal to 202.
-
-the big-e-diaeresis byte is a byte equal to 203.
-
-the big-e-grave byte is a byte equal to 200.
-
 a big-endian unsigned wyrd is a record with 2 bytes.
-
-the big-eth byte is a byte equal to 208.
-
-the big-f byte is a byte equal to 70.
-
-the big-g byte is a byte equal to 71.
-
-the big-h byte is a byte equal to 72.
-
-the big-i byte is a byte equal to 73.
-
-the big-i-acute byte is a byte equal to 205.
-
-the big-i-circumflex byte is a byte equal to 206.
-
-the big-i-diaeresis byte is a byte equal to 207.
-
-the big-i-grave byte is a byte equal to 204.
-
-the big-j byte is a byte equal to 74.
-
-the big-k byte is a byte equal to 75.
-
-the big-l byte is a byte equal to 76.
-
-the big-m byte is a byte equal to 77.
-
-the big-n byte is a byte equal to 78.
-
-the big-n-tilde byte is a byte equal to 209.
-
-the big-o byte is a byte equal to 79.
-
-the big-o-acute byte is a byte equal to 211.
-
-the big-o-circumflex byte is a byte equal to 212.
-
-the big-o-diaeresis byte is a byte equal to 214.
-
-the big-o-grave byte is a byte equal to 210.
-
-the big-o-stroke byte is a byte equal to 216.
-
-the big-o-tilde byte is a byte equal to 213.
-
-the big-oe byte is a byte equal to 140.
-
-the big-p byte is a byte equal to 80.
-
-the big-q byte is a byte equal to 81.
-
-the big-r byte is a byte equal to 82.
-
-the big-s byte is a byte equal to 83.
-
-the big-s-caron byte is a byte equal to 138.
-
-the big-t byte is a byte equal to 84.
-
-the big-thorn byte is a byte equal to 222.
-
-the big-u byte is a byte equal to 85.
-
-the big-u-acute byte is a byte equal to 218.
-
-the big-u-circumflex byte is a byte equal to 219.
-
-the big-u-diaeresis byte is a byte equal to 220.
-
-the big-u-grave byte is a byte equal to 217.
-
-the big-v byte is a byte equal to 86.
-
-the big-w byte is a byte equal to 87.
-
-the big-x byte is a byte equal to 88.
-
-the big-y byte is a byte equal to 89.
-
-the big-y-acute byte is a byte equal to 221.
-
-the big-y-diaeresis byte is a byte equal to 159.
-
-the big-z byte is a byte equal to 90.
-
-the big-z-caron byte is a byte equal to 142.
 
 a billion is 1000 millions.
 
@@ -564,35 +400,11 @@ a bitmapdata is a record with
   a pointer called scan0,
   a number called reserved.
 
-to bitwise and a byte with another byte:
-  intel $8B850C000000. \ mov eax,[ebp+12] \ the other byte
-  intel $8A00. \ mov al,[eax]
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $2003. \ and [ebx],al
-
-to bitwise and a byte with a number:
-  intel $8B850C000000. \ mov eax,[ebp+12] \ the number
-  intel $8B00. \ mov eax,[eax]
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $2003. \ and [ebx],al
-
 to bitwise and a number with another number:
   intel $8B850C000000. \ mov eax,[ebp+12] \ the other number
   intel $8B00. \ mov eax,[eax]
   intel $8B9D08000000. \ mov ebx,[ebp+8] \ the number
   intel $2103. \ and [ebx],eax
-
-to bitwise or a byte with another byte:
-  intel $8B850C000000. \ mov eax,[ebp+12] \ the other byte
-  intel $8A00. \ mov al,[eax]
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $0803. \ or [ebx],al
-
-to bitwise or a byte with a number:
-  intel $8B850C000000. \ mov eax,[ebp+12] \ the number
-  intel $8B00. \ mov eax,[eax]
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $0803. \ or [ebx],al
 
 to bitwise or a number with another number:
   intel $8B850C000000. \ mov eax,[ebp+12] \ the other number
@@ -622,8 +434,6 @@ a box has
   a left coord, a top coord, a right coord, a bottom coord,
   a left-top spot at the left, and a right-bottom spot at the right.
 
-the broken-bar byte is a byte equal to 166.
-
 a bucket count is a count.
 
 a bucket is a pointer to a bucket record.
@@ -633,8 +443,6 @@ a bucket record has some refers.
 a bucket# is a number.
 
 a buffer is a string.
-
-the bullet byte is a byte equal to 149.
 
 to bump a rider:
   intel $8B9D08000000. \ mov ebx,[ebp+8] \ the rider
@@ -647,16 +455,6 @@ to bump a rider by a number:
 
 to buzz: 
   call "kernel32.dll" "Beep" with 220 and 200.
-
-a byte count is a count.
-
-a byte pointer is a pointer to a byte.
-
-a byte# is a number.
-
-the c-key is a key equal to 67.
-
-the cancel byte is a byte equal to 24.
 
 a canvas is an hdc.
 
@@ -688,15 +486,7 @@ to capitalize a text:
   repeat.
   wrap the text.
 
-the caps key is a key equal to 20.
-
-the caret byte is a byte equal to 94.
-
 a caret is a position.
-
-the cedilla byte is a byte equal to 184.
-
-the cent-sign byte is a byte equal to 162.
 
 to center a box in another box:
   center the box in the other box (horizontally).
@@ -856,18 +646,11 @@ to change a text given a font name:
   put the font name into the text's font's name.
   wrap the text.
 
-a character is a byte.
-
-the circumflex byte is a byte equal to 136.
-
 to clear a box:
   put 0 into the box's left.
   put 0 into the box's top.
   put 0 into the box's right.
   put 0 into the box's bottom.
-
-to clear a byte:
-  put the null byte into the byte.
 
 to clear an ellipse:
   clear the ellipse's box.
@@ -881,8 +664,6 @@ to clear a font:
 to clear an ip address:
   clear the ip address' number.
   clear the ip address' string.
-
-the clear key is a key equal to 12.
 
 to clear a line:
   clear the line's start.
@@ -929,11 +710,7 @@ to cluck:
 
 the cluck sound is a wave equal to $524946463A02000057415645666D74201200000001000100401F0000401F000001000800000066616374040000000702000064617461070200007F7F807F7F807F7F808080807F807F7F80817F81817E7E827E7D847C79877D5F6D99B2A25D608269A5979869667F7D8D738C7D8C5E7E878F767A75868D84797278829A7D7E857A73929271657492907D7E7D787E8B887C758388827E817F7C7B89897C7A7E84838183827E7A8488877D7E8181808484817C7F84838181807E7F8283807E8081808182807F7F81818081807F7F8081818080807F7F808180807F80808080807F8080807F8080808080807F7F7F7F7F8080807F7F7F7C7B8182817C7B7D7E8082807D7D7C7F8281807F7C7D808082807E7E7E7D7E807D7B7C7B7D7D7B7A7979797875727269797A490F4571FFF4FF0C001297FBF492525BB0F5B26A001C69BEE5BA76476F9EBD953C3757BAC9BB705C7F9AA883645D7897AA9B806977959588696976999B83766F828C907F7375828E91877B757D868B837A757C858D8880787B8187847B7A7D8788807B79808486817D7C7F8384817D7C7F8484817B7B7D83847F7C7B7E8182827D7C7C8082817D7C7D7F81807F7D7D7F82817F7B7B7E8081807E7D7D7F80807E7D7D7E80807E7D7D7E7F807F7D7D7E7F807F7E7D7E7E80807F7E7D7E80807F7E7E7E7F7F7E7E7E7F7F7F7F7E7E7F7F807F7F7E7E7E7F8080807E7E7E80807F7E7E7F8081807F7F7E7F7F80807F7E7F8081807F7E7E7E80808080807F807F7F7F7F7F7F7F80808080807F7F7F808080807F80808180807F80808100.
 
-the colon byte is a byte equal to 58.
-
 a column# is a number.
-
-the comma byte is a byte equal to 44.
 
 to compare a string to another string given a length and another length (equal only):
   intel $8BB508000000. \ mov esi,[ebp+8] \ the string
@@ -1648,8 +1425,6 @@ to copy some vertices into some other vertices:
   append the other vertex to the other vertices.
   repeat.
 
-the copyright byte is a byte equal to 169.
-
 a count is a number.
 
 a counter is an number.
@@ -2013,34 +1788,16 @@ to create a winhttp request for posting to a url:
   create the request handle of the winhttp request using the url record.
   if the i/o error is not blank, destroy the winhttp request; exit.
 
-the crlf string is a string equal to $0D0A.
-
-the cross byte is a byte equal to 43.
-
 a crypt session is a thing with
   an hcryptprov pointer,
   an hcrypthash pointer,
   an hcryptkey pointer.
-
-the ctrl key is a key equal to 17.
-
-the currency-sign byte is a byte equal to 164.
 
 the current canvas is a canvas.
 
 the current event is an event.
 
 a cursor is a handle.
-
-the d-key is a key equal to 68.
-
-the dagger byte is a byte equal to 134.
-
-the dash byte is a byte equal to 45.
-
-the dash key is a key equal to 189.
-
-the data-link-escape byte is a byte equal to 16.
 
 a date/time has
   a year number,
@@ -2078,11 +1835,6 @@ to debug a box:
   append the box's right to the string.
   append ", bottom=" to the string.
   append the box's bottom to the string.
-  debug the string.
-
-to debug a byte:
-  put the byte into a number.
-  convert the number to a string.
   debug the string.
 
 to debug a flag:
@@ -2186,104 +1938,12 @@ to decide if a box is touching another box:
   if the other box's top is greater than the box's bottom, say no.
   say yes.
 
-to decide if a byte is alphanumeric:
-  if the byte is any letter, say yes.
-  if the byte is any digit, say yes.
-  say no.
-
-to decide if a byte is another byte:
-  intel $C7C001000000. \ mov eax,1 \ assume true
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $8A1B. \ mov bl,[ebx]
-  intel $8B8D0C000000. \ mov ecx,[ebp+12] \ the other byte
-  intel $3A19. \ cmp bl,[ecx]
-  intel $0F8406000000. \ je over the next 1 statement
-  intel $C7C000000000. \ mov eax,0 \ now it's false
-
-to decide if a byte is another byte or a third byte:
-  if the byte is the other byte, say yes.
-  if the byte is the third byte, say yes.
-  say no.
-
-to decide if a byte is any consonant:
-  if the byte is in "bcdfghjklmnpqrstvwxyz", say yes.
-  say no.
-
-to decide if a byte is any digit:
-  if the byte is less than the zero byte, say no.
-  if the byte is greater than the nine byte, say no.
-  say yes.
-
-to decide if a byte is any letter:
-  if the byte is between the big-a byte and the big-z byte, say yes.
-  if the byte is between the little-a byte and the little-z byte, say yes.
-  if the byte is 131 or 138, say yes. 
-  if the byte is 140 or 142, say yes. 
-  if the byte is 154 or 156, say yes. 
-  if the byte is between 158 and 159, say yes.
-  if the byte is between 192 and 214, say yes.
-  if the byte is between 216 and 246, say yes.
-  if the byte is between 248 and 255, say yes.
-  say no.
-
-to decide if a byte is any numeric starter:
-  if the byte is any digit, say yes.
-  if the byte is any sign, say yes.
-  say no.
-
-to decide if a byte is any sign:
-  if the byte is the dash byte, say yes.
-  if the byte is the cross byte, say yes.
-  say no.
-
 to decide if a byte is any valid drive:
   put the byte into a path.
   append ":\" to the path.
   get a drive kind for the path.
   if the drive kind is "", say no.
   say yes.
-
-to decide if a byte is any vowel:
-  if the byte is in "aeiou", say yes.
-\  if the byte is "y", say sometimes. \ ha ha ha
-  say no.
-
-to decide if a byte is between another byte and a third byte:
-  if the byte is less than the other byte, say no.
-  if the byte is greater than the third byte, say no.
-  say yes.
-
-to decide if a byte is between a number and another number:
-  if the byte is less than the number, say no.
-  if the byte is greater than the other number, say no.
-  say yes.
-
-to decide if a byte is greater than another byte:
-  intel $C7C001000000. \ mov eax,1 \ assume true
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $8A1B. \ mov bl,[ebx]
-  intel $8B8D0C000000. \ mov ecx,[ebp+12] \ the other byte
-  intel $3A19. \ cmp bl,[ecx]
-  intel $0F8706000000. \ ja over the next 1 statement
-  intel $C7C000000000. \ mov eax,0 \ now it's false
-
-to decide if a byte is greater than a number:
-  intel $C7C001000000. \ mov eax,1 \ assume true
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $0FB61B. \ movzx ebx,byte ptr [ebx]
-  intel $8B8D0C000000. \ mov ecx,[ebp+12] \ the number
-  intel $3B19. \ cmp ebx,[ecx]
-  intel $0F8F06000000. \ jg over the next 1 statement
-  intel $C7C000000000. \ mov eax,0 \ now it's false
-
-to decide if a byte is greater than or equal to another byte:
-  intel $C7C001000000. \ mov eax,1 \ assume true
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $8A1B. \ mov bl,[ebx]
-  intel $8B8D0C000000. \ mov ecx,[ebp+12] \ the other byte
-  intel $3A19. \ cmp bl,[ecx]
-  intel $0F8306000000. \ ja over the next 1 statement
-  intel $C7C000000000. \ mov eax,0 \ now it's false
 
 to decide if a byte is in a string:
   privatize the byte.
@@ -2297,74 +1957,6 @@ to decide if a byte is in a string:
   add 1 to the substring's first.
   repeat.
 
-to decide if a byte is less than another byte:
-  intel $C7C001000000. \ mov eax,1 \ assume true
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $8A1B. \ mov bl,[ebx]
-  intel $8B8D0C000000. \ mov ecx,[ebp+12] \ the other byte
-  intel $3A19. \ cmp bl,[ecx]
-  intel $0F8206000000. \ jb over the next 1 statement
-  intel $C7C000000000. \ mov eax,0 \ now it's false
-
-to decide if a byte is less than a number:
-  intel $C7C001000000. \ mov eax,1 \ assume true
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $0FB61B. \ movzx ebx,byte ptr [ebx]
-  intel $8B8D0C000000. \ mov ecx,[ebp+12] \ the number
-  intel $3B19. \ cmp ebx,[ecx]
-  intel $0F8C06000000. \ jl over the next 1 statement
-  intel $C7C000000000. \ mov eax,0 \ now it's false
-
-to decide if a byte is less than or equal to another byte:
-  intel $C7C001000000. \ mov eax,1 \ assume true
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $8A1B. \ mov bl,[ebx]
-  intel $8B8D0C000000. \ mov ecx,[ebp+12] \ the other byte
-  intel $3A19. \ cmp bl,[ecx]
-  intel $0F8606000000. \ jbe over the next 1 statement
-  intel $C7C000000000. \ mov eax,0 \ now it's false
-
-to decide if a byte is like another byte: \ used internally for word wrap
-   if the byte is whitespace, set a flag.
-   if the other byte is whitespace, set another flag.
-   if the flag is the other flag, say yes.
-   say no.
-
-to decide if a byte is noise:
-  if the byte is less than or equal to the space byte, say yes.
-  if the byte is the delete byte, say yes.
-  if the byte is the non-breaking-space byte, say yes.
-  if the byte is 129, say yes.
-  if the byte is 141, say  yes.
-  if the byte is 143, say yes.
-  if the byte is 144, say yes.
-  if the byte is 157, say yes.
-  say no.
-
-to decide if a byte is a number:
-  intel $C7C001000000. \ mov eax,1 \ assume true
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $0FB61B. \ movzx ebx,byte ptr [ebx]
-  intel $8B8D0C000000. \ mov ecx,[ebp+12] \ the number
-  intel $3B19. \ cmp ebx,[ecx]
-  intel $0F8406000000. \ je over the next 1 statement
-  intel $C7C000000000. \ mov eax,0 \ now it's false
-
-to decide if a byte is a number or another number:
-  if the byte is the number, say yes.
-  if the byte is the other number, say yes.
-  say no.
-
-to decide if a byte is printable:
-  if the byte is less than the space byte, say no.
-  if the byte is the delete byte, say no.
-  if the byte is 129, say no.
-  if the byte is 141, say no.
-  if the byte is 143, say no.
-  if the byte is 144, say no.
-  if the byte is 157, say no.
-  say yes.
-
 to decide if a byte is a string:
   if the string's length is not 1, say no.
   privatize the byte.
@@ -2372,30 +1964,6 @@ to decide if a byte is a string:
   put the string's first's target into another byte.
   lowercase the other byte.
   if the byte is the other byte, say yes.
-  say no.
-
-to decide if a byte is symbolic:
-  if the byte is between the exclamation byte and the slash byte, say yes.
-  if the byte is between the colon byte and the at-sign byte, say yes.
-  if the byte is between the left-bracket byte and the accent byte, say yes.
-  if the byte is between the left-brace byte and the tilde byte, say yes.
-  if the byte is 128, say yes.
-  if the byte is 130, say yes.
-  if the byte is between 132 and 137, say yes.
-  if the byte is 139, say yes.
-  if the byte is between 145 and 153, say yes.
-  if the byte is 155, say yes.
-  if the byte is between 161 and 180, say yes.
-  if the byte is between 183 and 191, say yes.
-  if the byte is 215, say yes.
-  if the byte is 247, say yes.
-  say no.
-
-to decide if a byte is whitespace:
-  if the byte is the space byte, say yes.
-  if the byte is the tab byte, say yes.
-  if the byte is the return byte, say yes.
-  if the byte is the linefeed byte, say yes.
   say no.
 
 to decide if the caret of a text is at the beginning:
@@ -2460,37 +2028,6 @@ to decide if an index is empty:
 
 to decide if an item is found:
   if the item's kind is not blank, say yes.
-  say no.
-
-to decide if a key is any digit key:
-  if the key is between 48 and 57, say yes.
-  say no.
-
-to decide if a key is any letter key:
-  if the key is between 65 and 90, say yes.
-  say no.
-
-to decide if a key is any modifier key:
-  if the key is the alt key,   say yes.
-  if the key is the ctrl key,  say yes.
-  if the key is the shift key, say yes.
-  say no.
-
-to decide if a key is any pad key:
-  if the key is between 96 and 111, say yes.
-  say no.
-
-to decide if a key is any printable key:
-  if the key is the space key,  say yes.
-  if the key is any digit key,  say yes.
-  if the key is any letter key, say yes.
-  if the key is any pad key,    say yes.
-  if the key is any symbol key, say yes.
-  say no.
-
-to decide if a key is any symbol key:
-  if the key is between 186 and 192, say yes.
-  if the key is between 219 and 222, say yes.
   say no.
 
 to decide if a key is any wm-char key:
@@ -3147,12 +2684,6 @@ the default font is a font.
 
 the default smtp server is "localhost".
 
-the degree-symbol byte is a byte equal to 176.
-
-the delete byte is a byte equal to 127.
-
-the delete key is a key equal to 46.
-
 to deque an event:
   yield to windows.
   put the event queue's first into the event.
@@ -3261,14 +2792,6 @@ to destroy a winhttp request:
   call "winhttp.dll" "WinHttpCloseHandle" with the winhttp request's session.
   deallocate the winhttp request.
 
-the device-control-four byte is a byte equal to 20.
-
-the device-control-one byte is a byte equal to 17.
-
-the device-control-three byte is a byte equal to 19.
-
-the device-control-two byte is a byte equal to 18.
-
 a devmode is a record with
   32 bytes called dmdevicename,
   a wyrd called dmspecversion,
@@ -3302,8 +2825,6 @@ a devmode is a record with
   a number called dmdithertype,
   a number called dmreserved1,
   a number called dmreserved2.
-
-the diaeresis byte is a byte equal to 168.
 
 a difference is a pair.
 
@@ -3367,22 +2888,12 @@ to divide a ratio by a number:
   multiply the ratio's denominator by the number.
   reduce the ratio.
 
-the division-symbol byte is a byte equal to 247.
-
 a docinfo is a record with
   a number called cbsize,
   a pointer called lpszdocname,
   a pointer called lpszoutput,
   a pointer called lpszdatadtype,
   a number called fwtype.
-
-the dollar-sign byte is a byte equal to 36.
-
-the double-dagger byte is a byte equal to 135.
-
-the double-quote byte is a byte equal to 34.
-
-the down-arrow key is a key equal to 40.
 
 to draw any visible rows of a text:
   if the text is nil, exit.
@@ -3858,17 +3369,7 @@ a dyad is a thing with
   a name,
   a value string.
 
-the e-key is a key equal to 69.
-
-the eight byte is a byte equal to 56.
-
-the eight key is a key equal to 56.
-
 an ellipse has a box.
-
-the ellipsis byte is a byte equal to 133.
-
-the em-dash byte is a byte equal to 151.
 
 an email has
   a smtp server,
@@ -3876,8 +3377,6 @@ an email has
   a recipient,
   a subject,
   a message.
-
-the en-dash byte is a byte equal to 150.
 
 to encrypt a buffer given a passphrase string: \ sets i/o error if failure
   clear the i/o error.
@@ -3891,8 +3390,6 @@ to encrypt a buffer given a passphrase string: \ sets i/o error if failure
   destroy the crypt session.
   convert the temp buffer to a nibble string.
   put the nibble string into the buffer.
-
-the end key is a key equal to 35.
 
 to end printing:
   if the pdf state's document flag is set, end printing (pdf style); exit.
@@ -4087,30 +3584,8 @@ to end a sheet (pdf style):
   end the sheet (pdf style - finish the current page).
   end the sheet (pdf style - finish the current contents).
 
-the end-of-medium byte is a byte equal to 25.
-
-the end-of-text byte is a byte equal to 3.
-
-the end-of-transmission byte is a byte equal to 4.
-
-the end-of-transmission-block byte is a byte equal to 23.
-
 to enque an event:
   append the event to the event queue.
-
-the enquiry byte is a byte equal to 5.
-
-the enter key is a key equal to 13.
-
-the equal-sign byte is a byte equal to 61.
-
-the equal-sign key is a key equal to 187.
-
-the escape byte is a byte equal to 27.
-
-the escape key is a key equal to 27.
-
-the euro-sign byte is a byte equal to 128.
 
 an event is a thing with
   a kind,
@@ -4123,8 +3598,6 @@ an event is a thing with
 the event queue is an event queue.
 
 an event queue is some events.
-
-the exclamation byte is a byte equal to 33.
 
 to extend any selection in a text given a spot:
   if the text is nil, exit.
@@ -4257,41 +3730,11 @@ to extract a string from a text (selected bytes):
   if the substring's last's target is the return byte, append the linefeed byte to the string.
   repeat.
 
-the f-key is a key equal to 70.
-
-the f1-key is a key equal to 112.
-
-the f10-key is a key equal to 121.
-
-the f11-key is a key equal to 122.
-
-the f12-key is a key equal to 123.
-
-the f2-key is a key equal to 113.
-
-the f3-key is a key equal to 114.
-
-the f4-key is a key equal to 115.
-
-the f5-key is a key equal to 116.
-
-the f6-key is a key equal to 117.
-
-the f7-key is a key equal to 118.
-
-the f8-key is a key equal to 119.
-
-the f9-key is a key equal to 120.
-
-the feminine byte is a byte equal to 170.
-
 a file is a handle.
 
 a file name is a string. \ after the last slash to end of path = file.ext
 
 a file name w/o extension is a string. \ after the last slash to last dot or end of path = file
-
-the file-separator byte is a byte equal to 28.
 
 a filetime is a record with
   a number called dwlowdatetime,
@@ -4536,10 +3979,6 @@ to find a value string given the environment variables and a name:
 
 a finger is a byte pointer.
 
-the five byte is a byte equal to 53.
-
-the five key is a key equal to 53.
-
 a flag has 4 bytes.
 
 to flip the gpbitmap in a picture:
@@ -4613,19 +4052,11 @@ some font widths is a thing with \ used for pdf conversion
 
 an foot is 12 inches.
 
-the form-feed byte is a byte equal to 12.
-
 to format a number and a singular string or a plural string into a string:
   convert the number to the string.
   append the space byte to the string.
   if the number is 1, append the singular to the string.
   if the number is not 1, append the plural to the string.
-
-the four byte is a byte equal to 52.
-
-the four key is a key equal to 52.
-
-the g-key is a key equal to 71.
 
 a gcd is a number.
 
@@ -5091,8 +4522,6 @@ a gptoken is a number.
 
 a grid is a pair.
 
-the group-separator byte is a byte equal to 29.
-
 to guarantee one row in a text:
   if the text is nil, exit.
   if the text's rows are not empty, exit.
@@ -5101,8 +4530,6 @@ to guarantee one row in a text:
   renumber the text's rows.
 
 a guid is a uuid.
-
-the h-key is a key equal to 72.
 
 the hand cursor is a cursor.
 
@@ -5612,8 +5039,6 @@ to hide the cursor:
   if the number is less than 0, exit.
   repeat.
 
-the home key is a key equal to 36.
-
 an hour is 60 minutes.
 
 an hpen is a handle.
@@ -5623,8 +5048,6 @@ an hrgn is a handle.
 a hundred is 100 units.
 
 the i-beam cursor is a cursor.
-
-the i-key is a key equal to 73.
 
 the i/o error is a string.
 
@@ -5928,8 +5351,6 @@ to insert a byte into a text:
   put the byte into a string.
   insert the string into the text.
 
-the insert key is a key equal to 45.
-
 to insert a spot into a polygon after a vertex:
   if the polygon is nil, exit.
   create another vertex given the spot.
@@ -6044,10 +5465,6 @@ to invert a flag:
   if the flag is yes, put no into the flag; exit.
   put yes into the flag.
 
-the inverted-exclamation-mark byte is a byte equal to 161.
-
-the inverted-question-mark byte is a byte equal to 191.
-
 a in_addr is a record with
   a byte called s_b1,
   a byte called s_b2,
@@ -6091,8 +5508,6 @@ an item has
   a size,
   a win32finddata and a handle.
 
-the j-key is a key equal to 74.
-
 to jump the caret left in a text:
   if the text is nil, exit.
   move the caret left to any non-noise byte in the text.
@@ -6117,15 +5532,9 @@ to jump the caret right in a text:
     move the caret right to any non-symbolic byte in the text.
   move the caret right to any non-noise byte in the text.
 
-the k-key is a key equal to 75.
-
-a key is a number.
-
 a kilobyte is 1024 units.
 
 a kind is a string.
-
-the l-key is a key equal to 76.
 
 a l-param is a number.
 
@@ -6134,26 +5543,6 @@ a landscape sheet is a sheet.
 the largest number is 2147483647.
 
 an lcm is a number.
-
-the left-alligator byte is a byte equal to 60.
-
-the left-alligator-quote byte is a byte equal to 139.
-
-the left-arrow key is a key equal to 37.
-
-the left-brace byte is a byte equal to 123.
-
-the left-bracket byte is a byte equal to 91.
-
-the left-double-alligator-quote byte is a byte equal to 171.
-
-the left-double-quote byte is a byte equal to 147.
-
-the left-paren byte is a byte equal to 40.
-
-the left-single-quote byte is a byte equal to 145.
-
-the left-window key is a key equal to 91.
 
 a length is a number.
 
@@ -6198,132 +5587,6 @@ to limit some texts to a count:
   repeat.
 
 a line has a start spot and an end spot.
-
-the linefeed byte is a byte equal to 10.
-
-the little-a byte is a byte equal to 97.
-
-the little-a-acute byte is a byte equal to 225.
-
-the little-a-circumflex byte is a byte equal to 226.
-
-the little-a-diaeresis byte is a byte equal to 228.
-
-the little-a-grave byte is a byte equal to 224.
-
-the little-a-ring byte is a byte equal to 229.
-
-the little-a-tilde byte is a byte equal to 227.
-
-the little-ae byte is a byte equal to 230.
-
-the little-b byte is a byte equal to 98.
-
-the little-c byte is a byte equal to 99.
-
-the little-c-cedilla byte is a byte equal to 231.
-
-the little-d byte is a byte equal to 100.
-
-the little-e byte is a byte equal to 101.
-
-the little-e-acute byte is a byte equal to 233.
-
-the little-e-circumflex byte is a byte equal to 234.
-
-the little-e-diaeresis byte is a byte equal to 235.
-
-the little-e-grave byte is a byte equal to 232.
-
-the little-eth byte is a byte equal to 240.
-
-the little-f byte is a byte equal to 102.
-
-the little-f-hook byte is a byte equal to 131.
-
-the little-g byte is a byte equal to 103.
-
-the little-h byte is a byte equal to 104.
-
-the little-i byte is a byte equal to 105.
-
-the little-i-acute byte is a byte equal to 237.
-
-the little-i-circumflex byte is a byte equal to 238.
-
-the little-i-diaeresis byte is a byte equal to 239.
-
-the little-i-grave byte is a byte equal to 236.
-
-the little-j byte is a byte equal to 106.
-
-the little-k byte is a byte equal to 107.
-
-the little-l byte is a byte equal to 108.
-
-the little-m byte is a byte equal to 109.
-
-the little-n byte is a byte equal to 110.
-
-the little-n-tilde byte is a byte equal to 241.
-
-the little-o byte is a byte equal to 111.
-
-the little-o-acute byte is a byte equal to 243.
-
-the little-o-circumflex byte is a byte equal to 244.
-
-the little-o-diaeresis byte is a byte equal to 246.
-
-the little-o-grave byte is a byte equal to 242.
-
-the little-o-stroke byte is a byte equal to 248.
-
-the little-o-tilde byte is a byte equal to 245.
-
-the little-oe byte is a byte equal to 156.
-
-the little-p byte is a byte equal to 112.
-
-the little-q byte is a byte equal to 113.
-
-the little-r byte is a byte equal to 114.
-
-the little-s byte is a byte equal to 115.
-
-the little-s-caron byte is a byte equal to 154.
-
-the little-t byte is a byte equal to 116.
-
-the little-thorn byte is a byte equal to 254.
-
-the little-tilde byte is a byte equal to 152.
-
-the little-u byte is a byte equal to 117.
-
-the little-u-acute byte is a byte equal to 250.
-
-the little-u-circumflex byte is a byte equal to 251.
-
-the little-u-diaeresis byte is a byte equal to 252.
-
-the little-u-grave byte is a byte equal to 249.
-
-the little-v byte is a byte equal to 118.
-
-the little-w byte is a byte equal to 119.
-
-the little-x byte is a byte equal to 120.
-
-the little-y byte is a byte equal to 121.
-
-the little-y-acute byte is a byte equal to 253.
-
-the little-y-diaeresis byte is a byte equal to 255.
-
-the little-z byte is a byte equal to 122.
-
-the little-z-caron byte is a byte equal to 158.
 
 to load the lexicon:
   if the lexicon is not nil, exit.
@@ -6373,10 +5636,6 @@ a logbrush has
   a colorref called lbcolor,
   a number called lbhatch.
 
-the lower-double-quote byte is a byte equal to 132.
-
-the lower-single-quote byte is a byte equal to 130.
-
 to lowercase any selected bytes in a text:
   if the text is nil, exit.
   loop.
@@ -6386,15 +5645,6 @@ to lowercase any selected bytes in a text:
   slap a substring on any selected bytes in the row of the text.  
   lowercase the substring.
   repeat.
-
-to lowercase a byte:
-  intel $8B8508000000. \ mov eax,[ebp+8] \ the byte
-  intel $803841. \ cmp byte ptr [eax],'A'
-  intel $0F820C000000. \ jb END
-  intel $80385A. \ cmp byte ptr [eax],'Z'
-  intel $0F8703000000. \ ja END
-  intel $800020. \ add byte ptr [eax],$20
-  \ END
 
 to lowercase the character under a finger and put it into a string:
   if the finger is nil, exit.
@@ -6417,8 +5667,6 @@ to lowercase a text:
   lowercase the row's string.
   repeat.
   wrap the text.
-
-the m-key is a key equal to 77.
 
 the main window is a window.
 
@@ -6480,8 +5728,6 @@ to make a spot with an x coord and a y coord:
   put the x coord and the y coord into the spot.
 
 a margin is a number.
-
-the masculine byte is a byte equal to 186.
 
 to mask inside a box:
   create an hrgn given the box.
@@ -6569,11 +5815,7 @@ a megabyte is 1024 kilobytes.
 
 the memory canvas is a canvas.
 
-the menu key is a key equal to 93.
-
 a message is a string.
-
-the micro byte is a byte equal to 181.
 
 a million is 1000 thousands.
 
@@ -7055,8 +6297,6 @@ a msg is a record with
   a number called time,
   a spot called pt.
 
-the multiplication-symbol byte is a byte equal to 215.
-
 to multiply a number by another number:
   intel $8B8508000000. \ mov eax,[ebp+8] \ the number
   intel $8B00. \ mov eax,[eax]
@@ -7090,8 +6330,6 @@ to multiply a ratio by a number:
   multiply the ratio's numerator by the number.
   reduce the ratio.
 
-the n-key is a key equal to 78.
-
 a name is a string.
 
 to negate a number:
@@ -7105,17 +6343,9 @@ to negate a pair:
 to negate a ratio:
   negate the ratio's numerator.
 
-the negative-acknowledge byte is a byte equal to 21.
-
 a nibble is a byte. \ only low order 4 bits are valid
 
 a nibble string is a string. \ $0010A0...
-
-the nine byte is a byte equal to 57.
-
-the nine key is a key equal to 57.
-
-the non-breaking-space byte is a byte equal to 160.
 
 to non-destructively resize a picture given a ratio pair:
   if the picture is nil, exit.
@@ -7171,10 +6401,6 @@ to normalize a text:
   if the text is nil, exit.
   normalize the text's box.
 
-the not byte is a byte equal to 172.
-
-the null byte is a byte equal to 0.
-
 the null hbrush is an hbrush.
 
 the null hfont is an hfont.
@@ -7203,51 +6429,7 @@ a number has
 
 a number pointer is a pointer to a number.
 
-the number-sign byte is a byte equal to 35.
-
-the numlock key is a key equal to 144.
-
-the numpad-astrisk key is a key equal to 106.
-
-the numpad-cross key is a key equal to 107.
-
-the numpad-dash key is a key equal to 109.
-
-the numpad-eight key is a key equal to 104.
-
-the numpad-five key is a key equal to 101.
-
-the numpad-four key is a key equal to 100.
-
-the numpad-nine key is a key equal to 105.
-
-the numpad-one key is a key equal to 97.
-
-the numpad-period key is a key equal to 110.
-
-the numpad-seven key is a key equal to 103.
-
-the numpad-six key is a key equal to 102.
-
-the numpad-slash key is a key equal to 111.
-
-the numpad-three key is a key equal to 99.
-
-the numpad-two key is a key equal to 98.
-
-the numpad-zero key is a key equal to 96.
-
-the o-key is a key equal to 79.
-
 an offset is a number.
-
-the one byte is a byte equal to 49.
-
-the one key is a key equal to 49.
-
-the one-half byte is a byte equal to 189.
-
-the one-quarter byte is a byte equal to 188.
 
 to open a file given a path:
   clear the i/o error.
@@ -7411,13 +6593,7 @@ to output stroke and fill given a border color and a fill color:
   if the border is clear, put "f" into the string. \ fill
   output the string.
 
-the p-key is a key equal to 80.
-
 a pabc is a pointer to an abc.
-
-the page-down key is a key equal to 34.
-
-the page-up key is a key equal to 33.
 
 a paintstruct is a record with
   an hdc called hdc,
@@ -7441,11 +6617,7 @@ a panose is a record with
   a byte called bmidline,
   a byte called bxheight.
 
-the paragraph byte is a byte equal to 182.
-
 a path is a string. \ complete name = c:\folder1\folder2\file.ext
-
-the pause key is a key equal to 19.
 
 a pchar is a byte pointer.
 
@@ -7493,13 +6665,7 @@ the pdf state is a pdf state.
 
 a pdf string is a string. \ string surrounded by ( ) and has \( for left paren, \) for right paren, \\ for backslash
 
-the per-mille-sign byte is a byte equal to 137.
-
 a percent is a number. \ a scale with 100 in the denominator
-
-the percent-sign byte is a byte equal to 37.
-
-the period byte is a byte equal to 46.
 
 to pick a number:
   pick the number between 0 and the largest number. 
@@ -7563,8 +6729,6 @@ to play a wave file and wait:
   null terminate the wave file.
   call "winmm.dll" "PlaySound" with the wave file's first and 0 and 131072 [snd_filename+snd_sync].
 
-the plus-or-minus byte is a byte equal to 177.
-
 a pointer has 4 bytes.
 
 a polygon is a thing with some vertices.
@@ -7595,8 +6759,6 @@ to post a data string to a url and receive a response string: \ only works with 
   read the response from the winhttp request.
   if the i/o error is not blank, destroy the winhttp request; exit.
   destroy the winhttp request.
-
-the pound-sign byte is a byte equal to 163.
 
 a poutlinetextmetric is a pointer to an outlinetextmetric.
 
@@ -7633,8 +6795,6 @@ to prepend some things to some other things:
   remove the thing from the things.
   prepend the thing to the other things.
   repeat.
-
-the print-screen key is a key equal to 44.
 
 a printdlgex is a record with
   a number called lstructsize,
@@ -7760,16 +6920,6 @@ to put a box's y-extent into a height:
 to put a byte and a number into a ratio:
   put the byte into the ratio's numerator.
   put the number into the ratio's denominator.
-
-to put a byte into another byte:
-  intel $8B8508000000. \ mov eax,[ebp+8] \ the byte
-  intel $8A00. \ mov al,[eax]
-  intel $8B9D0C000000. \ mov ebx,[ebp+12] \ the other byte
-  intel $8803. \ mov [ebx],al
-
-to put a byte into eax:
-  intel $8B9D08000000. \ mov ebx,[ebp+8] \ the byte
-  intel $0FB603. \ movzx eax,byte ptr [ebx]
 
 to put a byte into a number:
   intel $8B8508000000. \ mov eax,[ebp+8] \ the byte
@@ -8334,13 +7484,9 @@ to put an x coord and a y coord and another x coord and another y coord into a l
   put the other x into the line's end's x.
   put the other y into the line's end's y.
 
-the q-key is a key equal to 81.
-
 a query byte is a query string.
 
 a query string is a string.
-
-the question-mark byte is a byte equal to 63.
 
 to quote a string: \ inserts leading, trailing and nested double-quotes
   put the double-quote byte into another string.
@@ -8355,8 +7501,6 @@ to quote a string: \ inserts leading, trailing and nested double-quotes
   put the other string into the string.
 
 a quotient is a number.
-
-the r-key is a key equal to 82.
 
 a radius is some twips.
 
@@ -8526,8 +7670,6 @@ to receive the response from a winhttp request:
 
 a recipient is a string.
 
-the record-separator byte is a byte equal to 30.
-
 to reduce a ratio:
   get a gcd given the ratio's numerator and the ratio's denominator.
   divide the ratio's numerator by the gcd.
@@ -8550,10 +7692,6 @@ to refresh the screen:
 to refresh the screen given a box:
   call "gdi32.dll" "BitBlt" with the screen canvas and the box's left and the box's top and the box's width and the box's height 
    and the current canvas and the box's left and the box's top and 13369376 [srccopy].
-
-the registered byte is a byte equal to 174.
-
-the registered-trade-mark byte is a byte equal to 174.
 
 to relinquish control:
   flush the event queue.
@@ -8869,8 +8007,6 @@ to restore a canvas:
 to restore a window:
   call "user32.dll" "ShowWindow" with the window and 9 [sw_restore].
 
-the return byte is a byte equal to 13.
-
 to reverse any selected rows of a text:
   if the text is nil, exit.
   split the rows of the text into some rows and some selected rows and some other rows.
@@ -8892,37 +8028,10 @@ to reverse some things:
   move the thing from the other things to the things.
   repeat.
 
-a rgb is a record with
-  a byte called blue byte,
-  a byte called green byte,
-  a byte called red byte.
-
-a rgb pointer is a pointer to a rgb.
-
 a rider has \ fix "bump a rider" if you change me
   an original substring,
   a source substring and 
   a token substring.
-
-the right-alligator byte is a byte equal to 62.
-
-the right-alligator-quote byte is a byte equal to 155.
-
-the right-arrow key is a key equal to 39.
-
-the right-brace byte is a byte equal to 125.
-
-the right-bracket byte is a byte equal to 93.
-
-the right-double-alligator-quote byte is a byte equal to 187.
-
-the right-double-quote byte is a byte equal to 148.
-
-the right-paren byte is a byte equal to 41.
-
-the right-single-quote byte is a byte equal to 146.
-
-the right-window key is a key equal to 92.
 
 to rotate a box:
   put the box's center into a center spot.
@@ -9042,8 +8151,6 @@ a roundy box is a box with
 a row is a thing with a row# and a string.
 
 a row# is a number.
-
-the s-key is a key equal to 83.
 
 to save a canvas:
   call "gdi32.dll" "SaveDC" with the canvas.
@@ -9261,11 +8368,7 @@ to scroll a text up one page:
   subtract the text's row height from the text's y.
   limit the origin of the text.
 
-the scrolllock key is a key equal to 145.
-
 a second is 1000 milliseconds.
-
-the sector byte is a byte equal to 167.
 
 a sector is a pair with an x coord and an y coord [indicating the left-top of the sector].
 
@@ -9293,8 +8396,6 @@ a selection box is a box.
 a selection has 
   an anchor column#, an anchor row#, an anchor at the anchor column#,
   a caret column#, a caret row#, a caret at the caret column#.
-
-the semi-colon byte is a byte equal to 59.
 
 to send a buffer to a socket:
   clear the i/o error.
@@ -9437,12 +8538,6 @@ to set a path to read-write mode:
   bitwise and the number with -2 [everything except file_attribute_readonly].
   call "kernel32.dll" "SetFileAttributesA" with the path's first and the number.
 
-the seven byte is a byte equal to 55.
-
-the seven key is a key equal to 55.
-
-the sharp-s byte is a byte equal to 223.
-
 a sheet is a box.
 
 to shift a byte left some bits:
@@ -9456,8 +8551,6 @@ to shift a byte right some bits:
   intel $8B09. \ mov ecx,[ecx]
   intel $8B8508000000. \ mov eax,[ebp+8] \ the byte
   intel $D228. \ shr byte pointer [eax],ecx
-
-the shift key is a key equal to 16.
 
 to shift a number left some bits:
   intel $8B8D0C000000. \ mov ecx,[ebp+12] \ the bits
@@ -9482,10 +8575,6 @@ to shift a wyrd right some bits:
   intel $8B09. \ mov ecx,[ecx]
   intel $8B8508000000. \ mov eax,[ebp+8] \ the wyrd
   intel $66D328. \ shr word ptr [eax],ecx
-
-the shift-in byte is a byte equal to 15.
-
-the shift-out byte is a byte equal to 14.
 
 to show a console:
   if the console is nil, exit.
@@ -9522,14 +8611,6 @@ to shut down the cgi:
   finalize winsock.
 
 the silent flag is a flag.
-
-the single-quote byte is a byte equal to 39.
-
-the six byte is a byte equal to 54.
-
-the six key is a key equal to 54.
-
-a size is a number.
 
 to skip any leading linefeed byte in a substring:
   if the substring is blank, exit.
@@ -9593,10 +8674,6 @@ to slap a substring on a string:
   intel $8B8B04000000. \ mov ecx,[ebx+4] \ the string's last
   intel $898804000000. \ mov [eax+4],ecx \ the substring's last
 
-the slash byte is a byte equal to 47.
-
-the small-bullet byte is a byte equal to 183.
-
 the smallest number is -2147483648.
 
 to smooth a polygon:
@@ -9633,8 +8710,6 @@ a sockaddrptr is a pointer to a sockaddr.
 
 a socket is a pointer.
 
-the soft-dash byte is a byte equal to 173.
-
 to sort any selected rows in a text:
   if the text is nil, exit.
   split the rows of the text into some rows and some selected rows and some other rows.
@@ -9657,12 +8732,6 @@ to sort some rows:
   if the left row's string is greater than the right row's string, move the right row from the right rows to the rows; repeat.
   move the left row from the left rows to the rows.
   repeat.
-
-the space byte is a byte equal to 32.
-
-the space key is a key equal to 32.
-
-the space string is a string equal to " ".
 
 to speak a string:
   if the silent flag is set, exit.
@@ -9838,10 +8907,6 @@ to start up the cgi:
   initialize the module.
   initialize the cgi.
 
-the start-of-heading byte is a byte equal to 1.
-
-the start-of-text byte is a byte equal to 2.
-
 a startupinfo is a record with
   a number called cb,
   a pointer called lpreserved,
@@ -9887,21 +8952,7 @@ a string# is a number.
 
 a subject is a string.
 
-the substitute byte is a byte equal to 26.
-
 a substring is a string.
-
-to subtract a byte from another byte:
-  intel $8B8508000000. \ mov eax,[ebp+8] \ the byte
-  intel $0FB600. \ movzx eax,[eax]
-  intel $8B9D0C000000. \ mov ebx,[ebp+12] \ the other byte
-  intel $2803. \ sub [ebx],al
-
-to subtract a byte from a number:
-  intel $8B8508000000. \ mov eax,[ebp+8] \ the byte
-  intel $0FB600. \ movzx eax,[eax]
-  intel $8B9D0C000000. \ mov ebx,[ebp+12] \ the number
-  intel $2903. \ sub [ebx],eax
 
 to subtract a number and another number from a pair:
   subtract the number from the pair's x.
@@ -9942,12 +8993,6 @@ to subtract a ratio from another ratio:
   subtract the ratio's numerator from the other ratio's numerator.
   reduce the other ratio.
 
-the superscript-one byte is a byte equal to 185.
-
-the superscript-three byte is a byte equal to 179.
-
-the superscript-two byte is a byte equal to 178.
-
 to swap a number with another number:
   put the number into a third number.
   put the other number into the number.
@@ -9963,8 +9008,6 @@ to swap some things with some other things:
   swap the things' first with the other things' first.
   swap the things' last with the other things' last.
 
-the synchronous-idle byte is a byte equal to 22.
-
 a systemtime is a record with
   a wyrd called wyear,
   a wyrd called wmonth,
@@ -9974,12 +9017,6 @@ a systemtime is a record with
   a wyrd called wminute,
   a wyrd called wsecond,
   a wyrd called wmilliseconds.
-
-the t-key is a key equal to 84.
-
-the tab byte is a byte equal to 9.
-
-the tab key is a key equal to 9.
 
 a talker is a pointer to a talker object.
 
@@ -10083,15 +9120,7 @@ some things has a first thing and a last thing.
 
 a thousand is 10 hundreds.
 
-the three byte is a byte equal to 51.
-
-the three key is a key equal to 51.
-
-the three-quarter byte is a byte equal to 190.
-
 a tick is a number.
-
-the tilde byte is a byte equal to 126.
 
 a timer has a count, some start ticks and some total ticks.
 
@@ -10099,19 +9128,11 @@ the tpi is some twips equal to 1440.
 
 the tpp is some twips.
 
-the trade-mark byte is a byte equal to 153.
-
 to trim a string:
   remove any leading noise from the string.
   remove any trailing noise from the string.
 
 a twip is a number.
-
-the two byte is a byte equal to 50.
-
-the two key is a key equal to 50.
-
-the u-key is a key equal to 85.
 
 to unassign a pointer:
   if the pointer is nil, exit.
@@ -10120,11 +9141,7 @@ to unassign a pointer:
   void the pointer.
   subtract 1 from the heap count.
 
-the underscore byte is a byte equal to 95.
-
 a unit is a number.
-
-the unit-separator byte is a byte equal to 31.
 
 to unlock a gpbitmap given a bitmapdata:
   call "gdiplus.dll" "GdipBitmapUnlockBits" with the gpbitmap and the bitmapdata's whereabouts.
@@ -10198,8 +9215,6 @@ to unquote a string:
   repeat.
   put the other string into the string.
 
-the up-arrow key is a key equal to 38.
-
 to uppercase any selected bytes in a text:
   if the text is nil, exit.
   loop.
@@ -10209,15 +9224,6 @@ to uppercase any selected bytes in a text:
   slap a substring on any selected bytes in the row of the text.  
   uppercase the substring.
   repeat.
-
-to uppercase a byte:
-  intel $8B8508000000. \ mov eax,[ebp+8] \ the byte
-  intel $803861. \ cmp byte ptr [eax],'a'
-  intel $0F820C000000. \ jb END
-  intel $80387A. \ cmp byte ptr [eax],'z'
-  intel $0F8703000000. \ ja END
-  intel $802820. \ sub byte ptr [eax],$20
-  \ END
 
 to uppercase the character under a finger and put it into a string:
   if the finger is nil, exit.
@@ -10240,8 +9246,6 @@ to uppercase a text:
   uppercase the row's string.
   repeat.
   wrap the text.
-
-the upperscore byte is a byte equal to 175.
 
 a url is a string.
 
@@ -10269,21 +9273,15 @@ a urlcomponents is a record with
   a pchar called lpszextrainfo,
   a number called dwextrainfolength.  
 
-the v-key is a key equal to 86.
-
 a vertex array is a pointer to a vertex array record.
 
 a vertex array record has a count and a spot pointer.
 
 a vertex is a thing with an x coord, a y coord, a spot at the x.
 
-the vertical-tab byte is a byte equal to 11.
-
 to void a pointer:
   intel $8B8508000000. \ mov eax,[ebp+8] \ the pointer
   intel $C70000000000. \ mov [eax],0
-
-the w-key is a key equal to 87.
 
 a w-param is a number.
 
@@ -10457,13 +9455,7 @@ a wsadata is a record with
 
 a wyrd has a low byte and a high byte.
 
-the x-key is a key equal to 88.
-
 an xor-mask is a mask.
-
-the y-key is a key equal to 89.
-
-the yen-sign byte is a byte equal to 165.
 
 to yield to windows:
   if the event queue is not empty, exit.
@@ -10472,11 +9464,7 @@ to yield to windows:
   call "user32.dll" "TranslateMessage" with the msg's whereabouts.
   call "user32.dll" "DispatchMessageA" with the msg's whereabouts.
 
-the z-key is a key equal to 90.
-
 the zero box is a box.
-
-the zero byte is a byte equal to 48.
 
 to zero fill a number given a count and append it to a string:
   convert the number to another string.
@@ -10487,10 +9475,6 @@ to zero fill a string given a count:
   if the string's length is greater than or equal to the count, exit.
   prepend the zero byte to the string.
   repeat.
-
-the zero key is a key equal to 48.
-
-the zero spot is a spot.
 
 to regression test appending to a test result set (the noodle):
   regression test appending to the test result set (the talker).
