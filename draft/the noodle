@@ -933,8 +933,6 @@ to clear a wyrd:
 to close a file:
   call "kernel32.dll" "CloseHandle" with the file.
 
-a clsid is a uuid.
-
 to cluck:
   play the cluck sound.
 
@@ -1051,6 +1049,10 @@ to compatibly handle any message with a window a message number a w-param and an
   if the message is 518, handle any wm-rbuttondblclk with the l-param; put 0 into eax; exit.
   if the message is 032, handle any wm-setcursor; put 1 into eax; exit.
   if the message is 260, handle any wm-syskeydown with the w-param and the l-param; put 0 into eax; exit.
+\ to-do:
+\ if the message is 005, handle any wm-size with the window and the w-param and the l-param; put 0 into eax; exit.
+\ if the message is ___, handle any wm-ncpaint with the window and the w-param; put 0 into eax; exit.
+\ if the message is ___, handle any wm-displaychange with the window and the w-param and the l-param; put 0 into eax; exit.
   call "user32.dll" "DefWindowProcA" with the window and the message and the w-param and the l-param.
 
 to compatibly wait for a process pointer:
@@ -5369,11 +5371,57 @@ to handle any wm-lbuttondown with a l-param:
   enque the event.
 
 to handle any wm-paint with a window:
+  \ to-do:
+  \ if the window has an update region,
+  \   perform the next two steps.
   call "user32.dll" "BeginPaint" with the window and a paintstruct's whereabouts.
+  \ to-do:
+  \ update the memory canvas to match the paintstruct's hdc.
   call "user32.dll" "EndPaint" with the window and the paintstruct's whereabouts.
   create an event.
   put "refresh" into the event's kind.
   enque the event.
+
+\ to-do:
+\ to decide if a window has an update region:
+\   create a box.
+\   call "user32.dll" "GetUpdateRect" with the window and the box' whereabouts  and no.
+\   if all four sides of the box are zero, say no.
+\   say yes.
+
+\ to-do:
+\ to handle any wm-displaychange with a window a w-param:
+\  w-param is the new display resolution, in pixels per inch
+\  l-param's low-order word specifies the horizontal resolution of the screen.
+\  l-param's high-order word specifies the vertical resolution of the screen.
+
+\ to-do:
+\ to handle any wm-ncpaint with a window a w-param and an l-param:
+\  w-param is the handle to the update region of the window frame.
+
+\ to-do:
+\ to handle any wm-size with the window and the w-param and the l-param:
+\   w-param possible values:
+\     4:  some other window has been maximized; please hide.
+\     3:  some other window has been restored to full size.
+\     2:  the window has been maximized.
+\     1:  the window has been minimized.
+\     0:  the window has been resized, but neither minimized nor maximized.
+\   the l-param's low-order word is the new width of the client area.
+\   the l-param's high-order word is the new height of the client area.
+
+\ to-do:
+\ to handle any wm-sizing with the window and the w-param and the l-param:
+\   w-param possible values:
+\     1:  left edge is being adjusted
+\     2:  right edge          ""
+\     3:  top edge            ""
+\     4:  top-left corner     ""
+\     5:  top-right corner    ""
+\     6:  bottom edge         ""
+\     7:  bottom-left corner  ""
+\     8:  bottom-right corner ""
+\   the l-param is a box pointer with the drag rectangle.
 
 to handle any wm-rbuttondblclk with a l-param:
   create an event.
@@ -6056,6 +6104,9 @@ to initialize the cursors (i-beam cursor):
 
 to initialize the fonts:
   call "gdi32.dll" "GetStockObject" with 11 [ansi_fixed_font] returning the null hfont.
+  \ to-do:
+  \ put 1 in a number. \ the number of fonts in the resource.
+  \ use the number's whereabouts in the following call:
   call "gdi32.dll" "AddFontMemResourceEx"
     with the osmosian font source's first
     and the osmosian font source's length
@@ -10643,12 +10694,6 @@ a urlcomponents is a record with
   a pchar called lpszextrainfo,
   a number called dwextrainfolength.  
 
-a uuid is a record with
-  a number called d1,
-  a wyrd called d2,
-  a wyrd called d3,
-  8 bytes called d4.
-
 the v-key is a key equal to 86.
 
 a vertex array is a pointer to a vertex array record.
@@ -10877,3 +10922,39 @@ to zero fill a string given a count:
 the zero key is a key equal to 48.
 
 the zero spot is a spot.
+
+to regression test appending to a test result set (the noodle):
+  regression test appending to the test result set (the talker).
+
+to regression test appending to a test result set (the talker):
+  regression test appending to the test result set (the talker - get winmm clsid).
+
+to regression test appending to a test result set (the talker - get winmm clsid):
+  \ winmm.dll includes "PlaySound".
+  create a test result.
+  describe the test result given "the talker" and "get winmm.dll's clsid".
+  \ try to get the dll's clsid using the Windows guid:
+  put "{96749377-3391-11D2-9EE3-00C04F797396}" in a string called clsid_spvoice.
+  convert the clsid_spvoice to a clsid.
+  transcribe the clsid into a string called actual.
+  put "the winmm clsid" in a string called expectation.
+  if the actual is the expectation,
+    pass the test result given the expectation and the actual.
+  if the actual is not the expectation,
+    fail the test result given the expectation and the actual.
+  append the test result to the test result set.
+
+a clsid is a uuid.
+
+a uuid is a record with
+  a number called d1,
+  a wyrd called d2,
+  a wyrd called d3,
+  8 bytes called d4.
+
+to transcribe a uuid to a string:
+  put the uuid's d1 then " " then the uuid's d2 then " " then
+      the uuid's d3 then " " then the uuid's d4 into the string.
+
+
+

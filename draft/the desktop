@@ -921,7 +921,12 @@ to handle a command:
   if the handler is "handle save as pdf", handle save as pdf; exit.
   if the handler is "handle select all", handle select all; exit.
   if the handler is "handle send to back", handle send to back; exit.
-  if the handler is "handle test result", handle test result; exit.
+  if the handler is "handle test quota", handle test quota; exit.
+  if the handler is "handle test result 1", handle test result given 1; exit.
+  if the handler is "handle test result 2", handle test result given 2; exit.
+  if the handler is "handle test result 3", handle test result given 3; exit.
+  if the handler is "handle test result 4", handle test result given 4; exit.
+  if the handler is "handle test result 5", handle test result given 5; exit.
   if the handler is "handle smooth", handle smooth; exit.
   if the handler is "handle yank 1/8 inch", handle yank given 1/8 inch; exit.
   if the handler is "handle yank 1/12 inch", handle yank given 1/12 inch; exit.
@@ -1036,7 +1041,7 @@ to handle a command (tests failed...):
   put the status' failures' failed in a number called failed.
   summarize failure given the failed and the quota
     returning a string called summary.
-  Add the summary and "handle test result" to the submenu.
+  Add the summary and "handle test quota" to the submenu.
   handle the command given the submenu and the quota
     and the status' failures' test results.
 
@@ -1047,7 +1052,7 @@ to handle a command (tests passed...):
   put the status' all test results' passed in a number called passed.
   summarize success given the passed and the quota
     returning a string called summary.
-  Add the summary and "handle test result" to the submenu.
+  Add the summary and "handle test quota" to the submenu.
   handle the command given the submenu and the quota
     and the status' all test results' test results.
 
@@ -1935,7 +1940,9 @@ to handle stop:
   stop the current process.
   show status "Stopped".
 
-to handle test result:
+to handle test quota:
+
+to handle test result given a number:
   tint the status.
 
 to handle uncomment:
@@ -2318,6 +2325,7 @@ the regression test quota is a quota equal to 5.
 
 to regression test returning a test result set:
   regression test appending to the test result set (the desktop).
+  regression test appending to the test result set (the noodle).
 
 to remove the last three bytes from a string:
   remove the last byte from the string.
@@ -2396,15 +2404,15 @@ to summarize given a number and a string and a quota returning a string called r
   if the number is less than 1,
     put "No tests " then the string then "." in the result; exit.
   if one should be hidden given the number and the quota,
-    put "The test " then the string then "." in the result; exit.
+    put "1 test " then the string then "." in the result; exit.
   if the quota is less than 1,
-    put "All " then the number then " tests " then the string then "." in the result; exit.
+    put the number then " tests " then the string then "." in the result; exit.
   if the number is 1,
-    put "The test " then the string then ".  It was:" in the result; exit.
+    put "1 test " then the string then ".  It was:" in the result; exit.
   if the quota is 1,
-    put "All " then the number then " tests " then the string then "."
+    put the number then " tests " then the string then "."
       then "  The first 1 is:" in the result; exit.
-  put "All " then the number then " tests " then the string in the result.
+  put the number then " tests " then the string in the result.
   if the number is at most the quota,
     append ":" to the result.
   if the number is more than the quota,
@@ -2412,8 +2420,8 @@ to summarize given a number and a string and a quota returning a string called r
 
 to summarize given a number and a string returning a string called result:
   if the number is 0, put "No tests " then the string then "." into the result; exit.
-  if the number is 1, put "The test " then the string then "." into the result; exit.
-  put "All " then the number then " tests " then the string then "." into the result.
+  if the number is 1, put "1 test " then the string then "." into the result; exit.
+  put the number then " tests " then the string then "." into the result.
 
 to summarize success given a number and a quota returning a string:
   summarize given the number and "passed" and the quota returning the string.
@@ -2448,7 +2456,7 @@ to summarize a test result set returning a string:
     summarize given the passed and "passed" returning the string; exit.
   if the test result set is not OK,
     summarize given the failed and "failed" returning the string;
-    append "  Just " then the passed then " / " then the total then "were OK."
+    append "  Just " then the passed then " / " then the total then " were OK."
       to the string; exit.
   put "The tests have not run yet." into the string.
 
