@@ -618,10 +618,6 @@ to bitwise xor a number with another number:
   intel $8B9D08000000. \ mov ebx,[ebp+8] \ the number
   intel $3103. \ xor [ebx],eax
 
-the black color is a color.
-
-the blue color is a color.
-
 a box has
   a left coord, a top coord, a right coord, a bottom coord,
   a left-top spot at the left, and a right-bottom spot at the right.
@@ -873,11 +869,6 @@ to clear a box:
 to clear a byte:
   put the null byte into the byte.
 
-to clear a color:
-  put 0 and 0 and 0 into the color.
-
-the clear color is a color.
-
 to clear an ellipse:
   clear the ellipse's box.
 
@@ -939,10 +930,6 @@ to cluck:
 the cluck sound is a wave equal to $524946463A02000057415645666D74201200000001000100401F0000401F000001000800000066616374040000000702000064617461070200007F7F807F7F807F7F808080807F807F7F80817F81817E7E827E7D847C79877D5F6D99B2A25D608269A5979869667F7D8D738C7D8C5E7E878F767A75868D84797278829A7D7E857A73929271657492907D7E7D787E8B887C758388827E817F7C7B89897C7A7E84838183827E7A8488877D7E8181808484817C7F84838181807E7F8283807E8081808182807F7F81818081807F7F8081818080807F7F808180807F80808080807F8080807F8080808080807F7F7F7F7F8080807F7F7F7C7B8182817C7B7D7E8082807D7D7C7F8281807F7C7D808082807E7E7E7D7E807D7B7C7B7D7D7B7A7979797875727269797A490F4571FFF4FF0C001297FBF492525BB0F5B26A001C69BEE5BA76476F9EBD953C3757BAC9BB705C7F9AA883645D7897AA9B806977959588696976999B83766F828C907F7375828E91877B757D868B837A757C858D8880787B8187847B7A7D8788807B79808486817D7C7F8384817D7C7F8484817B7B7D83847F7C7B7E8182827D7C7C8082817D7C7D7F81807F7D7D7F82817F7B7B7E8081807E7D7D7F80807E7D7D7E80807E7D7D7E7F807F7D7D7E7F807F7E7D7E7E80807F7E7D7E80807F7E7E7E7F7F7E7E7E7F7F7F7F7E7E7F7F807F7F7E7E7E7F8080807E7E7E80807F7E7E7F8081807F7F7E7F7F80807F7E7F8081807F7E7E7E80808080807F807F7F7F7F7F7F7F80808080807F7F7F808080807F80808180807F80808100.
 
 the colon byte is a byte equal to 58.
-
-a color has a hue, a saturation, and a lightness.
-
-a colorref is a number [like $00BBGGRR].
 
 a column# is a number.
 
@@ -1114,42 +1101,6 @@ to convert a byte to a query byte:
   if the byte is 32, put "+" into the query byte; exit. \ space
   convert the byte to a nibble string.
   put "%" then the nibble string into the query byte.
-
-to convert a color to a colorref:
-  if the color is clear, put 16777215 [$00FFFFFF] into the colorref; exit. \ clear pen becomes white
-  privatize the color.
-  scale the color's saturation given 240/1000.
-  limit the color's saturation to 1 and 239.
-  scale the color's lightness given 240/1000.
-  limit the color's lightness to 1 and 239.
-  scale the color's hue given 240/3600.
-  limit the color's hue to 1 and 239.
-  call "shlwapi.dll" "ColorHLSToRGB" with the color's hue and the color's lightness and the color's saturation returning the colorref.
-
-to convert a color to a rgb:
-  convert the color to a colorref.
-  convert the colorref to the rgb. 
-
-to convert a colorref to a color:
-  call "shlwapi.dll" "ColorRGBToHLS" with the colorref and a wyrd's whereabouts and another wyrd's whereabouts and a third wyrd's whereabouts.
-  put the wyrd into the color's hue.
-  put the other wyrd into the color's  lightness.
-  put the third wyrd into the color's saturation.
-  scale the color's hue given 3600/240.
-  limit the color's hue to 0 and 3600.
-  scale the color's saturation given 1000/240.
-  limit the color's saturation to 0 and 1000.
-  scale the color's lightness given 1000/240.
-  limit the color's lightness to 0 and 1000.
-
-to convert a colorref to a rgb:
-  privatize the colorref.
-  shift the colorref right 0 bits.
-  put the colorref into the rgb's red byte.
-  shift the colorref right 8 bits.
-  put the colorref into the rgb's green byte.
-  shift the colorref right 8 bits.
-  put the colorref into the rgb's blue byte.
 
 to convert a flag to a hex string:
   reassign the hex string's first given the flag's magnitude.
@@ -2081,89 +2032,9 @@ the current event is an event.
 
 a cursor is a handle.
 
-the cyan color is a color.
-
 the d-key is a key equal to 68.
 
 the dagger byte is a byte equal to 134.
-
-the dark blue color is a color.
-
-the dark cyan color is a color.
-
-the dark gray color is a color.
-
-the dark green color is a color.
-
-the dark lime color is a color.
-
-the dark magenta color is a color.
-
-the dark orange color is a color.
-
-the dark purple color is a color.
-
-the dark red color is a color.
-
-the dark sky color is a color.
-
-the dark teal color is a color.
-
-the dark violet color is a color.
-
-the dark yellow color is a color.
-
-the darker blue color is a color.
-
-the darker cyan color is a color.
-
-the darker gray color is a color.
-
-the darker green color is a color.
-
-the darker lime color is a color.
-
-the darker magenta color is a color.
-
-the darker orange color is a color.
-
-the darker purple color is a color.
-
-the darker red color is a color.
-
-the darker sky color is a color.
-
-the darker teal color is a color.
-
-the darker violet color is a color.
-
-the darker yellow color is a color.
-
-the darkest blue color is a color.
-
-the darkest cyan color is a color.
-
-the darkest gray color is a color.
-
-the darkest green color is a color.
-
-the darkest lime color is a color.
-
-the darkest magenta color is a color.
-
-the darkest orange color is a color.
-
-the darkest purple color is a color.
-
-the darkest red color is a color.
-
-the darkest sky color is a color.
-
-the darkest teal color is a color.
-
-the darkest violet color is a color.
-
-the darkest yellow color is a color.
 
 the dash byte is a byte equal to 45.
 
@@ -2212,16 +2083,6 @@ to debug a box:
 to debug a byte:
   put the byte into a number.
   convert the number to a string.
-  debug the string.
-
-to debug a color:
-  clear a string.
-  append "hue=" to the string.
-  append the color's hue to the string.
-  append ", saturation=" to the string.
-  append the color's saturation to the string.
-  append ", lightness=" to the string.
-  append the color's lightness to the string.
   debug the string.
 
 to debug a flag:
@@ -2560,49 +2421,6 @@ to decide if the caret of a text is on the last line:
   if the text's rows are empty, say no.
   if the text's caret row# is not the text's last row's row#, say no.
   say yes.
-
-to decide if a color and another color are clear:
-  if the color is not clear, say no.
-  if the other color is not clear, say no.
-  say yes.
-
-to decide if a color is another color:
-  if the color's hue is not the other color's hue, say no.
-  if the color's saturation is not the other color's saturation, say no.
-  if the color's lightness is not the other color's lightness, say no.
-  say yes.
-
-to decide if a color is clear:
-  if the color's hue is less than 0, say yes.
-  say no.
-
-to decide if a color is dark:
-  if the color's lightness is between 250 and 374, say yes.
-  say no.
-
-to decide if a color is light:
-  if the color's lightness is between 625 and 749, say yes.
-  say no.
-
-to decide if a color is normal:
-  if the color's lightness is between 375 and 624, say yes.
-  say no.
-
-to decide if a color is very dark:
-  if the color's lightness is between 125 and 249, say yes.
-  say no.
-
-to decide if a color is very light:
-  if the color's lightness is between 750 and 874, say yes.
-  say no.
-
-to decide if a color is very very dark:
-  if the color's lightness is less than or equal to 124, say yes.
-  say no.
-
-to decide if a color is very very light:
-  if the color's lightness is greater than or equal to 875, say yes.
-  say no.
 
 to decide if a counter is past a number:
   add 1 to the counter.
@@ -4507,8 +4325,6 @@ to finalize the canvases:
 to finalize the cgi:
   call "kernel32.dll" "FreeConsole".
 
-to finalize the colors:
-
 to finalize com:
   call "ole32.dll" "CoUninitialize".
 
@@ -5273,12 +5089,6 @@ the gptoken is a gptoken.
 
 a gptoken is a number.
 
-the gray color is a color.
-
-the grayscale color matrix is a hex string equal to $8716993E8716993E8716993E0000000000000000A245163FA245163FA245163F0000000000000000D578E93DD578E93DD578E93D00000000000000000000000000000000000000000000803F00000000000000000000000000000000000000000000803F.
-
-the green color is a color.
-
 a grid is a pair.
 
 the group-separator byte is a byte equal to 29.
@@ -5802,8 +5612,6 @@ to hide the cursor:
   if the number is less than 0, exit.
   repeat.
 
-the hilite color is a color.
-
 the home key is a key equal to 36.
 
 an hour is 60 minutes.
@@ -5811,8 +5619,6 @@ an hour is 60 minutes.
 an hpen is a handle.
 
 an hrgn is a handle.
-
-a hue is an angle [0 to 3600].
 
 a hundred is 100 units.
 
@@ -5950,105 +5756,6 @@ to initialize the cgi:
   call "kernel32.dll" "AllocConsole".
   call "kernel32.dll" "GetStdHandle" with -10 [std_input_handle] returning the stdin handle.
   call "kernel32.dll" "GetStdHandle" with -11 [std_output_handle] returning the stdout handle.
-
-to initialize the colors:
-  call "gdi32.dll" "GetStockObject" with 8 [null_pen] returning the null hpen.
-  call "gdi32.dll" "GetStockObject" with 5 [null_brush] returning the null hbrush.
-  put -1 and 0 and 0 into the clear color.
-  put 0 and 0 and 1000 into the white color.
-  put 0 and 0 and 875 into the lightest gray color.
-  put 0 and 0 and 750 into the lighter gray color.
-  put 0 and 0 and 625 into the light gray color.
-  put 0 and 0 and 500 into the gray color.
-  put 0 and 0 and 375 into the dark gray color.
-  put 0 and 0 and 250 into the darker gray color.
-  put 0 and 0 and 125 into the darkest gray color.
-  put 0 and 0 and 0 into the black color.
-  put 0 and 1000 and 875 into the lightest red color.
-  put 0 and 1000 and 750 into the lighter red color.
-  put 0 and 1000 and 625 into the light red color.
-  put 0 and 1000 and 500 into the red color.
-  put 0 and 1000 and 375 into the dark red color.
-  put 0 and 1000 and 250 into the darker red color.
-  put 0 and 1000 and 125 into the darkest red color.
-  put 300 and 1000 and 875 into the lightest orange color.
-  put 300 and 1000 and 750 into the lighter orange color.
-  put 300 and 1000 and 625 into the light orange color.
-  put 300 and 1000 and 500 into the orange color.
-  put 300 and 1000 and 375 into the dark orange color.
-  put 300 and 1000 and 250 into the darker orange color.
-  put 300 and 1000 and 125 into the darkest orange color.
-  put 600 and 1000 and 875 into the lightest yellow color.
-  put 600 and 1000 and 750 into the lighter yellow color.
-  put 600 and 1000 and 625 into the light yellow color.
-  put 600 and 1000 and 500 into the yellow color.
-  put 600 and 1000 and 375 into the dark yellow color.
-  put 600 and 1000 and 250 into the darker yellow color.
-  put 600 and 1000 and 125 into the darkest yellow color.
-  put 900 and 1000 and 875 into the lightest lime color.
-  put 900 and 1000 and 750 into the lighter lime color.
-  put 900 and 1000 and 625 into the light lime color.
-  put 900 and 1000 and 500 into the lime color.
-  put 900 and 1000 and 375 into the dark lime color.
-  put 900 and 1000 and 250 into the darker lime color.
-  put 900 and 1000 and 125 into the darkest lime color.
-  put 1200 and 1000 and 875 into the lightest green color.
-  put 1200 and 1000 and 750 into the lighter green color.
-  put 1200 and 1000 and 625 into the light green color.
-  put 1200 and 1000 and 500 into the green color.
-  put 1200 and 1000 and 375 into the dark green color.
-  put 1200 and 1000 and 250 into the darker green color.
-  put 1200 and 1000 and 125 into the darkest green color.
-  put 1500 and 1000 and 875 into the lightest teal color.
-  put 1500 and 1000 and 750 into the lighter teal color.
-  put 1500 and 1000 and 625 into the light teal color.
-  put 1500 and 1000 and 500 into the teal color.
-  put 1500 and 1000 and 375 into the dark teal color.
-  put 1500 and 1000 and 250 into the darker teal color.
-  put 1500 and 1000 and 125 into the darkest teal color.
-  put 1800 and 1000 and 875 into the lightest cyan color.
-  put 1800 and 1000 and 750 into the lighter cyan color.
-  put 1800 and 1000 and 625 into the light cyan color.
-  put 1800 and 1000 and 500 into the cyan color.
-  put 1800 and 1000 and 375 into the dark cyan color.
-  put 1800 and 1000 and 250 into the darker cyan color.
-  put 1800 and 1000 and 125 into the darkest cyan color.
-  put 2100 and 1000 and 875 into the lightest sky color.
-  put 2100 and 1000 and 750 into the lighter sky color.
-  put 2100 and 1000 and 625 into the light sky color.
-  put 2100 and 1000 and 500 into the sky color.
-  put 2100 and 1000 and 375 into the dark sky color.
-  put 2100 and 1000 and 250 into the darker sky color.
-  put 2100 and 1000 and 125 into the darkest sky color.
-  put 2400 and 1000 and 875 into the lightest blue color.
-  put 2400 and 1000 and 750 into the lighter blue color.
-  put 2400 and 1000 and 625 into the light blue color.
-  put 2400 and 1000 and 500 into the blue color.
-  put 2400 and 1000 and 375 into the dark blue color.
-  put 2400 and 1000 and 250 into the darker blue color.
-  put 2400 and 1000 and 125 into the darkest blue color.
-  put 2700 and 1000 and 875 into the lightest purple color.
-  put 2700 and 1000 and 750 into the lighter purple color.
-  put 2700 and 1000 and 625 into the light purple color.
-  put 2700 and 1000 and 500 into the purple color.
-  put 2700 and 1000 and 375 into the dark purple color.
-  put 2700 and 1000 and 250 into the darker purple color.
-  put 2700 and 1000 and 125 into the darkest purple color.
-  put 3000 and 1000 and 875 into the lightest magenta color.
-  put 3000 and 1000 and 750 into the lighter magenta color.
-  put 3000 and 1000 and 625 into the light magenta color.
-  put 3000 and 1000 and 500 into the magenta color.
-  put 3000 and 1000 and 375 into the dark magenta color.
-  put 3000 and 1000 and 250 into the darker magenta color.
-  put 3000 and 1000 and 125 into the darkest magenta color.
-  put 3300 and 1000 and 875 into the lightest violet color.
-  put 3300 and 1000 and 750 into the lighter violet color.
-  put 3300 and 1000 and 625 into the light violet color.
-  put 3300 and 1000 and 500 into the violet color.
-  put 3300 and 1000 and 375 into the dark violet color.
-  put 3300 and 1000 and 250 into the darker violet color.
-  put 3300 and 1000 and 125 into the darkest violet color.
-  put 0 and 0 and 800 into the hilite color.
 
 to initialize com:
   call "ole32.dll" "CoInitializeEx" with 0 and 2 [coinit_apartmentthreaded].
@@ -6452,88 +6159,6 @@ a length is a number.
 
 the lexicon is a thing with an index.
 
-the light blue color is a color.
-
-the light cyan color is a color.
-
-the light gray color is a color.
-
-the light green color is a color.
-
-the light lime color is a color.
-
-the light magenta color is a color.
-
-the light orange color is a color.
-
-the light purple color is a color.
-
-the light red color is a color.
-
-the light sky color is a color.
-
-the light teal color is a color.
-
-the light violet color is a color.
-
-the light yellow color is a color.
-
-the lighter blue color is a color.
-
-the lighter cyan color is a color.
-
-the lighter gray color is a color.
-
-the lighter green color is a color.
-
-the lighter lime color is a color.
-
-the lighter magenta color is a color.
-
-the lighter orange color is a color.
-
-the lighter purple color is a color.
-
-the lighter red color is a color.
-
-the lighter sky color is a color.
-
-the lighter teal color is a color.
-
-the lighter violet color is a color.
-
-the lighter yellow color is a color.
-
-the lightest blue color is a color.
-
-the lightest cyan color is a color.
-
-the lightest gray color is a color.
-
-the lightest green color is a color.
-
-the lightest lime color is a color.
-
-the lightest magenta color is a color.
-
-the lightest orange color is a color.
-
-the lightest purple color is a color.
-
-the lightest red color is a color.
-
-the lightest sky color is a color.
-
-the lightest teal color is a color.
-
-the lightest violet color is a color.
-
-the lightest yellow color is a color.
-
-a lightness is a number [0 to 1000].
-
-the lime color is a color.
-
 to limit a box to another box:
   limit the box's left to the other box's left and the other box's right.
   limit the box's top to the other box's top and the other box's bottom.
@@ -6795,8 +6420,6 @@ to lowercase a text:
 
 the m-key is a key equal to 77.
 
-the magenta color is a color.
-
 the main window is a window.
 
 to make a box some twips by some other twips:
@@ -6810,9 +6433,6 @@ to make a box with a left coord and a top coord and a right coord and a bottom c
 
 to make a box with a spot and another spot:
   put the spot and the other spot into the box.
-
-to make a color from a hue and a saturation and a lightness:
-  put the hue and the saturation and the lightness into the color.
 
 to make an ellipse given a box:
   put the box into the ellipse's box.
@@ -7650,8 +7270,6 @@ to open a file given a path and some milliseconds:
 
 an operation is a string.
 
-the orange color is a color.
-
 an origin is a spot.
 
 the osmosian font resource is a font resource.
@@ -7739,16 +7357,6 @@ to output the arc of an ellipse given a string:
   output the second control spot without advancing.
   output the ending spot without advancing.
   output "c".
-
-to output a color without advancing:
-  convert the color to a rgb.
-  put the rgb's red byte / 255 into a ratio.
-  convert the ratio to a red string given 4.
-  put the rgb's green byte / 255 into the ratio.
-  convert the ratio to a green string given 4.
-  put the rgb's blue byte / 255 into the ratio.
-  convert the ratio to a blue string given 4.
-  output the red string then " " then the green string then " " then the blue string without advancing.
 
 to output lineto given a spot:
   output the spot without advancing.
@@ -7892,11 +7500,6 @@ a percent is a number. \ a scale with 100 in the denominator
 the percent-sign byte is a byte equal to 37.
 
 the period byte is a byte equal to 46.
-
-to pick a color between another color and a third color:
-  pick the color's hue between the other color's hue and the third color's hue.
-  pick the color's saturation between the other color's saturation and the third color's saturation.
-  pick the color's lightness between the other color's lightness and the third color's lightness.
 
 to pick a number:
   pick the number between 0 and the largest number. 
@@ -8070,8 +7673,6 @@ a processinfo is a record with
   a number called dwprocessid,
   a number called dwthreadid.
 
-the purple color is a color.
-
 to put the actual data of a font into a buffer: \ only works with true/open type fonts
   create the hfont of the memory canvas given the font.
   call "gdi32.dll" "GetFontData" with the memory canvas and 0 and 0 and nil and 0 returning a count.
@@ -8192,11 +7793,6 @@ to put the character under a finger into a character:
   if the finger is nil, clear the character; exit.
   put the finger's target into the character.
 
-to put a color into another color:
-  put the color's hue into the other color's hue.
-  put the color's saturation into the other color's saturation.
-  put the color's lightness into the other color's lightness.
-
 to put a date/time into another date/time:
   put the date/time's year into the other date/time's year.
   put the date/time's month into the other date/time's month.
@@ -8291,14 +7887,6 @@ to put a gprect into another gprect:
   put the gprect's y into the other gprect's y.
   put the gprect's width into the other gprect's width.
   put the gprect's height into the other gprect's height.
-
-to put a hue and a saturation and a lightness into a color:
-  put the hue into the color's hue.
-  if the color's hue is not -1, limit the color's hue to 0 and 3600. \ -1 is clear
-  put the saturation into the color's saturation.
-  limit the color's saturation to 0 and 1000.
-  put the lightness into the color's lightness.
-  limit the color's lightness to 0 and 1000.
 
 to put an index's count into a count:
   put 0 into the count.
@@ -8940,8 +8528,6 @@ a recipient is a string.
 
 the record-separator byte is a byte equal to 30.
 
-the red color is a color.
-
 to reduce a ratio:
   get a gcd given the ratio's numerator and the ratio's denominator.
   divide the ratio's numerator by the gcd.
@@ -9459,8 +9045,6 @@ a row# is a number.
 
 the s-key is a key equal to 83.
 
-a saturation is a number [0 to 1000].
-
 to save a canvas:
   call "gdi32.dll" "SaveDC" with the canvas.
 
@@ -9971,8 +9555,6 @@ to skip word characters in a substring:
   add 1 to the substring's first.
   repeat.
 
-the sky color is a color.
-
 to slap a rider on another rider:
   slap the rider's source on the other rider's source.
   position the rider's token on the rider's source.
@@ -10366,11 +9948,6 @@ the superscript-three byte is a byte equal to 179.
 
 the superscript-two byte is a byte equal to 178.
 
-to swap a color with another color:
-  swap the color's hue with the other color's hue.
-  swap the color's saturation with the other color's saturation.
-  swap the color's lightness with the other color's lightness.
-
 to swap a number with another number:
   put the number into a third number.
   put the other number into the number.
@@ -10453,8 +10030,6 @@ a talker vtable record is a record with
   a pointer called speakcompleteevent,
   a pointer called isuisupported,
   a pointer called displayui.
-
-the teal color is a color.
 
 the temp path is a path.
 
@@ -10704,8 +10279,6 @@ a vertex is a thing with an x coord, a y coord, a spot at the x.
 
 the vertical-tab byte is a byte equal to 11.
 
-the violet color is a color.
-
 to void a pointer:
   intel $8B8508000000. \ mov eax,[ebp+8] \ the pointer
   intel $C70000000000. \ mov [eax],0
@@ -10725,8 +10298,6 @@ to wait until speaking is done:
 a wave file is a path.
 
 a wave is a hex string.
-
-the white color is a color.
 
 a wide string is a string.
 
@@ -10892,8 +10463,6 @@ an xor-mask is a mask.
 
 the y-key is a key equal to 89.
 
-the yellow color is a color.
-
 the yen-sign byte is a byte equal to 165.
 
 to yield to windows:
@@ -10955,6 +10524,3 @@ a uuid is a record with
 to transcribe a uuid to a string:
   put the uuid's d1 then " " then the uuid's d2 then " " then
       the uuid's d3 then " " then the uuid's d4 into the string.
-
-
-
