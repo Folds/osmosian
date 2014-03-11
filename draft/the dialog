@@ -375,6 +375,12 @@ to handle events given the dialog:
   handle the event given the dialog.
   repeat.
 
+a prompt is a string.
+
+a question is a string.
+
+a reply is a string.
+
 to show error a string:
   create the dialog.
   put "error" into the dialog's kind.

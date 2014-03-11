@@ -1,9 +1,11 @@
 \ copyright © 2006 the osmosian order (3040)
 
-\ the desktop's pad includes the dialog.
-\ the dialog's code is in another file.
+\ the desktop's pad includes the dialog.  the dialog's code is in another file.
 \ the dialog shares space with the menus and the status,
 \ so it is not visible when they are, and vice versa.
+
+\ the desktop's pad includes the status.  the status' code is in another file.
+\ the status' includes the regression test results and their menu.
 
 to add a color and a handler to a menu:
   if the menu is nil, exit.
@@ -135,19 +137,6 @@ to adjust some tabs:
     put the tab's left plus the width into the tab's right.
   repeat.
 
-to append the failures from a test result set to another test result set:
-  loop.
-    get a test result from the test result set's test results.
-    if the test result is nil, exit.
-    if the test result is not OK,
-      append the test result to the other test result set.
-  repeat.
-
-to append a test result to a result set:
-  append the test result to the result set's test results.
-  if the test result is OK, add one to the result set's passed.
-  if the test result is not OK, add one to the result set's failed.
-
 the bar has a height, a box, a display box and a mode.
 
 to choose a color for a command (temporary color):
@@ -190,19 +179,11 @@ to create a submenu:
 to create a tab:
   allocate memory for the tab.
 
-to create a test result:
-  allocate memory for the test result.
-
 the current menu is a menu.
 
 the current process is a process.
 
 the current tab is a tab.
-
-to decide if 3-way-match given an expectation and a string and an interpretation:
-  if the expectation is not the string, say no.
-  if the expectation is the interpretation, say yes.
-  say no.
 
 to decide if a command is pointless:
   put the command's handler in a string called handler.
@@ -252,24 +233,6 @@ to decide if a number is more than another number:
   if the number is greater than the other number, say yes.
   say no.
 
-to decide if one should be hidden given a number and a quota:
-  if the number is not 1, say no.
-  if the quota is greater than 0, say no.
-  say yes.
-
-to decide if the regression tests failed:
-  if the status' all test results' failed is 0, say no.
-  say yes.
-
-to decide if the regression tests passed:
-  if the status' all test results is OK, say yes.
-  say no.
-
-to decide if a result set is OK:
-  if the result set's passed is 0, say no.
-  if the result set's failed is 0, say yes.
-  say no.
-
 to decide if a spot is in the bar:
   if the spot is in the bar's box, say yes.
   say no.
@@ -287,11 +250,6 @@ to decide if a spot is in a menu:
 
 to decide if a spot is in the pad:
   if the spot is in the pad's box, say yes.
-  say no.
-
-to decide if a spot is in the status:
-  if the bar's mode is not "normal", say no.
-  if the spot is in the status' roundy box, say yes.
   say no.
 
 to decide if a spot is in the switch:
@@ -325,19 +283,10 @@ to decide if a tab is free:
   if the tab's node's kind is not "root", say no.
   say yes.
 
-to decide if a test result is OK:
-  if the test result's interpretation
-    is the test result's expectation, say yes.
-  say no.
-
 to describe a font height returning a string:
   put the font height / 1 inch into a ratio.
   convert the ratio to a ratio string.
   put the ratio string then " Inch" into the string.
-
-to describe a test result given a string called context and a string called test name:
-  put the context in the test result's context.
-  put the test name in the test result's test name.
 
 the desktop color is a color.
 
@@ -345,9 +294,6 @@ to destroy a tab:
   if the tab is nil, exit.
   destroy the tab's node's root node.
   deallocate the tab.
-
-to destroy a test result set:
-  destroy the test result set's test results.
 
 to draw the bar:
   unmask everything.
@@ -416,15 +362,6 @@ to draw the pad:
   if the current tab's mode is "docster", draw the current tab's node's document; exit.
   if the current tab's mode is "writer", draw the current tab's node's page; exit.
 
-to draw the status:
-  unmask everything.
-  draw the status' roundy box with the desktop color and the desktop color.
-  draw the status' roundy box with the black color and the status' color.
-  put the status' roundy box into a box.
-  adjust the box given 1/8 inch and 0 and -1/8 inch and 0.
-  mask outside the box.
-  draw the status' string in the box with the black color and the default font and "right".
-
 to draw the switch:
   mask only outside the switch's box.
   draw the switch's box with the black color and the black color.
@@ -450,13 +387,6 @@ to draw some tabs:
   if the tab is nil, exit.
   draw the tab.
   repeat.
-
-an expectation is a string.
-
-a fail color is a color.
-
-to fail a test result given a string called expectation and a string called actual:
-  populate the test result given the expectation and the actual and the actual.
 
 to fill some tabs:
   get a tab from the tabs.
@@ -484,11 +414,6 @@ to finalize the desktop:
   finalize the bar.
 
 to finalize the pad:
-
-to finalize the status:
-  destroy the status' all test results.
-  destroy the status' failures.
-  destroy the status' command.
 
 to finalize the switch:
 
@@ -859,45 +784,8 @@ to handle a command (sort...):
     add "By Extension"  and "handle sort nodettes by extension" to the submenu.
   handle the command given the submenu.
 
-to handle a command (tests failed...):
-  widen the command.
-  create a submenu.
-  put the regression test quota in a quota.
-  put the status' failures' failed in a number called failed.
-  summarize failure given the failed and the quota
-    returning a string called summary.
-  Add the summary and "handle test quota" to the submenu.
-  handle the command given the submenu and the quota
-    and the status' failures' test results.
-
-to handle a command (tests passed...):
-  widen the command.
-  create a submenu.
-  put the regression test quota in a quota.
-  put the status' all test results' passed in a number called passed.
-  summarize success given the passed and the quota
-    returning a string called summary.
-  Add the summary and "handle test quota" to the submenu.
-  handle the command given the submenu and the quota
-    and the status' all test results' test results.
-
 to handle a command given a submenu:
   handle the command given the submenu and the submenu width.
-
-to handle a command given a submenu and a quota and some test results:
-  put 1 in a number called counter.
-  Loop.
-    if the counter is greater than the quota, break.
-    get a test result from the test results.
-    if the test result is nil, break.
-    summarize the test result returning a string.
-    Add the string and "handle test result" to the submenu.
-    add 1 to the counter.
-  Repeat.
-  widen the submenu to the command's width.
-  refont the submenu.
-  gray out the submenu.
-  handle the command given the submenu.
 
 to handle a command given a submenu and a width:
   put the command's left and the bar's display's bottom into a spot.
@@ -1059,24 +947,6 @@ to handle an event (key down):
 to handle an event (left click - menu):
   find a command given the menu and the event's spot.
   handle the command.
-
-to handle an event (left click - status):
-  tint the status.
-  widen the status' command to 3 inches.
-  put the status' roundy box's right
-    minus the status' command's width
-    into a number called left.
-  put the left into the status' command's roundy box's left.
-  create a submenu.
-  summarize the status' all test results returning a string.
-  if the regression tests passed,
-    add the string and "tests passed..." to the submenu.
-  if the regression tests failed,
-    add the string and "tests failed..." to the submenu.
-  widen the submenu to the status' command's width.
-  refont the submenu.  
-  handle the status' command given the submenu.
-  track the desktop given the event.
 
 to handle an event (left click - switch):
   find a tab given the event's spot.
@@ -1507,7 +1377,8 @@ to handle run:
   show status the compiler's timer's string then " ms".
 
 to handle save:
-  if the current tab's node is not savable, cluck; show status "Unable to save"; exit.
+  if the current tab's node is not savable, cluck;
+    show status "Unable to save"; exit.
   show status "Saving...".
   save the current tab's node.
   if the i/o error is not blank, show error the i/o error; exit.
@@ -1573,11 +1444,6 @@ to handle stop:
   show status "Stopping...".
   stop the current process.
   show status "Stopped".
-
-to handle test quota:
-
-to handle test result given a number:
-  tint the status.
 
 to handle uncomment:
   if the current tab's mode is "editor",
@@ -1664,14 +1530,6 @@ to initialize the pad:
   put the bar's bottom into the pad's top.
   put the screen's right into the pad's right.
   put the switch's top into the pad's bottom.
-
-to initialize the status:
-  allocate memory for the status' command.
-  put the bar's display and 1/12 inch into the status' roundy box.
-  put the menu's commands' last's right into the status' left.
-  put the lightest green color into the status' pass color.
-  put the lightest red color into the status' fail color.
-  untint the status.
 
 to initialize the switch:
   initialize the tabs.
@@ -1902,76 +1760,6 @@ to populate a submenu given a mode (y):
 
 to populate a submenu given a mode (z):
 
-to populate a test result given a string called expectation
-    and a string called actual and a string called interpretation:
-  put the expectation in the test result's expectation.
-  put the actual in the test result's actual value.
-  put the interpretation in the test result's interpretation.   
-
-a prompt is a string.
-
-to put a test result set into another test result set:
-  put the test result set's passed
-    into the other test result set's passed.
-  put the test result set's failed
-    into the other test result set's failed.
-
-a question is a string.
-
-a quota is a number.
-
-to refont a submenu:
-  if the submenu is nil, exit.
-  get a current font. 
-  loop.
-    get a command from the submenu's commands.
-    if the command is nil, exit.
-    put the current font's name into the command's font's name.
-    if the current font's height is at most the command's font's height,
-      put the current font's height into the command's font's height.
-  repeat.
-
-to regression test:
-  regression test returning the status' all test results.
-  append the failures from the status' all test results
-    to the status' failures.
-  tint the status.
-
-to regression test appending to a test result set (the desktop):
-  regression test appending to the test result set (the status).
-
-to regression test appending to a test result set (the status - minimum width):
-  create a test result.
-  describe the test result given "the status" and "minimum width".
-  put the status' width in a string called actual.
-  put 1/2 inch in a number called minimum.
-  put "at least " then the minimum in a string called expectation.
-  if the status' width is at least the minimum,
-    pass the test result given the expectation and the actual.
-  if the status' width is not at least the minimum,
-    fail the test result given the expectation and the actual.
-  append the test result to the test result set.
-
-to regression test appending to a test result set (the status):
-  regression test appending to the test result set (the status - minimum width).
-
-the regression test quota is a quota equal to 5.
-
-to regression test returning a test result set:
-  regression test appending to the test result set (the desktop).
-  regression test appending to the test result set (the noodle).
-
-to remove the last three bytes from a string:
-  remove the last byte from the string.
-  remove the last byte from the string.
-  remove the last byte from the string.
-
-a reply is a string.
-
-a result set has a number called passed,
-  a number called failed,
-  and some test results.
-
 to run:
   start up.
   initialize.
@@ -1999,90 +1787,9 @@ to show the desktop with a string:
   put the string into the status' string.
   show the desktop.
 
-to show the status:
-  draw the status.
-  refresh the screen given the status' roundy box.
-
-to show status a number and a string or another string:
-  format the number and the string or the other string into a third string.
-  show status the third string.
-
-to show status a string:
-  put the string into the status' string.
-  show the status.
-
-the status has a roundy box and a string
-  and a color and a pass color and a fail color
-  and a result set called all test results
-  and a result set called failures
-  and a command.
-
 a submenu is a menu.
 
 the submenu width is a width equal to 2 inches.
-
-to summarize failure given a number and a quota returning a string:
-  summarize given the number and "failed" and the quota returning the string.
-
-to summarize given a number and a string and a quota returning a string called result:
-  if the number is less than 1,
-    put "No tests " then the string then "." in the result; exit.
-  if one should be hidden given the number and the quota,
-    put "1 test " then the string then "." in the result; exit.
-  if the quota is less than 1,
-    put the number then " tests " then the string then "." in the result; exit.
-  if the number is 1,
-    put "1 test " then the string then ".  It was:" in the result; exit.
-  if the quota is 1,
-    put the number then " tests " then the string then "."
-      then "  The first 1 is:" in the result; exit.
-  put the number then " tests " then the string in the result.
-  if the number is at most the quota,
-    append ":" to the result.
-  if the number is more than the quota,
-    append ".  The first " then the quota then " were:" to the result.
-
-to summarize given a number and a string returning a string called result:
-  if the number is 0, put "No tests " then the string then "." into the result; exit.
-  if the number is 1, put "1 test " then the string then "." into the result; exit.
-  put the number then " tests " then the string then "." into the result.
-
-to summarize success given a number and a quota returning a string:
-  summarize given the number and "passed" and the quota returning the string.
-
-to summarize a test result returning a string:
-  summarize the test result returning the string (description).
-  put the test result's expectation in an expectation.
-  put the test result's actual value in a string called actual.
-  put the test result's interpretation in an interpretation.
-  append "  Expected '" then the expectation then "'" to the string.
-  if 3-way-match given the expectation and the actual and the interpretation,
-    append ", which I got." to the string; exit.
-  if the expectation is the interpretation,
-    append ", and got '" then the actual then "'"
-      then ", which is OK." to the string; exit.
-  if the actual is the expectation,
-    append ", but I got '" then the actual then "'"
-      then ", so the test failed." to the string; exit.
-  append ", but I got '" then the actual then "'" to the string.
-  append " which is '" then the interpretation then "'" to the string.
-  append ", so the test failed." to the string.
-
-to summarize a test result returning a string (description):
-  put "In " then the test result's context
-    then ", tried " then the test result's test name then "." in the string.
-
-to summarize a test result set returning a string:
-  put the test result set's passed in a number called passed.
-  put the test result set's failed in a number called failed.
-  put the passed plus the failed in a number called total.
-  if the test result set is OK,
-    summarize given the passed and "passed" returning the string; exit.
-  if the test result set is not OK,
-    summarize given the failed and "failed" returning the string;
-    append "  Just " then the passed then " / " then the total then " were OK."
-      to the string; exit.
-  put "The tests have not run yet." into the string.
 
 the swatch width is a width equal to 1/3 inch.
 
@@ -2134,20 +1841,6 @@ a tab is a thing with
 
 the tabs are some tabs.
 
-a test result is a thing with
-  a string called context,
-  a string called test name,
-  an expectation,
-  a string called actual value, and
-  an interpretation.
-
-to tint the status:
-  if the regression tests passed,
-    put the status' pass color into the status' color; exit.
-  if the regression tests failed,
-    put the status' fail color into the status' color; exit.
-  untint the status.
-
 to track the desktop given an event:
   if the event is nil, exit.
   loop.
@@ -2174,25 +1867,4 @@ to track a tab returning a flag:
     insert the tab into the tabs after the other tab.
   adjust the tabs.
   show the desktop.
-  repeat.
-
-to untint the status:
-  put the white color into the status' color.
-
-to widen a command:
-  widen the command to the status' roundy box's right
-    minus the bar's display's left.
-  put the bar's display's left into the command's roundy box's left.
-
-to widen a command to a width:
-  put the width into the command's width.
-  put the width plus the command's roundy box's left
-    into the command's roundy box's right.
-
-to widen a submenu to a width:
-  if the submenu is nil, exit.
-  loop.
-    get a command from the submenu's commands.
-    if the command is nil, exit.
-    widen the command to the width.
   repeat.
