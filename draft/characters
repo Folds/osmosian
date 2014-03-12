@@ -1,5 +1,7 @@
 \ copyright © 2006 the osmosian order (3040)
 
+\ this file defines and manipulates the bytes and the keys, but does not handle any events.
+
 the a-key is a key equal to 65. 
 
 the accent byte is a byte equal to 96.
@@ -438,6 +440,10 @@ to decide if a byte is whitespace:
 
 to decide if a key is any digit key:
   if the key is between 48 and 57, say yes.
+  say no.
+
+to decide if a key is any function key:
+  if the key is between the f1-key and the f12-key, say yes.
   say no.
 
 to decide if a key is any letter key:

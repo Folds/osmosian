@@ -520,7 +520,9 @@ to handle find next given a source (find):
 
 to handle font height given a source and a font height:
   privatize the font height.
-  limit the font height to 1/96 inch and 1 inch.
+  put the tpp in a number called pixelsize.
+  if the pixelsize is less than 1, put 1/96 inch into the pixelsize.
+  limit the font height to the pixelsize and 1 inch.
   put the pad's box into a box.
   put the box's height divided by the font height times the font height into a height.
   put the box's top plus the height into the box's bottom.

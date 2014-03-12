@@ -1,10 +1,10 @@
 \ copyright © 2006 the osmosian order (3040)
 
-\ the desktop's pad includes the dialog.  the dialog's code is in another file.
+\ the desktop's bar includes the dialog.  the dialog's code is in another file.
 \ the dialog shares space with the menus and the status,
 \ so it is not visible when they are, and vice versa.
 
-\ the desktop's pad includes the status.  the status' code is in another file.
+\ the desktop's bar includes the status.  the status' code is in another file.
 \ the status' includes the regression test results and their menu.
 
 to add a color and a handler to a menu:
@@ -205,10 +205,6 @@ to decide if an event is ctrl-tab:
   if the event's ctrl flag is not set, say no.
   say yes.
 
-to decide if a key is any function key:
-  if the key is between the f1-key and the f12-key, say yes.
-  say no.
-
 to decide if a node should be read-only:
   if the node is nil, say  no.
   if the node's kind is not "file", say no.
@@ -220,18 +216,6 @@ to decide if a node should be read-only:
   if the tab's node's kind is not "file", repeat.
   if the tab's node's path is the node's path, say yes.
   repeat.
-
-to decide if a number is at least another number:
-  if the number is less than the other number, say no.
-  say yes.
-
-to decide if a number is at most another number:
-  if the number is greater than the other number, say no.
-  say yes.
-
-to decide if a number is more than another number:
-  if the number is greater than the other number, say yes.
-  say no.
 
 to decide if a spot is in the bar:
   if the spot is in the bar's box, say yes.
@@ -470,7 +454,7 @@ a free tab is a tab.
 to get a font:
   if the current tab's mode is "editor",
     get the font given the current tab's node's source; exit.
-  if the current tab's mode is "editor",
+  if the current tab's mode is "writer",
     get the font given the current tab's node's page; exit.
   put the default font in the font.
 
@@ -677,6 +661,11 @@ to handle a command:
   if the handler is "handle test result 3", handle test result given 3; exit.
   if the handler is "handle test result 4", handle test result given 4; exit.
   if the handler is "handle test result 5", handle test result given 5; exit.
+  if the handler is "handle test result 6", handle test result given 1; exit.
+  if the handler is "handle test result 7", handle test result given 2; exit.
+  if the handler is "handle test result 8", handle test result given 3; exit.
+  if the handler is "handle test result 9", handle test result given 4; exit.
+  if the handler is "handle test result 10", handle test result given 5; exit.
   if the handler is "handle smooth", handle smooth; exit.
   if the handler is "handle yank 1/8 inch", handle yank given 1/8 inch; exit.
   if the handler is "handle yank 1/12 inch", handle yank given 1/12 inch; exit.
@@ -699,7 +688,7 @@ to handle a command:
   if the handler is "handle uppercase", handle uppercase; exit.
   if the handler is "handle version", handle version; exit.
   \ not properly dispatched
-  debug "Internal error 763 - command not properly dispatched".
+  debug "Internal error 763 - command not properly dispatched:  '" then the handler then "'.".
 
 to handle a command (alignment...):
   create a submenu.
@@ -1547,8 +1536,6 @@ to initialize some tabs:
   append the tab to the tabs.
   repeat.
 
-an interpretation is a string.
-
 the menu is a menu.
 
 a menu is a thing with some commands.
@@ -1760,6 +1747,17 @@ to populate a submenu given a mode (y):
 
 to populate a submenu given a mode (z):
 
+to put a color in part of a submenu given a number:
+  if the submenu is nil, exit.
+  put 0 in a number called counter.
+  loop.
+    get a command from the submenu's commands.
+    if the command is nil, exit.
+    add 1 to the counter.
+    if the counter is the number,
+      put the color in the command's color; exit.
+  repeat.
+
 to run:
   start up.
   initialize.
@@ -1868,3 +1866,6 @@ to track a tab returning a flag:
   adjust the tabs.
   show the desktop.
   repeat.
+
+to ungray first item of a submenu:
+  put the white color in part of the submenu given 1.

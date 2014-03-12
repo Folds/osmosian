@@ -705,6 +705,8 @@ to clear a wyrd:
 to close a file:
   call "kernel32.dll" "CloseHandle" with the file.
 
+a clsid is a uuid.
+
 to cluck:
   play the cluck sound.
 
@@ -2097,6 +2099,14 @@ to decide if a number is another number and a string is another string:
   if the string is not the other string, say no.
   say yes.
 
+to decide if a number is at least another number:
+  if the number is less than the other number, say no.
+  say yes.
+
+to decide if a number is at most another number:
+  if the number is greater than the other number, say no.
+  say yes.
+
 to decide if a number is between another number and a third number:
   if the number is less than the other number, say no.
   if the number is greater than the third number, say no.
@@ -2147,6 +2157,10 @@ to decide if a number is less than or equal to another number:
   intel $3B19. \ cmp ebx,[ecx]
   intel $0F8E06000000. \ jle over the next 1 statement
   intel $C7C000000000. \ mov eax,0 \ now it's false
+
+to decide if a number is more than another number:
+  if the number is greater than the other number, say yes.
+  say no.
 
 to decide if a number is negative:
   if the number is less than 0, say yes.
@@ -2599,6 +2613,18 @@ to decide if a string is misspelled:
   if the string ends with "'s", remove the last two bytes from the string.
   if the string is in the lexicon's index, say no.
   say yes.
+
+to decide if a string is numeric:
+  convert the string to a ratio.
+  if the ratio is not 0, say yes.
+  slap a substring on the string.
+  if the substring is blank, say no.
+  if the substring's first's target is not any numeric starter, say no.
+  loop.
+    add 1 to the substring's first.
+    if the substring is blank, say no.
+    if the substring's first's target is not any digit, say no. 
+  repeat.
 
 to decide if a string is wider than a box: \ assumes font is selected on memory canvas
   get an abca and an abcc given the string and the memory canvas.
@@ -7693,6 +7719,27 @@ to refresh the screen given a box:
   call "gdi32.dll" "BitBlt" with the screen canvas and the box's left and the box's top and the box's width and the box's height 
    and the current canvas and the box's left and the box's top and 13369376 [srccopy].
 
+to regression test appending to a test result set (the noodle):
+  regression test appending to the test result set (the talker).
+
+to regression test appending to a test result set (the talker - get winmm clsid):
+  \ winmm.dll includes "PlaySound".
+  create a test result.
+  describe the test result given "the talker" and "get winmm.dll's clsid".
+  \ try to get the dll's clsid using the Windows guid:
+  put "{96749377-3391-11D2-9EE3-00C04F797396}" in a string called clsid_spvoice.
+  convert the clsid_spvoice to a clsid.
+  transcribe the clsid into a string called actual.
+  put "the winmm clsid" in a string called expectation.
+  if the actual is the expectation,
+    pass the test result given the expectation and the actual.
+  if the actual is not the expectation,
+    fail the test result given the expectation and the actual.
+  append the test result to the test result set.
+
+to regression test appending to a test result set (the talker):
+  regression test appending to the test result set (the talker - get winmm clsid).
+
 to relinquish control:
   flush the event queue.
   create an event.
@@ -9128,6 +9175,10 @@ the tpi is some twips equal to 1440.
 
 the tpp is some twips.
 
+to transcribe a uuid to a string:
+  put the uuid's d1 then " " then the uuid's d2 then " " then
+      the uuid's d3 then " " then the uuid's d4 into the string.
+
 to trim a string:
   remove any leading noise from the string.
   remove any trailing noise from the string.
@@ -9272,6 +9323,12 @@ a urlcomponents is a record with
   a number called dwurlpathlength,
   a pchar called lpszextrainfo,
   a number called dwextrainfolength.  
+
+a uuid is a record with
+  a number called d1,
+  a wyrd called d2,
+  a wyrd called d3,
+  8 bytes called d4.
 
 a vertex array is a pointer to a vertex array record.
 
@@ -9475,36 +9532,3 @@ to zero fill a string given a count:
   if the string's length is greater than or equal to the count, exit.
   prepend the zero byte to the string.
   repeat.
-
-to regression test appending to a test result set (the noodle):
-  regression test appending to the test result set (the talker).
-
-to regression test appending to a test result set (the talker):
-  regression test appending to the test result set (the talker - get winmm clsid).
-
-to regression test appending to a test result set (the talker - get winmm clsid):
-  \ winmm.dll includes "PlaySound".
-  create a test result.
-  describe the test result given "the talker" and "get winmm.dll's clsid".
-  \ try to get the dll's clsid using the Windows guid:
-  put "{96749377-3391-11D2-9EE3-00C04F797396}" in a string called clsid_spvoice.
-  convert the clsid_spvoice to a clsid.
-  transcribe the clsid into a string called actual.
-  put "the winmm clsid" in a string called expectation.
-  if the actual is the expectation,
-    pass the test result given the expectation and the actual.
-  if the actual is not the expectation,
-    fail the test result given the expectation and the actual.
-  append the test result to the test result set.
-
-a clsid is a uuid.
-
-a uuid is a record with
-  a number called d1,
-  a wyrd called d2,
-  a wyrd called d3,
-  8 bytes called d4.
-
-to transcribe a uuid to a string:
-  put the uuid's d1 then " " then the uuid's d2 then " " then
-      the uuid's d3 then " " then the uuid's d4 into the string.

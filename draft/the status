@@ -1,4 +1,4 @@
-\ copyright © 2006 the osmosian order (3040)
+\ copyright © 2006, 2014 the osmosian order (3041)
 
 \ the status is part of the desktop's pad.
 \ the status contains the test results.
@@ -87,9 +87,9 @@ to handle a command (tests failed...):
   create a submenu.
   put the regression test quota in a quota.
   put the status' failures' failed in a number called failed.
-  summarize failure given the failed and the quota
-    returning a string called summary.
-  Add the summary and "handle test quota" to the submenu.
+  summarize failure given the failed and the quota returning a string.
+  Add the string and "(Click a result to copy it.)"
+    and "handle test quota" to the submenu.
   handle the command given the submenu and the quota
     and the status' failures' test results.
 
@@ -98,9 +98,9 @@ to handle a command (tests passed...):
   create a submenu.
   put the regression test quota in a quota.
   put the status' all test results' passed in a number called passed.
-  summarize success given the passed and the quota
-    returning a string called summary.
-  Add the summary and "handle test quota" to the submenu.
+  summarize success given the passed and the quota returning a string.
+  Add the string and "(Click a result to copy it.)"
+    and "handle test quota" to the submenu.
   handle the command given the submenu and the quota
     and the status' all test results' test results.
 
@@ -110,13 +110,15 @@ to handle a command given a submenu and a quota and some test results:
     if the counter is greater than the quota, break.
     get a test result from the test results.
     if the test result is nil, break.
-    summarize the test result returning a string.
-    Add the string and "handle test result" to the submenu.
+    summarize the test result returning a name.
+    put "handle test result " then the counter into a handler.
+    Add the name and the handler to the submenu.
     add 1 to the counter.
   Repeat.
   widen the submenu to the command's width.
   refont the submenu.
   gray out the submenu.
+  ungray first item of the submenu.
   handle the command given the submenu.
 
 to handle an event (left click - status):
@@ -138,6 +140,24 @@ to handle an event (left click - status):
   track the desktop given the event.
 
 to handle test quota:
+  put the maximum test quota into a quota called max.
+  ask "Show how many tests (0-" then the max then ")?"
+    with the regression test quota.
+  if the answer is blank, exit.
+  if the answer is not numeric,
+    show error "Invalid test quota."; exit.
+  convert the answer to a number.
+  if the number is less than 0,
+    show error "Invalid test quota."; exit.
+  If the number is more than the max,
+    show error "I can only show 0-" then the max then " tests.  "
+      then the max then " is the best I can do.";
+    put the max in the number.
+  if the number is the regression test quota, exit.
+  put the number in the regression test quota.
+  if the regression tests passed,
+    handle the status' command (tests passed...); exit.
+  handle the status' command (tests failed...).
 
 to handle test result given a number:
   tint the status.
@@ -149,6 +169,10 @@ to initialize the status:
   put the lightest green color into the status' pass color.
   put the lightest red color into the status' fail color.
   untint the status.
+
+an interpretation is a string.
+
+the maximum test quota is a quota equal to 10.
 
 to populate a test result given a string called expectation
     and a string called actual and a string called interpretation:
