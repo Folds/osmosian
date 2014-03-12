@@ -1,7 +1,7 @@
 \ copyright © 2006 the osmosian order (3040)
 
-\ the dialog is part of the desktop's bar.
-\ it shares space with the menus and the status,
+\ The dialog is part of the desktop's bar.
+\ It shares screen space with the menus and the status,
 \ so it is not visible when they are, and vice versa.
 
 to add a button to the dialog given a string:

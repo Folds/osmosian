@@ -1,11 +1,11 @@
 \ copyright © 2006 the osmosian order (3040)
 
-\ the desktop's bar includes the dialog.  the dialog's code is in another file.
-\ the dialog shares space with the menus and the status,
+\ The desktop's bar includes the dialog.  The dialog's code is in another file.
+\ The dialog shares screen space with the menus and the status,
 \ so it is not visible when they are, and vice versa.
 
-\ the desktop's bar includes the status.  the status' code is in another file.
-\ the status' includes the regression test results and their menu.
+\ The desktop's bar includes the status.  The status' code is in another file.
+\ The status' code includes the regression test results and their menu.
 
 to add a color and a handler to a menu:
   if the menu is nil, exit.
@@ -185,6 +185,9 @@ the current process is a process.
 
 the current tab is a tab.
 
+to debug a handler (because it is undispatched):
+  debug "Internal error 763 - command not properly dispatched:  '" then the handler then "'.".
+
 to decide if a command is pointless:
   put the command's handler in a string called handler.
   if the handler's length is not 1, say no.
@@ -216,6 +219,17 @@ to decide if a node should be read-only:
   if the tab's node's kind is not "file", repeat.
   if the tab's node's path is the node's path, say yes.
   repeat.
+
+to decide if a number is positive:
+  if the number is greater than 0, say yes.
+  say no.
+
+to decide if a ratio is positive:
+  privatize the ratio.
+  de-sign the ratio.
+  if the ratio's denominator is 0, say no.
+  if the ratio's numerator is positive, say yes.
+  say no.
 
 to decide if a spot is in the bar:
   if the spot is in the bar's box, say yes.
@@ -470,6 +484,22 @@ to get a font given a text:
   if the text is nil, put the default font in the font; exit.
   put the text's font in the font.
 
+to get a height from a handler given a prefix:
+  put 0 in the height.
+  if the handler does not start with the prefix, exit.
+  if the handler does not end with " inch", exit.
+  get a residue from the handler after the prefix.
+  remove five bytes from the residue.
+  convert the residue to a ratio.
+  put the ratio times 1 inch in a ratio called temp.
+  put the temp's numerator divided by the temp's denominator into the height.
+
+to get a number from a handler given a prefix:
+  put 0 in the number.
+  if the handler does not start with the prefix, exit.
+  get a residue from the handler after the prefix.
+  convert the residue to the number.
+
 to gray out a submenu:
   if the submenu is nil, exit.
   loop.
@@ -579,13 +609,8 @@ to handle a command:
   if the handler is "handle align right",  handle align given "right"; exit.
   if the handler is "handle border", handle border given the command's color; exit.
   if the handler is "handle fill", handle fill given the command's color; exit.
-  if the handler is "handle font height given 1 inch", handle font height given 1 inch; exit.
-  if the handler is "handle font height given 1/2 inch", handle font height given 1/2 inch; exit.
-  if the handler is "handle font height given 1/3 inch", handle font height given 1/3 inch; exit.
-  if the handler is "handle font height given 1/4 inch", handle font height given 1/4 inch; exit.
-  if the handler is "handle font height given 1/5 inch", handle font height given 1/5 inch; exit.
-  if the handler is "handle font height given 1/6 inch", handle font height given 1/6 inch; exit.
-  if the handler is "handle font height given 1/8 inch", handle font height given 1/8 inch; exit.
+  if the handler starts with "handle font height given ",
+    handle font height given the handler (general); exit.
   if the handler is "handle font height other", handle font height other; exit.
   if the handler is "handle font name", handle font name; exit.
   if the handler is "handle radius", handle radius; exit.
@@ -656,27 +681,13 @@ to handle a command:
   if the handler is "handle select all", handle select all; exit.
   if the handler is "handle send to back", handle send to back; exit.
   if the handler is "handle test quota", handle test quota; exit.
-  if the handler is "handle test result 1", handle test result given 1; exit.
-  if the handler is "handle test result 2", handle test result given 2; exit.
-  if the handler is "handle test result 3", handle test result given 3; exit.
-  if the handler is "handle test result 4", handle test result given 4; exit.
-  if the handler is "handle test result 5", handle test result given 5; exit.
-  if the handler is "handle test result 6", handle test result given 1; exit.
-  if the handler is "handle test result 7", handle test result given 2; exit.
-  if the handler is "handle test result 8", handle test result given 3; exit.
-  if the handler is "handle test result 9", handle test result given 4; exit.
-  if the handler is "handle test result 10", handle test result given 5; exit.
+  if the handler starts with "handle test result ",
+    handle test result given the handler (general); exit.
   if the handler is "handle smooth", handle smooth; exit.
-  if the handler is "handle yank 1/8 inch", handle yank given 1/8 inch; exit.
-  if the handler is "handle yank 1/12 inch", handle yank given 1/12 inch; exit.
-  if the handler is "handle yank 1/16 inch", handle yank given 1/16 inch; exit.
-  if the handler is "handle yank 1/24 inch", handle yank given 1/24 inch; exit.
-  if the handler is "handle yank 1/32 inch", handle yank given 1/32 inch; exit.
-  if the handler is "handle yank 1/48 inch", handle yank given 1/48 inch; exit.
-  if the handler is "handle yank the tpp", handle yank given the tpp; exit.
   if the handler is "handle sort definitions", handle sort definitions; exit.
   if the handler is "handle sort selected lines", handle sort selected lines; exit.
-  if the handler is "handle sort nodettes by extension", handle sort nodettes given "extension"; exit.
+  if the handler is "handle sort nodettes by extension",
+    handle sort nodettes given "extension"; exit.
   if the handler is "handle sort nodettes by kind", handle sort nodettes given "kind"; exit.
   if the handler is "handle sort nodettes by name", handle sort nodettes given "name"; exit.
   if the handler is "handle stop", handle stop; exit.
@@ -687,8 +698,10 @@ to handle a command:
   if the handler is "handle unlabel", handle unlabel; exit.
   if the handler is "handle uppercase", handle uppercase; exit.
   if the handler is "handle version", handle version; exit.
+  if the handler is "handle yank the tpp", handle yank given the tpp; exit.
+  if the handler starts with "handle yank ", handle yank given the handler (general); exit.
   \ not properly dispatched
-  debug "Internal error 763 - command not properly dispatched:  '" then the handler then "'.".
+  debug the handler (because it is undispatched).
 
 to handle a command (alignment...):
   create a submenu.
@@ -1091,6 +1104,13 @@ to handle font height given a font height:
     handle font height given the current tab's node's page and the font height; exit.
   cluck.
 
+to handle font height given a handler (general):
+  put "handle font height given " in a prefix.
+  get a height from the handler given the prefix.
+  if the height is not positive,
+      debug the handler (because it is undispatched); exit.
+  handle font height given the height.
+
 to handle font height other:
   if the current tab's mode is "editor",
     handle font height other given the current tab's node's source; exit.
@@ -1434,6 +1454,13 @@ to handle stop:
   stop the current process.
   show status "Stopped".
 
+to handle test result given a handler (general):
+  put "handle test result " in a prefix.
+  get a number from the handler given the prefix.
+  if the number is less than 1,
+      debug the handler (because it is undispatched); exit.
+  handle test result given the number.
+
 to handle uncomment:
   if the current tab's mode is "editor",
     handle uncomment given the current tab's node's source; exit.
@@ -1465,6 +1492,13 @@ to handle uppercase:
 
 to handle version:
   show status the module's name.
+
+to handle yank given a handler (general):
+  put "handle yank given " in a prefix.
+  get a height from the handler given the prefix.
+  if the height is not positive,
+      debug the handler (because it is undispatched); exit.
+  handle yank given the height.
 
 to handle yank given a number:
   if the current tab's mode is "writer",
@@ -1757,6 +1791,64 @@ to put a color in part of a submenu given a number:
     if the counter is the number,
       put the color in the command's color; exit.
   repeat.
+
+to put the rest of a handler after a string into another string:
+  put the handler into a string called fullstring.
+  put the rest of the fullstring after the string into the other string.
+
+to regression test appending to a test result set (the desktop - get height):
+  create a test result.
+  describe the test result given "the desktop" and "get height".
+  put "handle font height given 1/6 inch" in a handler.
+  put "handle font height given " in a prefix.
+  get a height from the handler given the prefix.
+  put the height in a string called actual.
+  put the tpi / 6 in a string called expectation.
+  if the actual is the expectation,
+    pass the test result given the expectation and the actual.
+  if the actual is not the expectation,
+    fail the test result given the expectation and the actual.
+  append the test result to the test result set.
+
+to regression test appending to a test result set (the desktop - get inches string):
+  create a test result.
+  describe the test result given "the desktop" and "get inches string".
+  put "handle font height given 1/6 inch" in a handler.
+  put "handle font height given " in a prefix.
+  get a residue from the handler after the prefix.
+  put the residue in a string called actual.
+  put "1/6 inch" in a string called expectation.
+  if the actual is the expectation,
+    pass the test result given the expectation and the actual.
+  if the actual is not the expectation,
+    fail the test result given the expectation and the actual.
+  append the test result to the test result set.
+
+to regression test appending to a test result set (the desktop - get test number):
+  create a test result.
+  describe the test result given "the desktop" and "get test number".
+  put "handle test result 1" in a handler.
+  put "handle test result " in a prefix.
+  get a number from the handler given the prefix.
+  put the number in a string called actual.
+  put 1 in a string called expectation.
+  if the actual is the expectation,
+    pass the test result given the expectation and the actual.
+  if the actual is not the expectation,
+    fail the test result given the expectation and the actual.
+  append the test result to the test result set.
+
+to regression test appending to a test result set (the desktop):
+  regression test appending to the test result set (the desktop - get inches string).
+  regression test appending to the test result set (the desktop - get height).
+  regression test appending to the test result set (the desktop - get test number).
+
+to remove five bytes from a string:
+  remove the last byte from the string.
+  remove the last byte from the string.
+  remove the last byte from the string.
+  remove the last byte from the string.
+  remove the last byte from the string.
 
 to run:
   start up.

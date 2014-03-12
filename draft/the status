@@ -1,8 +1,8 @@
 \ copyright © 2006, 2014 the osmosian order (3041)
 
-\ the status is part of the desktop's pad.
-\ the status contains the test results.
-\ the status uses menu items to summarize the test results,
+\ The status is part of the desktop's pad.
+\ The status contains the test results.
+\ The status uses menu items to summarize the test results,
 \   and show sample test results.
 
 to append the failures from a test result set to another test result set:
@@ -144,7 +144,7 @@ to handle test quota:
   ask "Show how many tests (0-" then the max then ")?"
     with the regression test quota.
   if the answer is blank, exit.
-  if the answer is not numeric,
+  if the answer is not any numeric literal,
     show error "Invalid test quota."; exit.
   convert the answer to a number.
   if the number is less than 0,
@@ -223,6 +223,7 @@ to regression test appending to a test result set (the status):
 the regression test quota is a quota equal to 5.
 
 to regression test returning a test result set:
+  regression test appending to the test result set (the desktop).
   regression test appending to the test result set (the status).
   regression test appending to the test result set (the noodle).
 

@@ -8,8 +8,8 @@
 \   there is always at least one row.
 \   there is always a return byte at the end of the last row.
 
-\ the colors are defined and manipulated in 'colors'.
-\ the bytes and the keys are defined and manipulated in 'characters'
+\ The colors are defined and manipulated in 'colors'.
+\ The bytes and the keys are defined and manipulated in 'characters'
 \ (but 'characters' does not handle events.)
 
 an abc is a record with
@@ -2614,18 +2614,6 @@ to decide if a string is misspelled:
   if the string is in the lexicon's index, say no.
   say yes.
 
-to decide if a string is numeric:
-  convert the string to a ratio.
-  if the ratio is not 0, say yes.
-  slap a substring on the string.
-  if the substring is blank, say no.
-  if the substring's first's target is not any numeric starter, say no.
-  loop.
-    add 1 to the substring's first.
-    if the substring is blank, say no.
-    if the substring's first's target is not any digit, say no. 
-  repeat.
-
 to decide if a string is wider than a box: \ assumes font is selected on memory canvas
   get an abca and an abcc given the string and the memory canvas.
   get a width given the string and the memory canvas.
@@ -2640,6 +2628,19 @@ to decide if a string starts with another string:
   put the substring's first plus the other string's length minus 1 into the substring's last.
   if the substring is the other string, say yes.
   say no.
+
+a prefix is a string.
+
+a residue is a string.
+
+to get a residue from a string after a prefix:
+  put "" in the residue.
+  if the prefix is "", exit.
+  if the string does not start with the prefix, exit.
+  if the prefix starts with the string, exit.
+  slap a substring on the string.
+  put the substring's first plus the prefix's length into the substring's first.
+  put the substring into the residue.
 
 to decide if a string starts with a byte:
   if the string is blank, say no.
