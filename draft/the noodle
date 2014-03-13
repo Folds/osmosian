@@ -2629,19 +2629,6 @@ to decide if a string starts with another string:
   if the substring is the other string, say yes.
   say no.
 
-a prefix is a string.
-
-a residue is a string.
-
-to get a residue from a string after a prefix:
-  put "" in the residue.
-  if the prefix is "", exit.
-  if the string does not start with the prefix, exit.
-  if the prefix starts with the string, exit.
-  slap a substring on the string.
-  put the substring's first plus the prefix's length into the substring's first.
-  put the substring into the residue.
-
 to decide if a string starts with a byte:
   if the string is blank, say no.
   if the string's first's target is the byte, say yes.
@@ -4329,6 +4316,15 @@ to get a position given a spot and a text:
   get a row given the spot and the text.
   put the row's row# into the position's row#.
   get the position's column# given the row and the spot and the text.
+
+to get a residue from a string after a prefix:
+  put "" in the residue.
+  if the prefix is "", exit.
+  if the string does not start with the prefix, exit.
+  if the prefix starts with the string, exit.
+  slap a substring on the string.
+  put the substring's first plus the prefix's length into the substring's first.
+  put the substring into the residue.
 
 to get a rgb pointer from a bitmapdata at a row# and a column#: \ 1 based
   put the bitmapdata's scan0 into the rgb pointer.
@@ -6791,6 +6787,8 @@ a poutlinetextmetric is a pointer to an outlinetextmetric.
 
 the ppi is some twips.
 
+a prefix is a string.
+
 to prepend a byte to a string:
   put the string's length into a saved length.
   reassign the string's first given the string's length plus 1.
@@ -7964,6 +7962,8 @@ to reset a timer:
   put 0 into the timer's count.
   put 0 into the timer's start ticks.
   put 0 into the timer's total ticks.
+
+a residue is a string.
 
 to resize a box given a ratio pair:
   put the box's x-extent into a width.

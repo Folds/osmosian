@@ -164,11 +164,11 @@ to create a menu:
   allocate memory for the menu.
   put the big-a byte into a byte.
   loop.
-  if the byte is greater than the big-z byte, break.
-  put the byte into a string.
-  add the string and the string to the menu.
-  put "center" into the menu's commands' last's  alignment.
-  add 1 to the byte.
+    if the byte is greater than the big-z byte, break.
+    put the byte into a string.
+    add the string and the string to the menu.
+    put "center" into the menu's commands' last's alignment.
+    add 1 to the byte.
   repeat.
   put the bar's display's left-top into a spot.
   adjust the menu given the spot and 26 times the swatch width.
@@ -742,7 +742,7 @@ to handle a command (font height...):
   add "1/5 Inch" and "handle font height given 1/5 inch" to the submenu.
   add "1/6 Inch" and "handle font height given 1/6 inch" to the submenu.
   add "1/8 Inch" and "handle font height given 1/8 inch" to the submenu.
-  add "Other..." and "handle font height other" to the submenu.
+  add "Other" then the ellipsis byte and "handle font height other" to the submenu.
   get a font.
   describe the font's height returning a string.
   highlight the string in the submenu.

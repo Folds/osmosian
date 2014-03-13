@@ -5,12 +5,14 @@
 \ The status uses menu items to summarize the test results,
 \   and show sample test results.
 
-to append the failures from a test result set to another test result set:
+to append the failures from a test result set to another test result set (copying failures):
   loop.
     get a test result from the test result set's test results.
     if the test result is nil, exit.
     if the test result is not OK,
-      append the test result to the other test result set.
+      create a test result called duplicate;
+      put the test result in the duplicate;
+      append the duplicate to the other test result set.
   repeat.
 
 to append a test result to a result set:
@@ -77,9 +79,12 @@ a fail color is a color.
 to fail a test result given a string called expectation and a string called actual:
   populate the test result given the expectation and the actual and the actual.
 
+to finalize a result set:
+  destroy the result set's test results.
+
 to finalize the status:
-  destroy the status' all test results.
-  destroy the status' failures.
+  finalize the status' all test results.
+  finalize the status' failures.
   destroy the status' command.
 
 to handle a command (tests failed...):
@@ -162,8 +167,14 @@ to handle test quota:
 to handle test result given a number:
   tint the status.
 
+to initialize a result set:
+  put 0 in the result set's passed.
+  put 0 in the result set's failed.
+
 to initialize the status:
-  allocate memory for the status' command.
+  create the status' command.
+  initialize the status' all test results.
+  initialize the status' failures.
   put the bar's display and 1/12 inch into the status' roundy box.
   put the menu's commands' last's right into the status' left.
   put the lightest green color into the status' pass color.
@@ -202,7 +213,7 @@ to refont a submenu:
 to regression test:
   regression test returning the status' all test results.
   append the failures from the status' all test results
-    to the status' failures.
+    to the status' failures (copying failures).
   tint the status.
 
 to regression test appending to a test result set (the status - minimum width):
