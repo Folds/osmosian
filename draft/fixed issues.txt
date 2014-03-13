@@ -152,3 +152,12 @@ fixme:font:RemoveFontMemResourceEx (0x8771ccb9) stub
   Test difficulty:  Profound.
   Requested by Jasper Paulsen on March 7, 2014.
 
+088.  Add a test that the regression tests finished in an acceptable time.
+  For example, 10 seconds or 3600 seconds.
+  Audience:  Programmers.
+  Status:   Tested.
+  Benefit:  Minor.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Easy.
+  Requested by Jasper Paulsen on March 12, 2014.

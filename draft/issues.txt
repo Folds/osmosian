@@ -26,16 +26,6 @@ These items should occasionally be moved to fixed issues.txt.
   Testing difficulty:  Profound.
   Requested by Jasper Paulsen on March 7, 2014.
 
-088.  Add a test that the regression tests finished in an acceptable time.
-  For example, 10 seconds or 3600 seconds.
-  Audience:  Programmers.
-  Status:   Tested.
-  Benefit:  Minor.
-  Implementation difficulty:  Easy.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Easy.
-  Requested by Jasper Paulsen on March 12, 2014.
-
 087.  Show how long it took to run the regression tests in the status,
   upon completion of the regression tests.
   Audience:  Programmers.
@@ -99,12 +89,20 @@ but have not yet been tested.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 12, 2014.
 
+090.  Allow user to copy a test result to the clipboard by clicking on it.
+  Audience: Programmers.
+  Status:   Demonstrated.
+  Benefit:  Important.  This allows using the regression test feature
+     to output text to the clipboard, which means run-time values can
+     be copied into code sources for reading and munging by the user.
+     In turn, this makes it much easier to fix many bugs.
+  Implementation difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 12, 2014.
 
 \ ======================================   
 The following requests are roughly sorted
 from higher priority to lower priority.
-
-001c (090).  Allow user to copy a test result to the clipboard by clicking on it.
 
 001d (050).  On WINE systems, prevent the following error messages:
   Currently, the "wine cmd" shell reports something like the following after Cal quits:
