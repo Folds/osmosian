@@ -50,25 +50,49 @@ but have not yet been tested.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 9, 2014.
 
+  Status:  Demonstrated.
+  Benefit:  Very import
 
-\ ======================================   
-The following requests are roughly sorted
-from higher priority to lower priority.
+089.  Allow the maximum number of displayed regression tests to depend
+  only on the amount of room available for displaying them.
+  Specifically, do not require the corresponding menu handler
+  to be hardcoded in the menu handler switch.
+  Audience:  Programmers.
+  Status:  Implemented.
+  Benefit:  Minor.
+  Implementation difficulty:  Hard.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 12, 2014.
 
-001b (039).  Allow the user to decide whether to regression test each build.
+039.  Allow the user to decide whether to regression test each build.
   This could be implemented by only running the regression tests
   the first time the user clicks on the status.  This would eliminate
   the risk of an infinite loop or null pointer exception preventing
   the user from seeing that the program compiled quickly and successfully.
   Audience: Windows programmers and Linux programmers.
   Status: request.
-  Benefit:  minor.
+  Benefit:  Very important.
   Implementation difficulty:  Medium.
   Demoing difficulty:  Easy.
   Testing difficulty:  Profound.
   Requested by Jasper Paulsen on March 7, 2014.
 
-001c (050).  On WINE systems, prevent the following error messages:
+\ ======================================   
+The following requests are roughly sorted
+from higher priority to lower priority.
+
+001a (087).  Show how long it took to run the regression tests in the status,
+  upon completion of the regression tests.
+
+088.  Add a test that the regression tests finished in an acceptable time.
+  For example, 10 seconds or 3600 seconds.
+
+001b (089).  Needs testing.
+
+001c (090).  Allow user to copy a test result to the clipboard by clicking on it.
+
+001d (050).  On WINE systems, prevent the following error messages:
   Currently, the "wine cmd" shell reports something like the following after Cal quits:
 err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
 err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
@@ -557,7 +581,7 @@ open the files that are found.
      once name spaces are available.
   Requested by Jasper Paulsen on March 7, 2014.
 
-039.  See 001b.
+039.  Needs testing.
 
 040.  Reduce the font leading (in non-Osmosian fonts).
   Currently, fonts like Courier New have a large gap between rows.
@@ -669,7 +693,7 @@ Currently, the color declarations are scattered throughout the noodle.
 
 049.  Won't do.
 
-050.  See 001c.
+050.  See 001d.
 
 051.  On WINE systems, prevent the following error message:
   Currently, the "wine cmd" shell reports something like the following after Cal quits:
@@ -889,19 +913,8 @@ Unsorted requests:
 
 086.  Dynamically adjust the yank submenu based on the twips per pixel.
 
-087.  Show how long it took to run the regression tests in the status,
-  upon completion of the regression tests.
+087.  See 001a.
 
-088.  Add a test that the regression tests finished in an acceptable time.
-  For example, 10 seconds or 3600 seconds.
+088.  See 001b.
 
-089.  Allow the maximum number of displayed regression tests to depend
-  only on the amount of room available for displaying them.
-  Specifically, do not require the corresponding menu handler
-  to be hardcoded in the menu handler switch.
-
-090.  Allow user to copy a test result to the clipboard by clicking on it.
-
-
-
-
+090.  See 001c.
