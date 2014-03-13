@@ -10,8 +10,7 @@ to append the failures from a test result set to another test result set (copyin
     get a test result from the test result set's test results.
     if the test result is nil, exit.
     if the test result is not OK,
-      create a test result called duplicate;
-      put the test result in the duplicate;
+      create a test result called duplicate given the test result;
       append the duplicate to the other test result set.
   repeat.
 
@@ -22,6 +21,14 @@ to append a test result to a result set:
 
 to create a test result:
   allocate memory for the test result.
+
+to create a test result called duplicate given a test result:
+  create the duplicate.
+  put the test result's context in the duplicate's context.
+  put the test result's test name in the duplicate's test name.
+  put the test result's expectation in the duplicate's expectation.
+  put the test result's actual value in the duplicate's actual value.
+  put the test result's interpretation in the duplicate's interpretation.
 
 to decide if 3-way-match given an expectation and a string and an interpretation:
   if the expectation is not the string, say no.
@@ -134,7 +141,11 @@ to handle an event (left click - status):
 to handle an event (regression test):
   put yes in the status' started tests.
   untint the status.
+  show status "Testing...".
   regression test.
+  put "The tests ran in " then the status' all test results' timer's string
+    then " ms" in a message.
+  show status the message.
   handle the event (show cached test results).
 
 to handle an event (show cached test results):
@@ -153,7 +164,6 @@ to handle an event (show cached test results):
   widen the submenu to the status' command's width.
   refont the submenu.  
   handle the status' command given the submenu.
-  track the desktop given the event.
 
 to handle test quota:
   put the maximum test quota into a quota called max.
@@ -243,12 +253,29 @@ to regression test appending to a test result set (the status - minimum width):
 to regression test appending to a test result set (the status):
   regression test appending to the test result set (the status - minimum width).
 
+to regression test appending to a test result set (the testing time):
+  create a test result.
+  describe the test result given "the status" and "maximum testing time".
+  put the status' all test results' timer's string
+    then " ms" in a string called actual.
+  put 10 seconds in a number called maximum.
+  put "at most " then the maximum
+    then " ms" in a string called expectation.
+  if the status' all test results' timer's total ticks is at most the maximum,
+    pass the test result given the expectation and the actual.
+  if the status' all test results' timer's total ticks is more than the maximum,
+    fail the test result given the expectation and the actual.
+  append the test result to the test result set.
+
 the regression test quota is a quota equal to 5.
 
 to regression test returning a test result set:
+  start the test result set's timer.
   regression test appending to the test result set (the desktop).
   regression test appending to the test result set (the status).
   regression test appending to the test result set (the noodle).
+  stop the test result set's timer.
+  regression test appending to the test result set (the testing time).
 
 to remove the last three bytes from a string:
   remove the last byte from the string.
@@ -257,6 +284,7 @@ to remove the last three bytes from a string:
 
 a result set has a number called passed,
   a number called failed,
+  a timer,
   and some test results.
 
 to show the status:
