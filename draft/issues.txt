@@ -13,10 +13,10 @@ The program's change log is implicit
 in the source code repository's change log.
 These items should occasionally be moved to fixed issues.txt.
 
-
-\ ======================================   
-The following requests are roughly sorted
-from higher priority to lower priority.
+\ ======================================
+   
+The following requests have been demonstrated,
+but have not yet been tested.
 
 003.  Gray out (and disable) unused menu letters.
   Cal has an alphabetical menu structure.
@@ -32,7 +32,7 @@ from higher priority to lower priority.
   Audience:  all users.
   Requested by Jasper Paulsen on March 7, 2014.
 
-003b (067).  Add F3 as a shortcut for find next.
+067.  Add F3 as a shortcut for find next.
   Audience:  Windows programmers.
   Status:  Demonstrated.
   Benefit:  Minor.
@@ -41,7 +41,7 @@ from higher priority to lower priority.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 9, 2014.
 
-003c (068). Add F5 as a shortcut for run (from the editor window).
+068. Add F5 as a shortcut for run (from the editor window).
   Audience:  Windows programmers.
   Status:  Implemented.
   Benefit:  Minor.
@@ -49,6 +49,40 @@ from higher priority to lower priority.
   Demoing difficulty:  Easy.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 9, 2014.
+
+
+\ ======================================   
+The following requests are roughly sorted
+from higher priority to lower priority.
+
+001b (039).  Allow the user to decide whether to regression test each build.
+  This could be implemented by only running the regression tests
+  the first time the user clicks on the status.  This would eliminate
+  the risk of an infinite loop or null pointer exception preventing
+  the user from seeing that the program compiled quickly and successfully.
+  Audience: Windows programmers and Linux programmers.
+  Status: request.
+  Benefit:  minor.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Profound.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+001c (050).  On WINE systems, prevent the following error messages:
+  Currently, the "wine cmd" shell reports something like the following after Cal quits:
+err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
+err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
+err:ole:create_server class {96749377-3391-11d2-9ee3-00c04f797396} not registered
+err:ole:CoGetClassObject no class object {96749377-3391-11d2-9ee3-00c04f797396} could be created for context 0x7
+  Audience:  Linux programmers.
+  Status:  request.
+  Benefit:  Important.  This problem is caused by the talker failing to find
+    WINE's winmm.dll; this failure prevents Linux programmers from using buzz and cluck
+    to debug.
+  Implementation difficulty:  Profound.
+  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
+  Test difficulty:  Profound.
+  Requested by Jasper Paulsen on March 7, 2014.
 
 002.  Update the documentation once the program has automated testing.
 Automated tests make debugging easier.
@@ -135,7 +169,7 @@ Automated tests make debugging easier.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 7, 2014.
 
-Update the documentation to discuss configuration.
+007b (069). Update the documentation to discuss configuration.
   Audience:  Windows programmers and Linux programmers.
   Status:  request.
   Benefit:  Important -- the documentation needs to be accurate.
@@ -158,7 +192,7 @@ Update the documentation to discuss configuration.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 7, 2014.
 
-Don't hide programs outside of the program's window.
+008b (070).  Don't hide programs outside of the program's window.
   Currently, the program grabs a screenshot when it starts.
   The screenshot includes the full screen,
   not just the area the program is supposed to be in.
@@ -523,15 +557,7 @@ open the files that are found.
      once name spaces are available.
   Requested by Jasper Paulsen on March 7, 2014.
 
-039.  Allow the user to decide whether to regression test each build.
-  This could be an Easter egg in the configuration file.
-  Audience: Windows programmers and Linux programmers.
-  Status: request.
-  Benefit:  minor.
-  Implementation difficulty:  Trivial.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Profound.
-  Requested by Jasper Paulsen on March 7, 2014.
+039.  See 001b.
 
 040.  Reduce the font leading (in non-Osmosian fonts).
   Currently, fonts like Courier New have a large gap between rows.
@@ -641,30 +667,9 @@ Currently, the color declarations are scattered throughout the noodle.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 7, 2014.
 
-049.  On WINE systems, show WINE's complaint about memory leak(s).
-  Currently, the "wine cmd" shell reports something like the following after Cal quits:
-fixme:heap:HeapSetInformation 0x110000 0 0x40bc08 4
-  Audience:  Linux programmers.
-  Status:  request.
-  Benefit:  Important -- this will let Linux programmers mitigate their memory leaks.
-  Implementation difficulty:  Profound.
-  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
-  Test difficulty:  Medium.
-  Requested by Jasper Paulsen on March 7, 2014.
+049.  Won't do.
 
-050.  On WINE systems, prevent the following error messages:
-  Currently, the "wine cmd" shell reports something like the following after Cal quits:
-err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
-err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
-err:ole:create_server class {96749377-3391-11d2-9ee3-00c04f797396} not registered
-err:ole:CoGetClassObject no class object {96749377-3391-11d2-9ee3-00c04f797396} could be created for context 0x7
-  Audience:  Linux programmers.
-  Status:  request.
-  Benefit:  minor.
-  Implementation difficulty:  Profound.
-  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
-  Test difficulty:  Profound.
-  Requested by Jasper Paulsen on March 7, 2014.
+050.  See 001c.
 
 051.  On WINE systems, prevent the following error message:
   Currently, the "wine cmd" shell reports something like the following after Cal quits:
@@ -677,16 +682,7 @@ err:ole:CoInitializeEx Attempt to change threading model of this apartment from 
   Test difficulty:  Hard.
   Requested by Jasper Paulsen on March 7, 2014.
 
-052.  On WINE systems, prevent the following error message:
-  Currently, the "wine cmd" shell reports something like the following after Cal quits:
-fixme:font:RemoveFontMemResourceEx (0x8771ccb9) stub
-  Audience:  Linux programmers.
-  Status:  request.
-  Implementation difficulty:  easy.
-  Benefit:  minor.
-  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
-  Test difficulty:  Hard.
-  Requested by Jasper Paulsen on March 7, 2014.
+052.  Won't fix.
 
 053.  Update the documentation to reflect updated error messages while closing.
   Audience:  Linux programmers.
@@ -816,13 +812,96 @@ with an adjustable slider between them.
 \ Recent requests that have been prioritized higher than here.
 066.  See 016b.
 
-067.  See 003b.
+067.  Needs testing.
 
-068.  See 003c.
+068.  Needs testing.
 
+069.  See 007b.
 
+070.  See 008b.
 
 \ ======================================   
 Unsorted requests:
+
+071.  Add standard fonts to the menu.
+  The following four fonts are standard on Windows computers:
+  Arial, Times New Roman, Courier New, and Symbol.
+  The osmosian font is standard in CAL.
+  For each of these five fonts that is present,
+  include the font in a font name submenu.
+
+072.  Add an "Other" option to the font name submenu,
+  which does what CAL-3040's "Font Name..." menu item does:
+  ask the user in the dialog to type in a font name.
+
+073.  Keep track of the user's most recent choice
+  of any "Other font name" that is not one of the standard fonts.
+
+074.  If the user's most recent choice of non-standard
+  "Other font name" is not otherwise listed in the font name submenu,
+  include it.
+
+075.  If the current font (in the editor or writer pad)
+  is not otherwise listed in the font name submenu, include it.
+
+076.  In the font name submenu,
+  use each font to display the font name.
+  For example, courier new would be in courier new,
+  and osmosian would be in osmosian.
+
+077.  Highlight the current font name on the font name submenu.
+  If (and only if) the current font name is not on the font name submenu,
+  highlight the "Other" submenu item.
+
+078.  Allow font names to be added dynamically to the menus.
+  Specifically, do not require the corresponding menu handler
+  to be hardcoded in the menu handler switch.
+
+079.  Allow font heights to be added dynamically to the menus.
+  Specifically, do not require the corresponding menu handler
+  to be hardcoded in the menu handler switch.
+  Status:  Tested.
+
+080.  Keep track of the user's most recent choice
+  of any "Other font height" that is not one of the standard font heights.
+
+081.  If the user's most recent choice of non-standard
+  "Other font height" is not otherwise listed in the font height submenu,
+  include it.
+
+082.  If the current font height (in the editor or writer pad)
+  is not otherwise listed in the font height submenu, include it.
+
+083.  Highlight the current font height on the font name submenu.
+  If (and only if) the current font name is not on the font name submenu,
+  highlight the "Other" submenu item.
+  Status:  Demonstrated.
+
+084.  In the font height submenu,
+  use the current font to display the font heights.
+
+085.  In the font height submenu,
+  for each font height that is shorter than the default font height,
+  show the font height in its own height.
+  For example, if the default font height is 1/4 inch:
+  the font height submenu would show "1/8 Inch" smaller than "1/4 Inch",
+  but it would show "1/2 Inch" the same size as "1/4 Inch".
+
+086.  Dynamically adjust the yank submenu based on the twips per pixel.
+
+087.  Show how long it took to run the regression tests in the status,
+  upon completion of the regression tests.
+
+088.  Add a test that the regression tests finished in an acceptable time.
+  For example, 10 seconds or 3600 seconds.
+
+089.  Allow the maximum number of displayed regression tests to depend
+  only on the amount of room available for displaying them.
+  Specifically, do not require the corresponding menu handler
+  to be hardcoded in the menu handler switch.
+
+090.  Allow user to copy a test result to the clipboard by clicking on it.
+
+
 
 

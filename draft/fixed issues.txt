@@ -80,7 +80,7 @@ A status rating can be one of the following:
 
 \ ======================================   
    
-The following requests have been completed.
+The following requests have either been completed, or marked as "Won't do."
 The program's change log is implicit
 in the source code repository's change log.
 Occasionally, more fixed items should be moved from issues.txt.
@@ -127,5 +127,28 @@ Occasionally, more fixed items should be moved from issues.txt.
   Testing difficulty:  Trivial.
   Requested by Jasper Paulsen on March 7, 2014.
 
+049.  On WINE systems, show WINE's complaint about memory leak(s).
+  Currently, the "wine cmd" shell reports something like the following after Cal quits:
+fixme:heap:HeapSetInformation 0x110000 0 0x40bc08 4
+  Audience:  Linux programmers.
+  Status:  Won't do.  CAL-3040 already shows its debug complaint about memory leaks
+    on WINE systems.  WINE's documentation states that WINE produces many fixme
+    complaints, most of which can be ignored.
+  Benefit:  Neutral.
+  Implementation difficulty:  Profound.
+  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
+  Test difficulty:  Medium.
+  Requested by Jasper Paulsen on March 7, 2014.
 
+052.  On WINE systems, prevent the following error message:
+  Currently, the "wine cmd" shell reports something like the following after Cal quits:
+fixme:font:RemoveFontMemResourceEx (0x8771ccb9) stub
+  Audience:  Linux programmers.
+  Status:  Won't do.  This is caused by WINE having only implemented a stub
+    for "RemoveFontMemResourceEx".
+  Implementation difficulty:  Profound.
+  Benefit:  neutral.
+  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
+  Test difficulty:  Profound.
+  Requested by Jasper Paulsen on March 7, 2014.
 
