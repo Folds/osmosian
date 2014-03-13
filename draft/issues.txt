@@ -13,6 +13,40 @@ The program's change log is implicit
 in the source code repository's change log.
 These items should occasionally be moved to fixed issues.txt.
 
+039.  Allow the user to decide whether to regression test each build.
+  This could be implemented by only running the regression tests
+  the first time the user clicks on the status.  This would eliminate
+  the risk of an infinite loop or null pointer exception preventing
+  the user from seeing that the program compiled quickly and successfully.
+  Audience: Windows programmers and Linux programmers.
+  Status:   Demonstrated.
+  Benefit:  Very important.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Profound.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+088.  Add a test that the regression tests finished in an acceptable time.
+  For example, 10 seconds or 3600 seconds.
+  Audience:  Programmers.
+  Status:   Tested.
+  Benefit:  Minor.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Easy.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+087.  Show how long it took to run the regression tests in the status,
+  upon completion of the regression tests.
+  Audience:  Programmers.
+  Status:    Demonstrated.
+  Benefit:  Very important.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Profound.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+
 \ ======================================
    
 The following requests have been demonstrated,
@@ -57,38 +91,18 @@ but have not yet been tested.
   only on the amount of room available for displaying them.
   Specifically, do not require the corresponding menu handler
   to be hardcoded in the menu handler switch.
-  Audience:  Programmers.
-  Status:  Implemented.
+  Audience: Programmers.
+  Status:   Implemented.
   Benefit:  Minor.
   Implementation difficulty:  Hard.
-  Demoing difficulty:  Easy.
+  Demoing difficulty:  Easy, after there are many tests that all pass.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 12, 2014.
 
-039.  Allow the user to decide whether to regression test each build.
-  This could be implemented by only running the regression tests
-  the first time the user clicks on the status.  This would eliminate
-  the risk of an infinite loop or null pointer exception preventing
-  the user from seeing that the program compiled quickly and successfully.
-  Audience: Windows programmers and Linux programmers.
-  Status: request.
-  Benefit:  Very important.
-  Implementation difficulty:  Medium.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Profound.
-  Requested by Jasper Paulsen on March 7, 2014.
 
 \ ======================================   
 The following requests are roughly sorted
 from higher priority to lower priority.
-
-001a (087).  Show how long it took to run the regression tests in the status,
-  upon completion of the regression tests.
-
-088.  Add a test that the regression tests finished in an acceptable time.
-  For example, 10 seconds or 3600 seconds.
-
-001b (089).  Needs testing.
 
 001c (090).  Allow user to copy a test result to the clipboard by clicking on it.
 
@@ -581,7 +595,7 @@ open the files that are found.
      once name spaces are available.
   Requested by Jasper Paulsen on March 7, 2014.
 
-039.  Needs testing.
+039.  Done.
 
 040.  Reduce the font leading (in non-Osmosian fonts).
   Currently, fonts like Courier New have a large gap between rows.
@@ -913,8 +927,10 @@ Unsorted requests:
 
 086.  Dynamically adjust the yank submenu based on the twips per pixel.
 
-087.  See 001a.
+087.  Done.
 
-088.  See 001b.
+088.  Done.
+
+089.  Needs testing.
 
 090.  See 001c.
