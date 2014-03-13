@@ -127,6 +127,17 @@ to handle a command given a submenu and a quota and some test results:
   handle the command given the submenu.
 
 to handle an event (left click - status):
+  if the status' started tests is yes,
+    handle the event (show cached test results); exit.
+  handle the event (regression test).
+
+to handle an event (regression test):
+  put yes in the status' started tests.
+  untint the status.
+  regression test.
+  handle the event (show cached test results).
+
+to handle an event (show cached test results):
   tint the status.
   widen the status' command to 3 inches.
   put the status' roundy box's right
@@ -180,10 +191,11 @@ to initialize the status:
   put the lightest green color into the status' pass color.
   put the lightest red color into the status' fail color.
   untint the status.
+  put no in the status' started tests.
 
 an interpretation is a string.
 
-the maximum test quota is a quota equal to 10.
+the maximum test quota is a quota equal to 15.
 
 to populate a test result given a string called expectation
     and a string called actual and a string called interpretation:
@@ -263,7 +275,8 @@ the status has a roundy box and a string
   and a color and a pass color and a fail color
   and a result set called all test results
   and a result set called failures
-  and a command.
+  and a command
+  and a flag called started tests.
 
 to summarize failure given a number and a quota returning a string:
   summarize given the number and "failed" and the quota returning the string.

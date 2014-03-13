@@ -1525,7 +1525,6 @@ to initialize:
   initialize the compiler.
   fill the tabs.
   switch to the tabs' first.
-  regression test.
 
 to initialize the bar:
   put "normal" into the bar's mode.
