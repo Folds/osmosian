@@ -587,7 +587,7 @@ to handle close without drawing (writer):
 to handle a command:
   if the command is nil, exit.
   \ offer it dispatchers
-  put the command's handler in a string called handler.
+  put the command's handler in a handler.
   if the handler's length is 1,  handle the command (letter);   exit.
   if the handler is "alignment...", handle the command (alignment...); exit.
   if the handler is "border...", handle the command (border...); exit.
@@ -681,8 +681,7 @@ to handle a command:
   if the handler is "handle select all", handle select all; exit.
   if the handler is "handle send to back", handle send to back; exit.
   if the handler is "handle test quota", handle test quota; exit.
-  if the handler starts with "handle test result ",
-    handle test result given the handler (general); exit.
+  if the handler starts with "handle test result ", handle the command (copy test result); exit.
   if the handler is "handle smooth", handle smooth; exit.
   if the handler is "handle sort definitions", handle sort definitions; exit.
   if the handler is "handle sort selected lines", handle sort selected lines; exit.
@@ -1453,13 +1452,6 @@ to handle stop:
   show status "Stopping...".
   stop the current process.
   show status "Stopped".
-
-to handle test result given a handler (general):
-  put "handle test result " in a prefix.
-  get a number from the handler given the prefix.
-  if the number is less than 1,
-      debug the handler (because it is undispatched); exit.
-  handle test result given the number.
 
 to handle uncomment:
   if the current tab's mode is "editor",

@@ -94,6 +94,14 @@ to finalize the status:
   finalize the status' failures.
   destroy the status' command.
 
+to handle a command (copy test result):
+  put the command's handler in a handler.
+  put "handle test result " in a prefix.
+  get a number from the handler given the prefix.
+  if the number is less than 1,
+      debug the handler (because it is undispatched); exit.
+  handle the command given the number (copy test result).
+
 to handle a command (tests failed...):
   widen the command.
   create a submenu.
@@ -116,6 +124,12 @@ to handle a command (tests passed...):
   handle the command given the submenu and the quota
     and the status' all test results' test results.
 
+to handle a command given a number (copy test result):
+  tint the status.
+  show status "Copying...".
+  put the command's name on the windows clipboard.
+  show the desktop with "Copied".
+
 to handle a command given a submenu and a quota and some test results:
   put 1 in a number called counter.
   Loop.
@@ -129,8 +143,8 @@ to handle a command given a submenu and a quota and some test results:
   Repeat.
   widen the submenu to the command's width.
   refont the submenu.
-  gray out the submenu.
-  ungray first item of the submenu.
+\  gray out the submenu.
+\  ungray first item of the submenu.
   handle the command given the submenu.
 
 to handle an event (left click - status):
@@ -184,9 +198,6 @@ to handle test quota:
   if the regression tests passed,
     handle the status' command (tests passed...); exit.
   handle the status' command (tests failed...).
-
-to handle test result given a number:
-  tint the status.
 
 to initialize a result set:
   put 0 in the result set's passed.
