@@ -8062,8 +8062,8 @@ to resize a window given a box:
    put the box's top divided by the tpp into a number called top.
    put the box's right divided by the tpp into a number called right.
    put the box's bottom divided by the tpp into a number called bottom.
-   put the right minus the left into a number called width.
-   put the bottom minus the top into a number called height.
+   put 1 plus the right minus the left into a number called width.
+   put 1 plus the bottom minus the top into a number called height.
    call "user32.dll" "MoveWindow" with the window
      and the left and the top and the width and the height and no.
 
