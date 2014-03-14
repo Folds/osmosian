@@ -5329,21 +5329,29 @@ to initialize the printer canvas:
 
 to initialize the screen:
   call "user32.dll" "GetSystemMetrics" with 0 [sm_cxscreen]
-    returning the screen's pixel width.
+    returning the screen's maximum pixel width.
   call "user32.dll" "GetSystemMetrics" with 1 [sm_cyscreen]
-    returning the screen's pixel height.
-  put 96 into the ppi.
-  put the tpi divided by the ppi into the tpp.
+    returning the screen's maximum pixel height.
+  if the screen's maximum pixel width is greater than 1000,
+    put 1000 in the screen's pixel width.
+  if the screen's maximum pixel width is not greater than 1000,
+    put the screen's maximum pixel width in the screen's pixel width.
+  if the screen's maximum pixel height is greater than 100,
+    put the screen's maximum pixel height minus 50 in the screen's pixel height.
+  if the screen's maximum pixel height is not greater than 100,
+    put the screen's maximum pixel height divided by 2 in the screen's pixel height.
+  put 96 into the ppi. \ pixels per inch.
+  put the tpi divided by the ppi into the tpp. \ twips per pixel.
   put the screen's pixel width times the tpp into a width.
-  put 15000 into the width.
+\  put 15000 into the width.
   put the screen's pixel height times the tpp into a height.
-  put the height minus 750 into the height. 
+\  put the height minus 750 into the height. 
   put 0 and 0 and the width and the height into the screen's box.
   subtract the tpp from the screen's right-bottom.
 
 to initialize the screen canvas:
-   call "user32.dll" "GetDC" with the main window returning the screen canvas.
-  normalize the screen canvas.
+   call "user32.dll" "GetWindowDC" with the main window returning the screen canvas.
+   normalize the screen canvas.
 
 to initialize a talker:
   convert "{96749377-3391-11D2-9EE3-00C04F797396}" [clsid_spvoice] to a clsid.
@@ -5364,6 +5372,7 @@ to initialize the window:
     and the module's name's first and -2147483648 [ws_popup]
     and 0 and 0 and the screen's pixel width and the screen's pixel height
     and 0 and 0 and the module's handle and 0.
+  resize the main window given the screen.
   call "user32.dll" "ShowWindow" with the main window and 1 [sw_shownormal].
 
 to initialize winsock:
@@ -6305,12 +6314,16 @@ to move a vertex up some twips:
 to move a window left:
   call "user32.dll" "GetWindowRect" with the main window and a box's whereabouts.
   subtract the screen's pixel width from the box's left.
-  call "user32.dll" "MoveWindow" with the window and the box's left and the box's top and the screen's pixel width and the screen's pixel height and 1.
+  call "user32.dll" "MoveWindow"
+    with the window and the box's left and the box's top
+    and the screen's pixel width and the screen's pixel height and 1.
 
 to move a window right:
   call "user32.dll" "GetWindowRect" with the main window and a box's whereabouts.
   add the screen's pixel width to the box's left.
-  call "user32.dll" "MoveWindow" with the window and the box's left and the box's top and the screen's pixel width and the screen's pixel height and 1.
+  call "user32.dll" "MoveWindow" with the window
+    and the box's left and the box's top
+    and the screen's pixel width and the screen's pixel height and 1.
 
 a msg is a record with
   a window called hwnd,
@@ -8044,6 +8057,19 @@ to resize a text given a twip pair:
   resize the text's box given the twip pair.
   wrap the text.
 
+to resize a window given a box:
+   put the box's left divided by the tpp into a number called left.
+   put the box's top divided by the tpp into a number called top.
+   put the box's right divided by the tpp into a number called right.
+   put the box's bottom divided by the tpp into a number called bottom.
+   put the right minus the left into a number called width.
+   put the bottom minus the top into a number called height.
+   call "user32.dll" "MoveWindow" with the window
+     and the left and the top and the width and the height and no.
+
+to resize a window given a screen:
+  resize the window given the screen's box.
+
 to restart a timer:
   add 1 to the timer's count.
   if the timer's count is not 1, exit.
@@ -8324,7 +8350,10 @@ to scale a vertex given a ratio:
 
 the screen canvas is a canvas.
 
-the screen has a box, a pixel height and a pixel width.
+a screen has a box, a pixel height, and a pixel width,
+   a maximum pixel height, and a maximum pixel width.
+
+the screen is a screen.
 
 to scroll a console given an event:
   if the console is nil, exit.
