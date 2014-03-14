@@ -161,3 +161,57 @@ fixme:font:RemoveFontMemResourceEx (0x8771ccb9) stub
   Demoing difficulty:  Easy.
   Testing difficulty:  Easy.
   Requested by Jasper Paulsen on March 12, 2014.
+
+061.  Make it easy to open all of the files in a project.
+  Audience: Windows programmers and Linux programmers.
+  Status:  Demonstrated in CAL-3040.  The de facto project file
+    is all files (that lack file extensions) in the same folder
+    as the active source when the compile or run feature is chosen.
+  Implementation difficulty:  Done in CAL-3040.
+  Demoing difficulty:  medium.
+  Testing difficulty:  medium.
+  Requested by Jasper Paulsen on March 7, 2014.
+  
+062.  Allow using the Desktop after documents have been loaded into the editor.
+  This might require using a tab for the purpose.
+  Audience:  All users.
+  Status:   Demonstrated in CAL-3040.  All blank tabs have this feature.
+  Implementation difficulty:  Done in CAL-3040.
+  Demoing difficulty:  Trivial.
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+063.  Allow opening files that are selected in the project file.
+  Audience:  Windows programmers.
+  Status:  Demonstrated in CAL-3040.  The de facto project file
+    is all files (that lack file extensions) in the same folder
+    as the active source when the compile or run feature is chosen.
+  Benefit:  Minor.
+  Implementation difficulty:  Done in CAL-3040.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 7, 2014.
+  
+039.  Allow the user to decide whether to regression test each build.
+  This could be implemented by only running the regression tests
+  the first time the user clicks on the status.  This would eliminate
+  the risk of an infinite loop or null pointer exception preventing
+  the user from seeing that the program compiled quickly and successfully.
+  Audience: Windows programmers and Linux programmers.
+  Status:   Demonstrated.
+  Benefit:  Very important.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Profound.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+087.  Show how long it took to run the regression tests in the status,
+  upon completion of the regression tests.
+  Audience:  Programmers.
+  Status:    Demonstrated.
+  Benefit:  Very important.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Profound.
+  Requested by Jasper Paulsen on March 7, 2014.
+

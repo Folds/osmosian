@@ -13,29 +13,6 @@ The program's change log is implicit
 in the source code repository's change log.
 These items should occasionally be moved to fixed issues.txt.
 
-039.  Allow the user to decide whether to regression test each build.
-  This could be implemented by only running the regression tests
-  the first time the user clicks on the status.  This would eliminate
-  the risk of an infinite loop or null pointer exception preventing
-  the user from seeing that the program compiled quickly and successfully.
-  Audience: Windows programmers and Linux programmers.
-  Status:   Demonstrated.
-  Benefit:  Very important.
-  Implementation difficulty:  Easy.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Profound.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-087.  Show how long it took to run the regression tests in the status,
-  upon completion of the regression tests.
-  Audience:  Programmers.
-  Status:    Demonstrated.
-  Benefit:  Very important.
-  Implementation difficulty:  Easy.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Profound.
-  Requested by Jasper Paulsen on March 7, 2014.
-
 
 \ ======================================
    
@@ -104,130 +81,6 @@ but have not yet been tested.
 The following requests are roughly sorted
 from higher priority to lower priority.
 
-001d (050).  On WINE systems, prevent the following error messages:
-  Currently, the "wine cmd" shell reports something like the following after Cal quits:
-err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
-err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
-err:ole:create_server class {96749377-3391-11d2-9ee3-00c04f797396} not registered
-err:ole:CoGetClassObject no class object {96749377-3391-11d2-9ee3-00c04f797396} could be created for context 0x7
-  Audience:  Linux programmers.
-  Status:  request.
-  Benefit:  Important.  This problem is caused by the talker failing to find
-    WINE's winmm.dll; this failure prevents Linux programmers from using buzz and cluck
-    to debug.
-  Implementation difficulty:  Profound.
-  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
-  Test difficulty:  Profound.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-002.  Update the documentation once the program has automated testing.
-Automated tests make debugging easier.
-  Audience:  Windows programmers and Linux programmers.
-  Status:  request.
-  Benefit:  Important -- the documentation needs to be accurate.
-  Implementation difficulty:  Easy.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  not applicable
-  Requested by Jasper Paulsen on March 7, 2014.
-
-004.  Allow true vertical panning.
-  Currently, the user can pan a text document
-  by right-clicking and dragging the mouse.
-  Unfortunately, this often causes the text to move over to the left,
-  so that the left part of the text is off the screen.
-  This is disorienting.
-  The current work-around is to pan up-and-to-the-right,
-  or pan down-and-to-the-right.
-  It would be possible to modify
-     the right-click-and-drag mouse event handler
-     so that if the item being viewed is a text file,
-     and the absolute value of the mouse's change in x is less
-     than an arbitrary fraction of
-     the absolute value of the mouse's change in y,
-     the pan is purely vertical.
-  The audiences are Windows programmers and Linux programmers.
-  The benefit is important -- the non-vertical panning
-  is very jarring to new users of the system.
-  The status is designed.
-  Implementation would be easy.
-  Demoing would be easy.
-  Testing would be easy.  The test could propose
-    possible mouse event delta-x and delta-y values,
-    and verify that the editor can compute
-    the intended delta-x and delta-y values.
-    The test would not need to actually pan the screen.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-005.  Update the version and copyright information.
-  Update both the program and the documentation.
-  Audience:  all users.
-  Status:  request.
-  Benefit:  Important -- the documentation needs to be accurate.
-  Implementation difficulty:  Easy, but requires consultation with
-    the Osmosian Order of Plain English Programmers.
-  Demo difficulty:  Easy.
-  Test difficulty:  not applicable.
-  Requested by Jasper Paulsen on March 7, 2014.
-    
-006.  Hide unused tabs in the tab-strip.
-  Cal has a tab-strip at the bottom of its screen.
-  The tab-strip shows blank tabs for tabs
-    that have not been populated with documents yet.
-  This confuses users.
-  The request is to hide all but one of the unused tabs.
-  The one blank tab will let users start working on a new document.
-  When the user starts working on a new document, unhide another tab.
-  Benefit:  Minor.
-  Implementation difficulty:  Medium.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Medium.
-  Audience:  Windows programmers.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-007.  Have a configuration file.
-  Some users have preferences that they would like to keep from
-  one session of Cal to another.  For example:
-    font name,
-    font size,
-    font name for UI features,
-    main window size and location,
-    initial size and location of the main window
-      of a program run by the compiler,
-    state of the "most recently used menus" feature
-  Store these settings in a configuration file, in Plain English.
-  Include a prominent note that the program updates these settings,
-    based on user actions.
-  Audience:  Windows programmers and Linux programmers.
-  Benefit:  Very important.  This feature will let Osmosian Masters
-            have different settings from other programmers.
-  Implementation difficulty:  Hard.
-  Demoing difficulty:  Medium.
-  Testing difficulty:  Medium.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-007b (069). Update the documentation to discuss configuration.
-  Audience:  Windows programmers and Linux programmers.
-  Status:  request.
-  Benefit:  Important -- the documentation needs to be accurate.
-  Implementation difficulty:  Medium.
-  Demo difficulty:  Easy.
-  Test difficulty:  not applicable.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-008.  Change the default font for first-time users.
-  If the system has "Courier New" available, use it.
-  If "Courier New" is not available, try "Arial".
-  If "Arial" is not available, use "Osmosian".
-  Benefit:  Very important -- many potential users do not even try
-            the system, because the first font they see is Osmosian,
-            and they do not see how to change the font.
-  Audience:  Windows programmers and Linux programmers.
-  Implementation difficulty:  Easy.
-  Demoing difficulty:  Profound.  (Because the demonstrator will
-            not be a first-time user.)
-  Testing difficulty:  Medium.
-  Requested by Jasper Paulsen on March 7, 2014.
-
 008b (070).  Don't hide programs outside of the program's window.
   Currently, the program grabs a screenshot when it starts.
   The screenshot includes the full screen,
@@ -286,6 +139,26 @@ Automated tests make debugging easier.
   Testing would be profound.
   Requested by Jasper Paulsen on March 7, 2014.
 
+013.  Allow changing the main window size and location at run-time.
+  Currently, the main window is fixed at the top-left corner of the screen.
+  Currently, the main window's size is fixed.
+  Currently, the program does not have mouse cursors available
+  for changing widths, changing heights, nor dragging window corners.
+  When the mouse is close to the edges of the window, and the window
+  is in "restore" mode, change the cursor accordingly.
+  If the user clicks-and-drags the mouse
+  while the mouse has such a cursor,
+  adjust the window size and location.  Do not allow the window height
+  or width to exceed the corresponding screen dimension.
+  Status:  request.
+  Audience:  Windows programmers and Linux programmers.
+  Benefit:  Important.  It will allow users to adjust the size of Cal
+            depending on how important their distractions from Cal are.
+  Implementation difficulty:  Hard.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Hard.
+  Requested by Jasper Paulsen on March 7, 2014.
+
 011.  Allow the menus (and status bar) to fold to two or three rows.
   Currently, Cal's menus and status bar need about 1000 pixels of width
   at the top of the screen.  This forces Cal to be at least 1000 pixels wide.
@@ -315,26 +188,6 @@ while a letter's menu is visible.
   Status:  request.
   Requested by Jasper Paulsen on March 7, 2014.
 
-013.  Allow changing the main window size and location at run-time.
-  Currently, the main window is fixed at the top-left corner of the screen.
-  Currently, the main window's size is fixed.
-  Currently, the program does not have mouse cursors available
-  for changing widths, changing heights, nor dragging window corners.
-  When the mouse is close to the edges of the window, and the window
-  is in "restore" mode, change the cursor accordingly.
-  If the user clicks-and-drags the mouse
-  while the mouse has such a cursor,
-  adjust the window size and location.  Do not allow the window height
-  or width to exceed the corresponding screen dimension.
-  Status:  request.
-  Audience:  Windows programmers and Linux programmers.
-  Benefit:  Important.  It will allow users to adjust the size of Cal
-            depending on how important their distractions from Cal are.
-  Implementation difficulty:  Hard.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Hard.
-  Requested by Jasper Paulsen on March 7, 2014.
-
 014.  Update the documentation after new cursors are added.
   Status:  request.
   Benefit:  Important -- the documentation needs to be accurate.
@@ -353,6 +206,99 @@ while a letter's menu is visible.
   Testing difficulty:  not applicable.
   Requested by Jasper Paulsen on March 7, 2014.
 
+002.  Update the documentation once the program has automated testing.
+Automated tests make debugging easier.
+  Audience:  Windows programmers and Linux programmers.
+  Status:  request.
+  Benefit:  Important -- the documentation needs to be accurate.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  not applicable
+  Requested by Jasper Paulsen on March 7, 2014.
+
+005.  Update the version and copyright information.
+  Update both the program and the documentation.
+  Audience:  all users.
+  Status:  request.
+  Benefit:  Important -- the documentation needs to be accurate.
+  Implementation difficulty:  Easy, but requires consultation with
+    the Osmosian Order of Plain English Programmers.
+  Demo difficulty:  Easy.
+  Test difficulty:  not applicable.
+  Requested by Jasper Paulsen on March 7, 2014.
+    
+004.  Allow true vertical panning.
+  Currently, the user can pan a text document
+  by right-clicking and dragging the mouse.
+  Unfortunately, this often causes the text to move over to the left,
+  so that the left part of the text is off the screen.
+  This is disorienting.
+  The current work-around is to pan up-and-to-the-right,
+  or pan down-and-to-the-right.
+  It would be possible to modify
+     the right-click-and-drag mouse event handler
+     so that if the item being viewed is a text file,
+     and the absolute value of the mouse's change in x is less
+     than an arbitrary fraction of
+     the absolute value of the mouse's change in y,
+     the pan is purely vertical.
+  The audiences are Windows programmers and Linux programmers.
+  The benefit is important -- the non-vertical panning
+  is very jarring to new users of the system.
+  The status is designed.
+  Implementation would be easy.
+  Demoing would be easy.
+  Testing would be easy.  The test could propose
+    possible mouse event delta-x and delta-y values,
+    and verify that the editor can compute
+    the intended delta-x and delta-y values.
+    The test would not need to actually pan the screen.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+007.  Have a configuration file.
+  Some users have preferences that they would like to keep from
+  one session of Cal to another.  For example:
+    font name,
+    font size,
+    font name for UI features,
+    main window size and location,
+    initial size and location of the main window
+      of a program run by the compiler,
+    state of the "most recently used menus" feature
+  Store these settings in a configuration file, in Plain English.
+  Include a prominent note that the program updates these settings,
+    based on user actions.
+  Audience:  Windows programmers and Linux programmers.
+  Benefit:  Very important.  This feature will let Osmosian Masters
+            have different settings from other programmers.
+  Implementation difficulty:  Hard.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+007b (069). Update the documentation to discuss configuration.
+  Audience:  Windows programmers and Linux programmers.
+  Status:  request.
+  Benefit:  Important -- the documentation needs to be accurate.
+  Implementation difficulty:  Medium.
+  Demo difficulty:  Easy.
+  Test difficulty:  not applicable.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+008.  Change the default font for first-time users.
+  If the system has "Courier New" available, use it.
+  If "Courier New" is not available, try "Arial".
+  If "Arial" is not available, use "Osmosian".
+  Benefit:  Very important -- many potential users do not even try
+            the system, because the first font they see is Osmosian,
+            and they do not see how to change the font.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Profound.  (Because the demonstrator will
+            not be a first-time user.)
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 7, 2014.
+
 016.  Mark the tabs to indicate files with unsaved edits.
   For example, put a "*" before the name of each unsaved file.
   Audience:  programmers.
@@ -361,6 +307,22 @@ while a letter's menu is visible.
   Implementation difficulty:  Medium.
   Demoing difficulty:  Easy.
   Testing difficulty:  Hard.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+001d (050).  On WINE systems, prevent the following error messages:
+  Currently, the "wine cmd" shell reports something like the following after Cal quits:
+err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
+err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
+err:ole:create_server class {96749377-3391-11d2-9ee3-00c04f797396} not registered
+err:ole:CoGetClassObject no class object {96749377-3391-11d2-9ee3-00c04f797396} could be created for context 0x7
+  Audience:  Linux programmers.
+  Status:  request.
+  Benefit:  Important.  This problem is caused by the talker failing to find
+    WINE's winmm.dll; this failure prevents Linux programmers from using buzz and cluck
+    to debug.
+  Implementation difficulty:  Profound.
+  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
+  Test difficulty:  Profound.
   Requested by Jasper Paulsen on March 7, 2014.
 
 016b (066).  Allow user to enter font heights in decimal inches.
@@ -797,34 +759,23 @@ err:ole:CoInitializeEx Attempt to change threading model of this apartment from 
   Status: request.
   Requested by Jasper Paulsen on March 7, 2014.
 
-061.  Make it easy to open all of the files in a project.
-  Audience: Windows programmers and Linux programmers.
-  Status: request.
+006.  Hide unused tabs in the tab-strip.
+  Cal has a tab-strip at the bottom of its screen.
+  The tab-strip shows blank tabs for tabs
+    that have not been populated with documents yet.
+  This confuses users.
+  The request is to hide all but one of the unused tabs.
+  The one blank tab will let users start working on a new document.
+  When the user starts working on a new document, unhide another tab.
   Benefit:  Might do more harm than good.
-  Implementation difficulty:  medium.
-  Demoing difficulty:  medium.
-  Testing difficulty:  medium.
-  Requested by Jasper Paulsen on March 7, 2014.
-  
-062.  Allow using the Desktop after documents have been loaded into the editor.
-  This might require using a tab for the purpose.
-  Audience:  All users.
-  Status:  request.
-  Benefit:  Possibly does more harm than good.
   Implementation difficulty:  Medium.
   Demoing difficulty:  Easy.
   Testing difficulty:  Medium.
+  Audience:  Windows programmers.
   Requested by Jasper Paulsen on March 7, 2014.
 
-063.  Allow opening files that are selected in the project file.
-  Audience:  Windows programmers.
-  Status:  request.
-  Benefit:  Minor.
-  Implementation difficulty:  Hard.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Medium.
-  Requested by Jasper Paulsen on March 7, 2014.
-  
+061 - 063.  Done in CAL-3040.
+
 064.  Allow user to enter font heights in points (72nds of inches).
   Audience:  Windows programmers.
   Status:  request.
