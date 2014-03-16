@@ -143,8 +143,6 @@ to handle a command given a submenu and a quota and some test results:
   Repeat.
   widen the submenu to the command's width.
   refont the submenu.
-\  gray out the submenu.
-\  ungray first item of the submenu.
   handle the command given the submenu.
 
 to handle an event (left click - status):
@@ -294,6 +292,9 @@ to remove the last three bytes from a string:
 
 to resize the status:
   put the bar's display and 1/12 inch into the status' roundy box.
+  put the trio allowance into a width.
+  if there is room (for the trio),
+    put the status' right minus the width into the status' right.
   put the menu's commands' last's right into the status' left.
 
 a result set has a number called passed,

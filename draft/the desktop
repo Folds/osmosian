@@ -1,4 +1,4 @@
-\ copyright © 2006 the osmosian order (3040)
+\ copyright © 2006, 2014 the osmosian order (3041)
 
 \ The desktop's bar includes the dialog.  The dialog's code is in another file.
 \ The dialog shares screen space with the menus and the status,
@@ -101,9 +101,9 @@ to add swatches to a submenu given a handler and a color:
   privatize the color.
   put 875 into the color's lightness.
   loop.
-  add the color and the handler to the submenu.
-  subtract 125 from the color's lightness.
-  if the color's lightness is less than 125, exit.
+    add the color and the handler to the submenu.
+    subtract 125 from the color's lightness.
+    if the color's lightness is less than 125, exit.
   repeat.
 
 to adjust a menu given a spot and a width:
@@ -139,6 +139,14 @@ to adjust some tabs:
 
 the bar has a height, a box, a display box and a mode.
 
+to boldly format a command:
+  put "center" into the command's alignment.
+  put "arial" into the command's font's name.
+
+to boldly format a command given a color:
+  boldly format the command.
+  put the color into the command's font color.
+
 to choose a color for a command (temporary color):
   put the command's color into the color.
   if the color is clear, put the white color into the color.
@@ -150,13 +158,14 @@ the command height is a height equal to 1/3 inch.
 a command is a thing with
   a roundy box,
   a width,
-  a color, a font, an alignment,
+  a color, a font, a font color, an alignment,
   a name, a shortcut, and a handler.
 
 to create a command:
   allocate memory for the command.
   put the clear color into the command's color.
   put the default font into the command's font.
+  put the black color into the command's font color.
   put 1/12 inch into the command's roundy box's radius.
   put "left" into the command's alignment.
 
@@ -179,6 +188,21 @@ to create a submenu:
 to create a tab:
   allocate memory for the tab.
 
+to create a trio:
+  allocate memory for the trio.
+  put the en-dash byte in a string.
+  add the string and "handle minimize" to the trio.
+  boldly format the trio's commands' last.
+  add "+" and "handle toggle screensize" to the trio.
+  boldly format the trio's commands' last.
+  add "X" and "handle quit" to the trio.
+  boldly format the trio's commands' last given the red color.
+  put the bar's display's right into a spot's x.
+  put 3 times the swatch width into a width.
+  put the spot's x minus the width into the spot's x.
+  put the bar's display's top into the spot's y.
+  adjust the trio given the spot and the width.
+
 the current menu is a menu.
 
 the current process is a process.
@@ -187,6 +211,28 @@ the current tab is a tab.
 
 to debug a handler (because it is undispatched):
   debug "Internal error 763 - command not properly dispatched:  '" then the handler then "'.".
+
+to debug a trio:
+  put "" in a string.
+  if the trio is nil, debug "empty trio."; exit.
+  if there is room (for the trio),
+    append "There is room for the trio." then the crlf string to the string.
+  loop.
+    get a command from the trio's commands.
+    if the command is nil, break.
+    append "command=" then the command's name then the crlf string to the string.
+    append "handler=" then the command's handler then the crlf string to the string.
+    append "left=" to the string.
+    append the command's roundy box's left to the string.
+    append ", top=" to the string.
+    append the command's roundy box's top to the string.
+    append ", right=" to the string.
+    append the command's roundy box's right to the string.
+    append ", bottom=" to the string.
+    append the command's roundy box's bottom to the string.
+    append the crlf string to the string.
+  repeat.
+  debug the string.
 
 to decide if a command is pointless:
   put the command's handler in a string called handler.
@@ -260,6 +306,13 @@ to decide if a spot is in a tab:
   if the spot is in the tab's box, say yes.
   say no.
 
+to decide if a spot is in the trio:
+  if there is not room (for the trio), say no.
+  if the trio is nil, say no.
+  find a command given the trio and the spot.
+  if the command is nil, say no.
+  say yes.
+
 to decide if a string has a letter menu:
   if the string's length is not 1, say no.
   put the string in a string called handler.
@@ -301,6 +354,7 @@ to draw the bar:
   if the bar's mode is "dialog", draw the dialog; exit.
   draw the menu.
   draw the status.
+  if there is room (for the trio), draw the trio.
 
 to draw a box with a border color and a fill color and a radius (rounding the bottom):
   put the box and the radius into a roundy box.
@@ -326,12 +380,12 @@ to draw a command:
   if the command is nil, exit.
   unmask everything.
   choose a color for the command (temporary color).
-  draw the command's roundy box with the black color and the color.
+  draw the command's roundy box with the command's font color and the color.
   put the command's roundy box into a box.
   adjust the box given 1/8 inch and 0 and -1/8 inch and 0.
   \ don't mask to the box, menu letters are too big to fit
   mask outside the command's roundy box.
-  draw the command's name in the box with the black color
+  draw the command's name in the box with the command's font color
     and the command's font and the command's alignment.
   draw the command's shortcut at the right of the box
     with the black color and the command's font.
@@ -405,6 +459,7 @@ to finalize:
 to finalize the bar:
   finalize the status.
   destroy the menu.
+  destroy the trio.
 
 to finalize the desktop:
   finalize the switch.
@@ -419,9 +474,9 @@ to find a command given a menu and a spot:
   void the command.
   if the menu is nil, exit.
   loop.
-  get the command from the menu's commands.
-  if the command is nil, exit.
-  if the spot is in the command, exit.
+    get the command from the menu's commands.
+    if the command is nil, exit.
+    if the spot is in the command, exit.
   repeat.
 
 to find a directory to compile:
@@ -692,6 +747,7 @@ to handle a command:
   if the handler is "handle sort nodettes by kind", handle sort nodettes given "kind"; exit.
   if the handler is "handle sort nodettes by name", handle sort nodettes given "name"; exit.
   if the handler is "handle stop", handle stop; exit.
+  if the handler is "handle toggle screensize", handle toggle screensize; exit.
   if the handler is "handle uncomment", handle uncomment; exit.
   if the handler is "handle undo", handle undo; exit.
   if the handler is "handle ungrayscale", handle grayscale given no; exit.
@@ -963,8 +1019,13 @@ to handle an event (left click - switch):
   if the flag is not set, exit.
   handle close.
 
+to handle an event (left click - trio):
+  find a command given the trio and the event's spot.
+  handle the command.
+
 to handle an event (left click):
   if the event's spot is in the menu, handle the event (left click - menu); exit.
+  if the event's spot is in the trio, handle the event (left click - trio); exit.
   if the event's spot is in the status, handle the event (left click - status); exit.
   if the event's spot is in the switch, handle the event (left click - switch); exit.
   if the current tab's mode is "finder",
@@ -1478,7 +1539,8 @@ to handle stop:
   show status "Stopped".
 
 to handle toggle screensize:
-  if the screen is restored given the main window, handle maximize; exit.
+  if the screen is restored given the main window,
+    handle maximize; exit.
   handle restore.
 
 to handle uncomment:
@@ -1881,6 +1943,8 @@ to resize the bar:
   adjust the bar's display given 1/4 inch and 1/4 inch and -1/4 inch and -1/4 inch.
   destroy the menu.
   create the menu.
+  destroy the trio.
+  create the trio.
 
 to resize the desktop:
   resize the bar.
@@ -2010,6 +2074,10 @@ to track a tab returning a flag:
   adjust the tabs.
   show the desktop.
   repeat.
+
+a trio is a menu. \ containing the minimize, restore/maximize, and quit buttons.
+
+the trio is a trio.
 
 to ungray first item of a submenu:
   put the white color in part of the submenu given 1.

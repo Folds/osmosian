@@ -20,12 +20,15 @@ to adjust the dialog:
 
 to adjust the dialog (buttons):
   put the bar's display and 1/12 inch into a roundy box.
+  if there is room (for the trio),
+    put the trio allowance into a width;
+    put the roundy box's right minus the width into the roundy box's right.
   put the roundy box's right minus the button width into the roundy box's left.
   loop.
-  get a button from the dialog's buttons (backwards).
-  if the button is nil, exit. 
-  put the roundy box into the button's roundy box.
-  move the roundy box left the button width.
+    get a button from the dialog's buttons (backwards).
+    if the button is nil, exit. 
+    put the roundy box into the button's roundy box.
+    move the roundy box left the button width.
   repeat.
 
 to adjust the dialog (prompt):
@@ -116,6 +119,13 @@ to decide if a spot is in a button:
   if the spot is in the button's roundy box, say yes.
   say no.
 
+to decide if there is room (for the trio):
+  put the bar's display and 1/12 inch into a roundy box.
+  put the trio allowance into a width.
+  if the roundy box's right is at least
+    10 inches plus 1/4 inch plus the width, say yes.
+  say no.
+
 to decide if the user is sure:
   ask "Are you quite sure?" with choices "Yes" and "No".
   if the answer is "yes", say yes.
@@ -167,21 +177,21 @@ to find a button given a key:
   void the button.
   if the dialog is nil, exit.
   loop.
-  get the button from the dialog's buttons.
-  if the button is nil, exit.
-  if the button's name is blank, repeat.
-  put the button's name's first's target into a byte.
-  uppercase the byte.
-  if the byte is the key, exit.
+    get the button from the dialog's buttons.
+    if the button is nil, exit.
+    if the button's name is blank, repeat.
+    put the button's name's first's target into a byte.
+    uppercase the byte.
+    if the byte is the key, exit.
   repeat.
 
 to find a button given a spot:
   void the button.
   if the dialog is nil, exit.
   loop.
-  get the button from the dialog's buttons.
-  if the button is nil, exit.
-  if the spot is in the button, exit.
+    get the button from the dialog's buttons.
+    if the button is nil, exit.
+    if the spot is in the button, exit.
   repeat.
 
 to handle the dialog:
@@ -377,6 +387,9 @@ to handle events given the dialog:
 
 a prompt is a string.
 
+to put the trio allowance into a width:
+    put 3 times the swatch width plus 1/2 inch into the width.
+
 a question is a string.
 
 a reply is a string.
@@ -399,12 +412,12 @@ to track the dialog given an event:
   if the event's shift flag is not set, deselect the dialog's text.
   clear a selection.
   loop.
-  if a flag is set, show the desktop with status.
-  if the mouse's left button is up, exit.
-  put the mouse's spot into a spot.
-  autoscroll the dialog's text given the spot and the flag.
-  extend any selection in the dialog's text given the spot.
-  if the dialog's text's selection is the selection, repeat.
-  set the flag.
-  put the dialog's text's selection into the selection.
+    if a flag is set, show the desktop with status.
+    if the mouse's left button is up, exit.
+    put the mouse's spot into a spot.
+    autoscroll the dialog's text given the spot and the flag.
+    extend any selection in the dialog's text given the spot.
+    if the dialog's text's selection is the selection, repeat.
+    set the flag.
+    put the dialog's text's selection into the selection.
   repeat.
