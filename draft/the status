@@ -203,12 +203,15 @@ to initialize a result set:
   put 0 in the result set's passed.
   put 0 in the result set's failed.
 
+to resize the status:
+  put the bar's display and 1/12 inch into the status' roundy box.
+  put the menu's commands' last's right into the status' left.
+
 to initialize the status:
   create the status' command.
   initialize the status' all test results.
   initialize the status' failures.
-  put the bar's display and 1/12 inch into the status' roundy box.
-  put the menu's commands' last's right into the status' left.
+  resize the status.
   put the lightest green color into the status' pass color.
   put the lightest red color into the status' fail color.
   untint the status.

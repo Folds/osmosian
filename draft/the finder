@@ -714,14 +714,17 @@ to handle sort nodettes given a node and a string:
   show status the node's nodettes' count and "item sorted" or "items sorted".
   flush the event queue.
 
-to initialize the finder:
-  put the temp path then "the " then the module's name then " clipboard\" into the finder's clipboard.
+to resize the finder:
   put the node height and the node height into the finder's grid.
   put 1/4 inch into the finder's margin.
   put the pad's box into a box.
   put the box's height divided by the node height times the node height into a height.
   put the box's top plus the height into the box's bottom.
   put the box into the finder's box.
+
+to initialize the finder:
+  put the temp path then "the " then the module's name then " clipboard\" into the finder's clipboard.
+  resize the finder.
 
 to limit the origin in a node:
   if the node is nil, exit.

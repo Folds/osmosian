@@ -893,6 +893,9 @@ to convert a flag to a string:
 to convert a font to an hfont:
   privatize the font.
   null terminate the font's name.
+  \ Fix-me:
+  \ The 3 divided by 4 assumes 96 pixels per inch.
+  \ (3 / 4 = 72 points per inch / 96 pixels per inch.)
   call "gdi32.dll" "CreateFontA" with - the font's height times 3 divided by 4 and 0 and 0 and 0 and 0 and 0 and 0 and 0 
     and 1 [default_charset] and 0 and 0 and 5 [cleartype_quality] and 4 [truetype_fonttype] and the font's name's first returning the hfont.
 
@@ -962,12 +965,6 @@ to convert an l-param to a key: \ assumes l-param from wm_char message
   if the key is the right-arrow key, put the numpad-six key into the key; exit.
   if the key is the down-arrow key, put the numpad-two key into the key; exit.
   if the key is the clear key, put the numpad-five key into the key; exit.
-
-to convert an l-param to a spot:
-  split the l-param into a wyrd and another wyrd.
-  put the wyrd into the spot's y.
-  put the other wyrd into the spot's x.
-  multiply the spot by the tpp.
 
 to convert a mixed to a ratio:
   put the mixed's ratio into the ratio.
@@ -1449,7 +1446,8 @@ to create a console:
   put the screen's box into the console's box.
   put the screen's box into a box.
   subtract the default font's height from the box's bottom.
-  put the box's height divided by the default font's height times the default font's height into a height.
+  put the box's height divided by the default font's height
+    times the default font's height into a height.
   put the box's top plus the height into the box's bottom.
   center the box in the screen's box (vertically).
   put the box's top into the box's left.
@@ -1496,7 +1494,8 @@ to create a font info given a font (basic data):
   put the font into the font info's font.
   get an outlinetextmetric given the font.
   put 32 into the font info's flags. \ could be updated with a more information
-  put the outlinetextmetric's otmtextmetrics' tminternalleading into the font info's internal leading.
+  put the outlinetextmetric's otmtextmetrics' tminternalleading
+    into the font info's internal leading.
   put the outlinetextmetric's otmemsquare into the font info's emsquare.
   put the outlinetextmetric's otmtextmetrics' tmascent into the font info's ascent.
   put - the outlinetextmetric's otmtextmetrics' tmdescent into the font info's descent.
@@ -1516,7 +1515,8 @@ to create some font widths given a font:
   assign the font widths' data given the font widths' count times a number's magnitude.
   create the hfont of the memory canvas given the font.
   assign an original abc pointer given 256 times an abc's magnitude.
-  call "gdi32.dll" "GetCharABCWidthsA" with the memory canvas and 0 and 255 and the original abc pointer.
+  call "gdi32.dll" "GetCharABCWidthsA" with the memory canvas
+    and 0 and 255 and the original abc pointer.
   destroy the hfont of the memory canvas.
   put the original abc pointer into an abc pointer.
   put the font widths' data into a number pointer.
@@ -2571,7 +2571,8 @@ to decide if a string is dos-compatible:
   repeat.
 
 to decide if a string is greater than another string:
-  compare the string to the other string given the string's length and the other string's length returning a number.
+  compare the string to the other string
+    given the string's length and the other string's length returning a number.
   if the number is greater than 0, say yes.
   say no.
 
@@ -2597,12 +2598,14 @@ to decide if a string is in an index:
   say yes.
 
 to decide if a string is less than another string:
-  compare the string to the other string given the string's length and the other string's length returning a number.
+  compare the string to the other string
+    given the string's length and the other string's length returning a number.
   if the number is less than 0, say yes.
   say no.
 
 to decide if a string is less than or equal to another string:
-  compare the string to the other string given the string's length and the other string's length returning a number.
+  compare the string to the other string
+    given the string's length and the other string's length returning a number.
   if the number is less than or equal to 0, say yes.
   say no.
 
@@ -3796,11 +3799,6 @@ to finalize the fonts:
 to finalize gdi+:
   call "gdiplus.dll" "GdiplusShutdown" with the gptoken.
 
-to finalize the memory canvas:
-  call "gdi32.dll" "SelectObject" with the memory canvas and the saved memory hbitmap returning an hbitmap.
-  call "gdi32.dll" "DeleteObject" with the hbitmap.
-  call "gdi32.dll" "DeleteDC" with the memory canvas.
-
 to finalize the module:
 
 to finalize the mouse:
@@ -3810,8 +3808,6 @@ to finalize the printer canvas:
   put 0 into the printer canvas.
 
 to finalize the screen:
-
-to finalize the screen canvas:
 
 to finalize a talker:
   if the talker is nil, exit.
@@ -5193,11 +5189,6 @@ to initialize before run:
   if the pointer is not nil,
     call the pointer with the heap pointer and 0 and 2's whereabouts and 4.
 
-to initialize the canvases:
-  initialize the screen canvas.
-  initialize the memory canvas.
-  put the memory canvas into the current canvas.
-
 to initialize the cgi:
   call "kernel32.dll" "AllocConsole".
   call "kernel32.dll" "GetStdHandle" with -10 [std_input_handle] returning the stdin handle.
@@ -5272,15 +5263,6 @@ to initialize gdi+:
   call "gdiplus.dll" "GdiplusStartup" with the gptoken's whereabouts
    and the gdiplusstartupinput's whereabouts and 0.
 
-to initialize the memory canvas:
-  call "gdi32.dll" "CreateCompatibleDC" with the screen canvas returning the memory canvas.
-  call "gdi32.dll" "GetCurrentObject" with the memory canvas
-    and 7 [obj_bitmap] returning the saved memory hbitmap.
-  call "gdi32.dll" "CreateCompatibleBitmap" with the screen canvas
-    and the screen's pixel width and the screen's pixel height returning an hbitmap.
-  call "gdi32.dll" "SelectObject" with the memory canvas and the hbitmap.
-  normalize the memory canvas.
-
 to initialize the module:
   \ temp path
   put 512 into a length.
@@ -5326,32 +5308,6 @@ to initialize the printer canvas:
   call "kernel32.dll" "GlobalFree" with the printdlgex's hdevnames.
   put the printdlgex's hdevmode into the printer device mode handle.
   put the printdlgex's hdc into the printer canvas.
-
-to initialize the screen:
-  call "user32.dll" "GetSystemMetrics" with 0 [sm_cxscreen]
-    returning the screen's maximum pixel width.
-  call "user32.dll" "GetSystemMetrics" with 1 [sm_cyscreen]
-    returning the screen's maximum pixel height.
-  if the screen's maximum pixel width is greater than 1000,
-    put 1000 in the screen's pixel width.
-  if the screen's maximum pixel width is not greater than 1000,
-    put the screen's maximum pixel width in the screen's pixel width.
-  if the screen's maximum pixel height is greater than 100,
-    put the screen's maximum pixel height minus 50 in the screen's pixel height.
-  if the screen's maximum pixel height is not greater than 100,
-    put the screen's maximum pixel height divided by 2 in the screen's pixel height.
-  put 96 into the ppi. \ pixels per inch.
-  put the tpi divided by the ppi into the tpp. \ twips per pixel.
-  put the screen's pixel width times the tpp into a width.
-\  put 15000 into the width.
-  put the screen's pixel height times the tpp into a height.
-\  put the height minus 750 into the height. 
-  put 0 and 0 and the width and the height into the screen's box.
-  subtract the tpp from the screen's right-bottom.
-
-to initialize the screen canvas:
-   call "user32.dll" "GetWindowDC" with the main window returning the screen canvas.
-   normalize the screen canvas.
 
 to initialize a talker:
   convert "{96749377-3391-11D2-9EE3-00C04F797396}" [clsid_spvoice] to a clsid.
@@ -6311,20 +6267,6 @@ to move a vertex to a spot:
 to move a vertex up some twips:
   move the vertex given 0 and - the twips.
 
-to move a window left:
-  call "user32.dll" "GetWindowRect" with the main window and a box's whereabouts.
-  subtract the screen's pixel width from the box's left.
-  call "user32.dll" "MoveWindow"
-    with the window and the box's left and the box's top
-    and the screen's pixel width and the screen's pixel height and 1.
-
-to move a window right:
-  call "user32.dll" "GetWindowRect" with the main window and a box's whereabouts.
-  add the screen's pixel width to the box's left.
-  call "user32.dll" "MoveWindow" with the window
-    and the box's left and the box's top
-    and the screen's pixel width and the screen's pixel height and 1.
-
 a msg is a record with
   a window called hwnd,
   a number called message,
@@ -7128,11 +7070,6 @@ to put a line's center into a spot:
   put the line's start's y plus the line's end's y into the spot's y.
   divide the spot by 2.
 
-to put the mouse's spot into a spot:
-  call "user32.dll" "GetCursorPos" with the spot's whereabouts.
-  call "user32.dll" "ScreenToClient" with the main window and the spot's whereabouts. \ in case window is on another monitor.
-  call "gdi32.dll" "DPtoLP" with the screen canvas and the spot's whereabouts and 1.
-
 to put a name and a height into a font:
   put the name into the font's name.
   put the height into the font's height.
@@ -7724,13 +7661,6 @@ to refresh the cursor:
   put the mouse's spot into the event's spot.
   enque the event.
 
-to refresh the screen:
-  refresh the screen given the screen's box.
-
-to refresh the screen given a box:
-  call "gdi32.dll" "BitBlt" with the screen canvas and the box's left and the box's top and the box's width and the box's height 
-   and the current canvas and the box's left and the box's top and 13369376 [srccopy].
-
 to regression test appending to a test result set (the noodle):
   regression test appending to the test result set (the talker).
 
@@ -8057,29 +7987,10 @@ to resize a text given a twip pair:
   resize the text's box given the twip pair.
   wrap the text.
 
-to resize a window given a box:
-   put the box's left divided by the tpp into a number called left.
-   put the box's top divided by the tpp into a number called top.
-   put the box's right divided by the tpp into a number called right.
-   put the box's bottom divided by the tpp into a number called bottom.
-   put 1 plus the right minus the left into a number called width.
-   put 1 plus the bottom minus the top into a number called height.
-   call "user32.dll" "MoveWindow" with the window
-     and the left and the top and the width and the height and no.
-
-to resize a window given a screen:
-  resize the window given the screen's box.
-
 to restart a timer:
   add 1 to the timer's count.
   if the timer's count is not 1, exit.
   put the system's tick count into the timer's start ticks.
-
-to restore a canvas:
-  call "gdi32.dll" "RestoreDC" with the canvas and -1. \ need to use -1, windows documentation is wrong
-
-to restore a window:
-  call "user32.dll" "ShowWindow" with the window and 9 [sw_restore].
 
 to reverse any selected rows of a text:
   if the text is nil, exit.
@@ -8347,13 +8258,6 @@ to scale a vertex given a ratio:
   if the ratio is 1/1, exit.
   scale the vertex's x given the ratio.
   scale the vertex's y given the ratio.
-
-the screen canvas is a canvas.
-
-a screen has a box, a pixel height, and a pixel width,
-   a maximum pixel height, and a maximum pixel width.
-
-the screen is a screen.
 
 to scroll a console given an event:
   if the console is nil, exit.
@@ -8652,13 +8556,6 @@ to shift a wyrd right some bits:
   intel $8B09. \ mov ecx,[ecx]
   intel $8B8508000000. \ mov eax,[ebp+8] \ the wyrd
   intel $66D328. \ shr word ptr [eax],ecx
-
-to show a console:
-  if the console is nil, exit.
-  save the current canvas.
-  draw the console.
-  refresh the screen given the console's box.
-  restore the current canvas.
 
 to show a cursor:
   call "user32.dll" "SetCursor" with the cursor.

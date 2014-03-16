@@ -2767,6 +2767,8 @@ to handle yank given a page and a number:
 
 to initialize the writer:
 
+to resize the writer:
+
 to internalize a box given a rider:
   if the i/o error is not blank, exit.
   internalize the box's left given the rider.

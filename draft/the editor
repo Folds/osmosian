@@ -624,6 +624,8 @@ to handle uppercase given a source:
 
 to initialize the editor:
 
+to resize the editor:
+
 to move a rider (qualifier rules):
   if the rider's source's first's target is the left-paren byte, add 1 to a count.
   if the rider's source's first's target is the right-paren byte, subtract 1 from the count.
