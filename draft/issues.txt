@@ -1,3 +1,5 @@
+\ copyright © 2014 the osmosian order (3041)
+
 This file is the start of a bug-tracking system
 for the Plain English programming environment.
 The Plain English programming environment is called Cal.
@@ -44,15 +46,13 @@ but have not yet been tested.
 
 068. Add F5 as a shortcut for run (from the editor window).
   Audience:  Windows programmers.
-  Status:  Implemented.
+  Status:  Demonstrated.
   Benefit:  Minor.
   Implementation difficulty:  Trivial.
   Demoing difficulty:  Easy.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 9, 2014.
-
-  Status:  Demonstrated.
-  Benefit:  Very import
+  Benefit:  Very important
 
 089.  Allow the maximum number of displayed regression tests to depend
   only on the amount of room available for displaying them.
@@ -149,11 +149,6 @@ but have not yet been tested.
   Testing difficulty:  Hard.
   Requested by Jasper Paulsen on March 7, 2014.
 
-
-\ ======================================   
-The following requests are roughly sorted
-from higher priority to lower priority.
-
 030.  Show minimize, restore, and maximize buttons at the top right corner.
   Status:  request.
   Audience:  Windows programmers.
@@ -162,6 +157,11 @@ from higher priority to lower priority.
   Demoing difficulty:  Easy.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 7, 2014.
+
+
+\ ======================================   
+The following requests are roughly sorted
+from higher priority to lower priority.
 
 092.  Document how to use git to manage the code.
   Audience:  Osmosian masters.
