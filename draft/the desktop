@@ -1176,10 +1176,24 @@ to handle lowercase:
     handle lowercase given the current tab's node's page; exit.
   cluck.
 
+to handle maximize:
+  if the screen is maximized given the main window, exit.
+  maximize the screen.
+  resize the main window given the screen.
+  resize the memory canvas.
+  resize.
+  create an event.
+  put "refresh" into the event's kind.
+  enque the event.
+
 to handle measure:
   if the current tab's mode is "writer",
     handle measure given the current tab's node's page; exit.
   cluck.
+
+to handle minimize:
+  minimize the main window.
+\  debug the main window.
 
 to handle mirror:
   if the current tab's mode is "writer",
@@ -1351,6 +1365,16 @@ to handle renumber pages:
     handle renumber pages given the current tab's node's document; exit.
   cluck.
 
+to handle restore:
+  if the screen is restored given the main window, exit.
+  restore the screen.
+  resize the main window given the screen.
+  resize the memory canvas.
+  resize.
+  create an event.
+  put "refresh" into the event's kind.
+  enque the event.
+
 to handle reverse:
   if the current tab's mode is "finder",
     handle reverse given the current tab's node; exit.
@@ -1453,6 +1477,10 @@ to handle stop:
   stop the current process.
   show status "Stopped".
 
+to handle toggle screensize:
+  if the screen is restored given the main window, handle maximize; exit.
+  handle restore.
+
 to handle uncomment:
   if the current tab's mode is "editor",
     handle uncomment given the current tab's node's source; exit.
@@ -1509,12 +1537,6 @@ to highlight a string in a submenu:
       put the lightest yellow color in the command's color; break.
   repeat.
 
-to resize:
-  resize the desktop.
-  resize the finder.
-  resize the editor.
-  resize the writer.
-
 to initialize:
   initialize the desktop.
   initialize the finder.
@@ -1524,27 +1546,10 @@ to initialize:
   fill the tabs.
   switch to the tabs' first.
 
-to resize the bar:
-  put 1/4 inch plus 1/3 inch plus 1/4 inch into the bar's height.
-  put the screen's left into the bar's left.
-  put the screen's top into the bar's top.
-  put the screen's right into the bar's right.
-  put the screen's top plus the bar's height into the bar's bottom.
-  put the bar's box into the bar's display.
-  adjust the bar's display given 1/4 inch and 1/4 inch and -1/4 inch and -1/4 inch.
-  destroy the menu.
-  create the menu.
-  
 to initialize the bar:
   put "normal" into the bar's mode.
   resize the bar.
   initialize the status.
-
-to resize the desktop:
-  resize the bar.
-  resize the status.
-  resize the switch.
-  resize the pad. \ uses the bar and the switch
 
 to initialize the desktop:
   put the lightest gray color into the desktop color.
@@ -1554,22 +1559,8 @@ to initialize the desktop:
   initialize the switch.
   initialize the pad. \ uses the bar and the switch
 
-to resize the pad:
-  put the screen's left into the pad's left.
-  put the bar's bottom into the pad's top.
-  put the screen's right into the pad's right.
-  put the switch's top into the pad's bottom.
-
 to initialize the pad:
   resize the pad.
-
-to resize the switch:
-  put 1/4 inch plus 1/3 inch into the switch's height.
-  put the screen's left into the switch's left.
-  put the screen's bottom minus the switch's height into the switch's top.
-  put the screen's right into the switch's right.
-  put the screen's bottom into the switch's bottom.
-  adjust the tabs.
 
 to initialize the switch:
   initialize the tabs.
@@ -1703,10 +1694,7 @@ to populate a submenu given a mode (l):
   if the mode is "writer", add "Lowercase" to the submenu.
 
 to populate a submenu given a mode (m):
-  if it is possible to unminimize,
-    add "Minimize" and "handle minimize" to the submenu.
-  if it is not possible to unminimize,
-    add "Minimize" and "handle minimize" and the desktop color to the submenu.
+  add "Minimize" and "handle minimize" to the submenu.
   if the main window is minimized,
     add "Maximize" and "F11" and "handle maximize" to the submenu.
   if the screen is maximized given the main window,
@@ -1876,6 +1864,43 @@ to remove five bytes from a string:
   remove the last byte from the string.
   remove the last byte from the string.
   remove the last byte from the string.
+
+to resize:
+  resize the desktop.
+  resize the finder.
+  resize the editor.
+  resize the writer.
+
+to resize the bar:
+  put 1/4 inch plus 1/3 inch plus 1/4 inch into the bar's height.
+  put the screen's left into the bar's left.
+  put the screen's top into the bar's top.
+  put the screen's right into the bar's right.
+  put the screen's top plus the bar's height into the bar's bottom.
+  put the bar's box into the bar's display.
+  adjust the bar's display given 1/4 inch and 1/4 inch and -1/4 inch and -1/4 inch.
+  destroy the menu.
+  create the menu.
+
+to resize the desktop:
+  resize the bar.
+  resize the status.
+  resize the switch.
+  resize the pad. \ uses the bar and the switch
+
+to resize the pad:
+  put the screen's left into the pad's left.
+  put the bar's bottom into the pad's top.
+  put the screen's right into the pad's right.
+  put the switch's top into the pad's bottom.
+
+to resize the switch:
+  put 1/4 inch plus 1/3 inch into the switch's height.
+  put the screen's left into the switch's left.
+  put the screen's bottom minus the switch's height into the switch's top.
+  put the screen's right into the switch's right.
+  put the screen's bottom into the switch's bottom.
+  adjust the tabs.
 
 to run:
   start up.

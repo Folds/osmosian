@@ -2767,8 +2767,6 @@ to handle yank given a page and a number:
 
 to initialize the writer:
 
-to resize the writer:
-
 to internalize a box given a rider:
   if the i/o error is not blank, exit.
   internalize the box's left given the rider.
@@ -3681,6 +3679,8 @@ to resize some shapes given a ratio pair:
   if the shape is nil, exit.
   resize the shape given the ratio pair.
   repeat.
+
+to resize the writer:
 
 to rotate any selected shapes on a page:
   if the page is nil, exit.
