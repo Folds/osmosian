@@ -135,24 +135,12 @@ but have not yet been tested.
   Testing would be profound.
   Requested by Jasper Paulsen on March 7, 2014.
 
-
-
-\ ======================================   
-The following requests are roughly sorted
-from higher priority to lower priority.
-
 013.  Allow changing the main window size and location at run-time.
   Currently, the main window is fixed at the top-left corner of the screen.
   Currently, the main window's size is fixed.
   Currently, the program does not have mouse cursors available
   for changing widths, changing heights, nor dragging window corners.
-  When the mouse is close to the edges of the window, and the window
-  is in "restore" mode, change the cursor accordingly.
-  If the user clicks-and-drags the mouse
-  while the mouse has such a cursor,
-  adjust the window size and location.  Do not allow the window height
-  or width to exceed the corresponding screen dimension.
-  Status:  request.
+  Status:  Demonstrated.
   Audience:  Windows programmers and Linux programmers.
   Benefit:  Important.  It will allow users to adjust the size of Cal
             depending on how important their distractions from Cal are.
@@ -161,42 +149,33 @@ from higher priority to lower priority.
   Testing difficulty:  Hard.
   Requested by Jasper Paulsen on March 7, 2014.
 
-011.  Allow the menus (and status bar) to fold to two or three rows.
-  Currently, Cal's menus and status bar need about 1000 pixels of width
-  at the top of the screen.  This forces Cal to be at least 1000 pixels wide.
-  (The width is approximate, because Cal does not check whether Windows
-   has more than 96 pixels per inch.)
-  Audience:  Windows programmers and Linux programmers.
-  Benefit:  Important.  Most users would need this feature
-    to be able to put two instances of Cal side-by-side.
-  Implementation difficulty:  Hard.
-  Demoing difficulty:  Hard (without the ability
-    to adjust the main window's width at run time);
-    Easy (if the user can adjust the main window's width at run time).
-  Testing difficulty: Medium.
-  Status:  request.
-  Requested by Jasper Paulsen on March 7, 2014.
 
-012.  If there are multiple rows of menu letters, fade out the irrelevant row(s)
-while a letter's menu is visible.
-  Audience:  Windows programmers and Linux programmers.
-  Benefit:  Important.  This will mitigate the confusion
-    caused by folding the menu bar.
+\ ======================================   
+The following requests are roughly sorted
+from higher priority to lower priority.
+
+030.  Show minimize, restore, and maximize buttons at the top right corner.
+  Status:  request.
+  Audience:  Windows programmers.
+  Benefit:  Important.
   Implementation difficulty:  Medium.
-  Demoing difficulty: Hard (without the ability
-    to adjust the main window's width at run time);
-    Easy (if the user can adjust the main window's width at run time).
-  Testing difficulty:  Hard.
-  Status:  request.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 7, 2014.
 
-014.  Update the documentation after new cursors are added.
-  Status:  request.
-  Benefit:  Important -- the documentation needs to be accurate.
-  Implementation difficulty:  Easy.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  not applicable.
-  Requested by Jasper Paulsen on March 7, 2014.
+092.  Document how to use git to manage the code.
+  Audience:  Osmosian masters.
+  Implementation difficulty:  Hard.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Profound.
+  Requested by Gerry Rzeppa on March 7, 2014.
+
+093.  Document how to use GitHub to share the code.
+  Audience:  Osmosian masters.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Profound.
+  Requested by Gerry Rzeppa on March 7, 2014.
 
 015.  Update the documentation once the program
   is able to share the screen with other programs.
@@ -229,6 +208,179 @@ Automated tests make debugging easier.
   Test difficulty:  not applicable.
   Requested by Jasper Paulsen on March 7, 2014.
     
+083.  Highlight the current font height on the font name submenu.
+  If (and only if) the current font name is not on the font name submenu,
+  highlight the "Other" submenu item.
+  Audience:  Windows programmers and Linux programmers.
+  Status:  Demonstrated.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+079.  Allow font heights to be added dynamically to the menus.
+  Specifically, do not require the corresponding menu handler
+  to be hardcoded in the menu handler switch.
+  Audience:  Windows programmers and Linux programmers.
+  Status:  Tested.
+  Implementation difficulty:  Hard.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+080.  Keep track of the user's most recent choice
+  of any "Other font height" that is not one of the standard font heights.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+081.  If the user's most recent choice of non-standard
+  "Other font height" is not otherwise listed in the font height submenu,
+  include it.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+082.  If the current font height (in the editor or writer pad)
+  is not otherwise listed in the font height submenu, include it.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+071.  Add standard fonts to the menu.
+  The following four fonts are standard on Windows computers:
+  Arial, Times New Roman, Courier New, and Symbol.
+  The osmosian font is standard in CAL.
+  For each of these five fonts that is present,
+  include the font in a font name submenu.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Benefit:  Important.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+072.  Add an "Other" option to the font name submenu,
+  which does what CAL-3040's "Font Name..." menu item does:
+  ask the user in the dialog to type in a font name.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Trivial.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+077.  Highlight the current font name on the font name submenu.
+  If (and only if) the current font name is not on the font name submenu,
+  highlight the "Other" submenu item.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+078.  Allow font names to be added dynamically to the menus.
+  Specifically, do not require the corresponding menu handler
+  to be hardcoded in the menu handler switch.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+073.  Keep track of the user's most recent choice
+  of any "Other font name" that is not one of the standard fonts.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+074.  If the user's most recent choice of non-standard
+  "Other font name" is not otherwise listed in the font name submenu,
+  include it.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Trivial.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+075.  If the current font (in the editor or writer pad)
+  is not otherwise listed in the font name submenu, include it.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+076.  In the font name submenu,
+  use each font to display the font name.
+  For example, courier new would be in courier new,
+  and osmosian would be in osmosian.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+084.  In the font height submenu,
+  use the current font to display the font heights.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+085.  In the font height submenu,
+  for each font height that is shorter than the default font height,
+  show the font height in its own height.
+  For example, if the default font height is 1/4 inch:
+  the font height submenu would show "1/8 Inch" smaller than "1/4 Inch",
+  but it would show "1/2 Inch" the same size as "1/4 Inch".
+  Audience:  Windows programmers and Linux programmers.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
+
+094.  Document "Plain English programming idioms",
+  and how they compare to other common programming languages.
+  Implementation difficulty:  Hard.
+  Testing difficulty:  Profound.
+  Requested by Jasper Paulsen on March 15, 2014.
+
 004.  Allow true vertical panning.
   Currently, the user can pan a text document
   by right-clicking and dragging the mouse.
@@ -255,6 +407,61 @@ Automated tests make debugging easier.
     and verify that the editor can compute
     the intended delta-x and delta-y values.
     The test would not need to actually pan the screen.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+016.  Mark the tabs to indicate files with unsaved edits.
+  For example, put a "*" before the name of each unsaved file.
+  Audience:  programmers.
+  Status:  request.
+  Benefit:  Minor.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Hard.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+050.  On WINE systems, prevent the following error messages:
+  Currently, the "wine cmd" shell reports something like the following after Cal quits:
+err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
+err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
+err:ole:create_server class {96749377-3391-11d2-9ee3-00c04f797396} not registered
+err:ole:CoGetClassObject no class object {96749377-3391-11d2-9ee3-00c04f797396} could be created for context 0x7
+  Audience:  Linux programmers.
+  Status:  request.
+  Benefit:  Important.  This problem is caused by the talker failing to find
+    WINE's winmm.dll; this failure prevents Linux programmers from using buzz and cluck
+    to debug.
+  Implementation difficulty:  Profound.
+  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
+  Test difficulty:  Profound.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+011.  Allow the menus (and status bar) to fold to two or three rows.
+  Currently, Cal's menus and status bar need about 1000 pixels of width
+  at the top of the screen.  This forces Cal to be at least 1000 pixels wide.
+  (The width is approximate, because Cal does not check whether Windows
+   has more than 96 pixels per inch.)
+  Audience:  Windows programmers and Linux programmers.
+  Benefit:  Important.  Most users would need this feature
+    to be able to put two instances of Cal side-by-side.
+  Implementation difficulty:  Hard.
+  Demoing difficulty:  Hard (without the ability
+    to adjust the main window's width at run time);
+    Easy (if the user can adjust the main window's width at run time).
+  Testing difficulty: Medium.
+  Status:  request.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+012.  If there are multiple rows of menu letters, fade out the irrelevant row(s)
+while a letter's menu is visible.
+  Audience:  Windows programmers and Linux programmers.
+  Benefit:  Important.  This will mitigate the confusion
+    caused by folding the menu bar.
+  Implementation difficulty:  Medium.
+  Demoing difficulty: Hard (without the ability
+    to adjust the main window's width at run time);
+    Easy (if the user can adjust the main window's width at run time).
+  Testing difficulty:  Hard.
+  Status:  request.
   Requested by Jasper Paulsen on March 7, 2014.
 
 007.  Have a configuration file.
@@ -301,39 +508,33 @@ Automated tests make debugging easier.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 7, 2014.
 
-016.  Mark the tabs to indicate files with unsaved edits.
-  For example, put a "*" before the name of each unsaved file.
-  Audience:  programmers.
+091.  Allow using mouse and windows events to change the window size at run-time.
+  Currently, the main window is fixed at the top-left corner of the screen.
+  As of March 15, 2014, the main window's size has one of two sizes:
+  full screen, or a "restored" size that is calculated at startup.
+  Currently, the program does not have mouse cursors available
+  for changing widths, changing heights, nor dragging window corners.
+  When the mouse is close to the edges of the window, and the window
+  is in "restore" mode, change the cursor accordingly.
+  If the user clicks-and-drags the mouse
+  while the mouse has such a cursor,
+  adjust the window size and location.  Do not allow the window height
+  or width to exceed the corresponding screen dimension.
   Status:  request.
-  Benefit:  Minor.
-  Implementation difficulty:  Medium.
+  Audience:  Windows programmers and Linux programmers.
+  Benefit:  Minor.  It will allow users to adjust the size of Cal
+            depending on how important their distractions from Cal are.
+  Implementation difficulty:  Hard.
   Demoing difficulty:  Easy.
   Testing difficulty:  Hard.
   Requested by Jasper Paulsen on March 7, 2014.
 
-001d (050).  On WINE systems, prevent the following error messages:
-  Currently, the "wine cmd" shell reports something like the following after Cal quits:
-err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
-err:ole:CoGetClassObject class {96749377-3391-11d2-9ee3-00c04f797396} not registered
-err:ole:create_server class {96749377-3391-11d2-9ee3-00c04f797396} not registered
-err:ole:CoGetClassObject no class object {96749377-3391-11d2-9ee3-00c04f797396} could be created for context 0x7
-  Audience:  Linux programmers.
+014.  Update the documentation after new cursors are added.
   Status:  request.
-  Benefit:  Important.  This problem is caused by the talker failing to find
-    WINE's winmm.dll; this failure prevents Linux programmers from using buzz and cluck
-    to debug.
-  Implementation difficulty:  Profound.
-  Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
-  Test difficulty:  Profound.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-016b (066).  Allow user to enter font heights in decimal inches.
-  Audience:  Windows programmers.
-  Status:  request.
-  Benefit:  Minor.
+  Benefit:  Important -- the documentation needs to be accurate.
   Implementation difficulty:  Easy.
   Demoing difficulty:  Easy.
-  Testing difficulty:  Medium.
+  Testing difficulty:  not applicable.
   Requested by Jasper Paulsen on March 7, 2014.
 
 017.  Automate collecting the unit tests.
@@ -344,17 +545,6 @@ In practice, automated testing needs tool support for building test suites.
   Implementation difficulty:  Medium.
   Demo difficulty:  Easy.
   Test difficulty:  Medium.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-018.  Only ask "Are you quite sure [you want to quit]" if there is unsaved work.
-  Ask the user if they want to save the files.
-  Update the documentation accordingly.
-  Audience:  all users.
-  Status:  request.
-  Benefit:  minor.
-  Implementation difficulty:  easy.
-  Demoing difficulty:  medium.
-  Testing difficulty:  medium.
   Requested by Jasper Paulsen on March 7, 2014.
 
 019.  Allow the "Run" feature to launch the new instance of Cal
@@ -409,8 +599,6 @@ open the files that are found.
   Test difficulty:  not applicable.
   Requested by Jasper Paulsen on March 7, 2014.
 
-026 through 027 are done.
-    
 028.  Update the documentation (or F1-help, or a wiki) to discuss scrolling via the Ctrl-Home and Ctrl-End keys.
   Audience:  programmers.
   Status:  request.
@@ -431,35 +619,6 @@ open the files that are found.
   Implementation difficulty:  Medium.
   Demoing difficulty:  Easy.
   Testing difficulty:  Medium.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-030.  Show minimize, restore, and maximize buttons at the top right corner.
-  Status:  request.
-  Audience:  Windows programmers.
-  Benefit:  minor.
-  Implementation difficulty:  Medium.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Medium.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-031.  Regularly back up unsaved work, in temporary files.
-  Delete each temporary file after successfully
-    saving the corresponding real file.
-  Audience:  Windows programmers.
-  Status:  request.
-  Benefit:  Minor.
-  Implementation difficulty:  Medium.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Hard.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-032.  Adjust the number of tabs, depending on the width of the main window.
-  Status: request.
-  Audience:  Windows programmers and Linux programmers.
-  Implementation Difficulty:  easy.
-  Demoing difficulty:  easy.
-  Testing difficulty:  medium.
-  Benefit:  Minor.
   Requested by Jasper Paulsen on March 7, 2014.
 
 033.  Have an option to continue searching from the beginning.
@@ -489,6 +648,48 @@ open the files that are found.
   Implementation difficulty:  Easy.
   Demoing difficulty:  Medium.
   Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+040.  Reduce the font leading (in non-Osmosian fonts).
+  Currently, fonts like Courier New have a large gap between rows.
+  This gap is much larger than in other text editors,
+  such as gedit or Notepad.
+  This leading could be reduced to typical heights.
+  Benefit:  Minor.
+  Audiences:  Windows programmers and Linux programmers.
+  Status:  Request.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+066.  Allow user to enter font heights in decimal inches.
+  Audience:  Windows programmers.
+  Status:  request.
+  Benefit:  Minor.
+  Implementation difficulty:  Easy.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Medium.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+031.  Regularly back up unsaved work, in temporary files.
+  Delete each temporary file after successfully
+    saving the corresponding real file.
+  Audience:  Windows programmers.
+  Status:  request.
+  Benefit:  Minor.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Easy.
+  Testing difficulty:  Hard.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+032.  Adjust the number of tabs, depending on the width of the main window.
+  Status: request.
+  Audience:  Windows programmers and Linux programmers.
+  Implementation Difficulty:  easy.
+  Demoing difficulty:  easy.
+  Testing difficulty:  medium.
+  Benefit:  Minor.
   Requested by Jasper Paulsen on March 7, 2014.
 
 036.  Implement code-folding.  (Part 1)
@@ -522,6 +723,30 @@ open the files that are found.
   The testing difficulty is medium.
   The audience is programmers.
   Requested by Jasper Paulsen on March 7, 2014.
+
+041.  Use the correct number of pixels per inch.
+  Currently, Cal assumes that there are 96 pixels per inch.
+  Various versions of Windows (or its Control Panel options)
+  can have different pixel densities,
+  such as 72, 96, 120, 144, 150, et cetera pixels per inch.
+  Benefit:  Minor.
+  Implementation difficulty:  Medium.  It just needs a short procedure,
+      but the procedure will need to make a Windows API call.
+  Audience:  Windows programmers.  (specifically, those who
+    have pixel densities other than 96 pixels per inch.)
+  Demoing difficulty:  Hard.  Changing the Windows pixel density
+    requires re-starting the computer.
+  Testing difficulty:  Profound.
+  Status:  request.
+  Requested by Jasper Paulsen on March 7, 2014.
+
+086.  Dynamically adjust the yank submenu based on the twips per pixel.
+  Implementation difficulty:  Medium.
+  Demoing difficulty:  Medium.
+  Testing difficulty:  Medium.
+  Benefit:  Minor.
+  Status: request.
+  Requested by Jasper Paulsen on March 12, 2014.
 
 038.  Add a vertical scroll bar.
   Currently, the user can move vertically in a document by panning
@@ -557,35 +782,15 @@ open the files that are found.
      once name spaces are available.
   Requested by Jasper Paulsen on March 7, 2014.
 
-039.  Done.
-
-040.  Reduce the font leading (in non-Osmosian fonts).
-  Currently, fonts like Courier New have a large gap between rows.
-  This gap is much larger than in other text editors,
-  such as gedit or Notepad.
-  This leading could be reduced to typical heights.
-  Benefit:  Minor.
-  Audiences:  Windows programmers and Linux programmers.
-  Status:  Request.
-  Implementation difficulty:  Medium.
-  Demoing difficulty:  Easy.
-  Testing difficulty:  Medium.
-  Requested by Jasper Paulsen on March 7, 2014.
-
-041.  Use the correct number of pixels per inch.
-  Currently, Cal assumes that there are 96 pixels per inch.
-  Various versions of Windows (or its Control Panel options)
-  can have different pixel densities,
-  such as 72, 96, 120, 144, 150, et cetera pixels per inch.
-  Benefit:  Minor.
-  Implementation difficulty:  Medium.  It just needs a short procedure,
-      but the procedure will need to make a Windows API call.
-  Audience:  Windows programmers.  (specifically, those who
-    have pixel densities other than 96 pixels per inch.)
-  Demoing difficulty:  Hard.  Changing the Windows pixel density
-    requires re-starting the computer.
-  Testing difficulty:  Profound.
+018.  Only ask "Are you quite sure [you want to quit]" if there is unsaved work.
+  Ask the user if they want to save the files.
+  Update the documentation accordingly.
+  Audience:  all users.
   Status:  request.
+  Benefit:  minor.
+  Implementation difficulty:  easy.
+  Demoing difficulty:  medium.
+  Testing difficulty:  medium.
   Requested by Jasper Paulsen on March 7, 2014.
 
 042.  Use border shading to suggest whether a button is pressed in.
@@ -667,10 +872,6 @@ Currently, the color declarations are scattered throughout the noodle.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 7, 2014.
 
-049.  Won't do.
-
-050.  See 001d.
-
 051.  On WINE systems, prevent the following error message:
   Currently, the "wine cmd" shell reports something like the following after Cal quits:
 err:ole:CoInitializeEx Attempt to change threading model of this apartment from multi-threaded to apartment threaded
@@ -681,8 +882,6 @@ err:ole:CoInitializeEx Attempt to change threading model of this apartment from 
   Demo difficulty:  Hard, unless the programmer is using WINE (which makes it easy).
   Test difficulty:  Hard.
   Requested by Jasper Paulsen on March 7, 2014.
-
-052.  Won't fix.
 
 053.  Update the documentation to reflect updated error messages while closing.
   Audience:  Linux programmers.
@@ -774,8 +973,7 @@ err:ole:CoInitializeEx Attempt to change threading model of this apartment from 
   Demoing difficulty:  Easy.
   Testing difficulty:  Medium.
   Audience:  Windows programmers.
-  Requested by Jasper Paulsen on March 7, 2014.
-
+  Requested by Jasper Paulsen on March 7, 2014
 061 - 063.  Done in CAL-3040.
 
 064.  Allow user to enter font heights in points (72nds of inches).
@@ -798,90 +996,6 @@ with an adjustable slider between them.
   Requested by Jasper Paulsen on March 7, 2014.
 
 \ ======================================   
-\ Recent requests that have been prioritized higher than here.
-066.  See 016b.
-
-067.  Needs testing.
-
-068.  Needs testing.
-
-069.  See 007b.
-
-070.  See 008b.
-
-\ ======================================   
 Unsorted requests:
 
-071.  Add standard fonts to the menu.
-  The following four fonts are standard on Windows computers:
-  Arial, Times New Roman, Courier New, and Symbol.
-  The osmosian font is standard in CAL.
-  For each of these five fonts that is present,
-  include the font in a font name submenu.
-
-072.  Add an "Other" option to the font name submenu,
-  which does what CAL-3040's "Font Name..." menu item does:
-  ask the user in the dialog to type in a font name.
-
-073.  Keep track of the user's most recent choice
-  of any "Other font name" that is not one of the standard fonts.
-
-074.  If the user's most recent choice of non-standard
-  "Other font name" is not otherwise listed in the font name submenu,
-  include it.
-
-075.  If the current font (in the editor or writer pad)
-  is not otherwise listed in the font name submenu, include it.
-
-076.  In the font name submenu,
-  use each font to display the font name.
-  For example, courier new would be in courier new,
-  and osmosian would be in osmosian.
-
-077.  Highlight the current font name on the font name submenu.
-  If (and only if) the current font name is not on the font name submenu,
-  highlight the "Other" submenu item.
-
-078.  Allow font names to be added dynamically to the menus.
-  Specifically, do not require the corresponding menu handler
-  to be hardcoded in the menu handler switch.
-
-079.  Allow font heights to be added dynamically to the menus.
-  Specifically, do not require the corresponding menu handler
-  to be hardcoded in the menu handler switch.
-  Status:  Tested.
-
-080.  Keep track of the user's most recent choice
-  of any "Other font height" that is not one of the standard font heights.
-
-081.  If the user's most recent choice of non-standard
-  "Other font height" is not otherwise listed in the font height submenu,
-  include it.
-
-082.  If the current font height (in the editor or writer pad)
-  is not otherwise listed in the font height submenu, include it.
-
-083.  Highlight the current font height on the font name submenu.
-  If (and only if) the current font name is not on the font name submenu,
-  highlight the "Other" submenu item.
-  Status:  Demonstrated.
-
-084.  In the font height submenu,
-  use the current font to display the font heights.
-
-085.  In the font height submenu,
-  for each font height that is shorter than the default font height,
-  show the font height in its own height.
-  For example, if the default font height is 1/4 inch:
-  the font height submenu would show "1/8 Inch" smaller than "1/4 Inch",
-  but it would show "1/2 Inch" the same size as "1/4 Inch".
-
-086.  Dynamically adjust the yank submenu based on the twips per pixel.
-
-087.  Done.
-
-088.  Done.
-
-089.  Needs testing.
-
-090.  See 001c.
+Next item number:  095.
