@@ -193,6 +193,7 @@ to create a trio:
   put the en-dash byte in a string.
   add the string and "handle minimize" to the trio.
   boldly format the trio's commands' last.
+  put the desktop color in the trio's commands' last's color.
   add "+" and "handle toggle screensize" to the trio.
   boldly format the trio's commands' last.
   add "X" and "handle quit" to the trio.
@@ -663,6 +664,7 @@ to handle a command:
   if the handler is "handle align left",   handle align given "left"; exit.
   if the handler is "handle align right",  handle align given "right"; exit.
   if the handler is "handle border", handle border given the command's color; exit.
+  if the handler is "handle debug window", handle debug window; exit.
   if the handler is "handle fill", handle fill given the command's color; exit.
   if the handler starts with "handle font height given ",
     handle font height given the handler (general); exit.
@@ -799,7 +801,7 @@ to handle a command (font height...):
   add "1/5 Inch" and "handle font height given 1/5 inch" to the submenu.
   add "1/6 Inch" and "handle font height given 1/6 inch" to the submenu.
   add "1/8 Inch" and "handle font height given 1/8 inch" to the submenu.
-  add "Other" then the ellipsis byte and "handle font height other" to the submenu.
+  add "Other..." and "handle font height other" to the submenu.
   get a font.
   describe the font's height returning a string.
   highlight the string in the submenu.
@@ -910,6 +912,9 @@ to handle cut:
   if the current tab's mode is "writer",
     handle cut given the current tab's node's page; exit.
   cluck.
+
+to handle debug window:
+  debug the main window.
 
 to handle decrypt:
   if the current tab's mode is "editor",
@@ -1253,7 +1258,7 @@ to handle measure:
   cluck.
 
 to handle minimize:
-  minimize the main window.
+\  minimize the main window.
 \  debug the main window.
 
 to handle mirror:
@@ -1432,9 +1437,25 @@ to handle restore:
   resize the main window given the screen.
   resize the memory canvas.
   resize.
+\  null terminate a string.
+\  call "user32.dll" "MessageBoxA" with 0 and the string's first and "debug"'s first and 0.
+\  initialize a window placement.
+\  call "User32.dll" "GetWindowPlacement"
+\    with the main window and the window placement's whereabouts.
+\  debug the main window.
+\  perform poof.
+  ask user to abandon unused area.
   create an event.
   put "refresh" into the event's kind.
   enque the event.
+
+to ask user to abandon unused area:
+\ WINE locks up the area that was part of the window area,
+\ and sometimes does not unlock the portion that is no longer part of the window area.
+\ this means that the user sees an old snapshot of the areas outside CAL's window.
+\ It seems that displaying and/or clicking a message box fixes the problem.
+  put "Please click OK to finish resizing." in a string.
+  call "user32.dll" "MessageBoxA" with 0 and the string's first and the module's name's first and 0.
 
 to handle reverse:
   if the current tab's mode is "finder",
@@ -1595,7 +1616,7 @@ to highlight a string in a submenu:
     if the command is nil, break.
     if the command's name is the string,
       put the lightest yellow color in the command's color; break.
-    if the command's name is "Other...",
+    if the command's name starts with "Other",
       put the lightest yellow color in the command's color; break.
   repeat.
 
@@ -1607,6 +1628,7 @@ to initialize:
   initialize the compiler.
   fill the tabs.
   switch to the tabs' first.
+\  handle maximize.
 
 to initialize the bar:
   put "normal" into the bar's mode.
@@ -1705,6 +1727,7 @@ to populate a submenu given a mode (c):
   add "Cut" and "X" and "handle cut" to the submenu.
 
 to populate a submenu given a mode (d):
+  add "Debug the Window" and "handle debug window" to the submenu.
   if the mode is "editor", add "Decrypt..." to the submenu.
   if the mode is "finder",
     add "Duplicate" and "D" and "handle duplicate" to the submenu.
@@ -1757,6 +1780,7 @@ to populate a submenu given a mode (l):
 
 to populate a submenu given a mode (m):
   add "Minimize" and "handle minimize" to the submenu.
+  put the desktop color in the submenu's commands' last's color.
   if the main window is minimized,
     add "Maximize" and "F11" and "handle maximize" to the submenu.
   if the screen is maximized given the main window,

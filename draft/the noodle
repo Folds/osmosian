@@ -3140,7 +3140,8 @@ to draw a picture (pdf style):
   put the picture's box's top minus the picture's uncropped box's top divided by the tpp  into an y number.
   put the picture's box's width divided by the tpp into a width.
   put the picture's box's height divided by the tpp into a height.
-  call "gdiplus.dll" "GdipCreateBitmapFromScan0" with the width and the height and 0 and 137224 [pixelformat24bpprgb] and 0 and a gpbitmap's whereabouts.
+  call "gdiplus.dll" "GdipCreateBitmapFromScan0" with the width and the height
+    and 0 and 137224 [pixelformat24bpprgb] and 0 and a gpbitmap's whereabouts.
   call "gdiplus.dll" "GdipGetImageGraphicsContext" with the gpbitmap and a gpgraphic's whereabouts.
   if the picture's grayscale flag is set, create a gpimageattributes (grayscale).
   call "gdiplus.dll" "GdipDrawImageRectRectI" with the gpgraphic and the picture's gpbitmap
@@ -3769,7 +3770,8 @@ to extract a file name w/o extension from a path:
 to extract a picture given a box:
   put the box's width divided by the tpp into a width.
   put the box's height divided by the tpp into a height.
-  call "gdiplus.dll" "GdipCreateBitmapFromScan0" with the width and the height and 0 and 137224 [pixelformat24bpprgb] and 0 and a gpbitmap's whereabouts.
+  call "gdiplus.dll" "GdipCreateBitmapFromScan0" with the width and the height
+    and 0 and 137224 [pixelformat24bpprgb] and 0 and a gpbitmap's whereabouts.
   call "gdiplus.dll" "GdipGetImageGraphicsContext" with the gpbitmap and a gpgraphic's whereabouts.
   call "gdiplus.dll" "GdipGetDC" with the gpgraphic and a bitmap canvas' whereabouts.
   normalize the bitmap canvas.
@@ -4156,15 +4158,18 @@ to get an abca and an abcc given a string and a canvas:
   put 0 into the abca.
   put 0 into the abcc.
   if the string's length is less than 1, exit.
-  call "gdi32.dll" "GetCharABCWidthsA" with the canvas and the string's first's target and the string's first's target and an abc's whereabouts.
+  call "gdi32.dll" "GetCharABCWidthsA" with the canvas
+    and the string's first's target and the string's first's target and an abc's whereabouts.
   put the abc's abca into the abca.
-  call "gdi32.dll" "GetCharABCWidthsA" with the canvas and the string's last's target and the string's last's target and another abc's whereabouts.
+  call "gdi32.dll" "GetCharABCWidthsA" with the canvas
+    and the string's last's target and the string's last's target and another abc's whereabouts.
   put the other abc's abcc into the abcc.
 
 to get an abca given a string and a canvas:
   put 0 into the abca.
   if the string's length is less than 1, exit.
-  call "gdi32.dll" "GetCharABCWidthsA" with the canvas and the string's first's target and the string's first's target and an abc's whereabouts.
+  call "gdi32.dll" "GetCharABCWidthsA" with the canvas
+    and the string's first's target and the string's first's target and an abc's whereabouts.
   put the abc's abca into the abca.
 
 to get some addrinfo routines:
@@ -5407,6 +5412,7 @@ to initialize the screen:
   put 96 into the ppi. \ pixels per inch.
   put the tpi divided by the ppi into the tpp. \ twips per pixel.
   restore the screen.
+\  maximize the screen.
 
 to initialize the screen canvas:
    call "user32.dll" "GetWindowDC" with the main window returning the screen canvas.
@@ -5722,7 +5728,8 @@ to localize a spot given a pair:
 
 to lock a gpbitmap given a bitmapdata (24-bit rgb):
   put the gpbitmap's gprect into a gprect.
-  call "gdiplus.dll" "GdipBitmapLockBits" with the gpbitmap and the gprect's whereabouts and 3 [imagelockmoderead or imagelockmodewrite]
+  call "gdiplus.dll" "GdipBitmapLockBits" with the gpbitmap
+    and the gprect's whereabouts and 3 [imagelockmoderead or imagelockmodewrite]
     and 137224 [pixelformat24bpprgb] and the bitmapdata's whereabouts.
 
 a logbrush has
@@ -7256,7 +7263,8 @@ to put a number's absolute value into another number:
   de-sign the other number.
 
 to put an outlinetextmetric into another outlinetextmetric:
-  copy bytes from the outlinetextmetric's whereabouts to the other outlinetextmetric's whereabouts for the outlinetextmetric's magnitude.
+  copy bytes from the outlinetextmetric's whereabouts
+    to the other outlinetextmetric's whereabouts for the outlinetextmetric's magnitude.
 
 to put a pair into another pair:
   put the pair's x into the other pair's x.
@@ -7443,7 +7451,8 @@ to put a string's width into a width:
   get the width given the string and the memory canvas and the default font.
 
 to put a substring into another substring:
-  copy bytes from the substring's whereabouts to the other substring's whereabouts for the substring's magnitude.
+  copy bytes from the substring's whereabouts
+    to the other substring's whereabouts for the substring's magnitude.
 
 to put the system's date/time into a date/time:
   call "kernel32.dll" "GetLocalTime" with a systemtime's whereabouts.
@@ -7644,7 +7653,8 @@ to read a file into a buffer:
   call "kernel32.dll" "GetFileSize" with the file and nil returning a size.
   reassign the buffer's first given the size.
   put the buffer's first plus the size minus 1 into the buffer's last.
-  call "kernel32.dll" "ReadFile" with the file and the buffer's first and the size and a number's whereabouts and 0 returning a result number.
+  call "kernel32.dll" "ReadFile" with the file and the buffer's first and the size
+    and a number's whereabouts and 0 returning a result number.
   if the result number is 0, put "Error reading file." into the i/o error; exit.
 
 to read a flag:
@@ -7661,13 +7671,15 @@ to read a path into a buffer:
   null terminate the path.
   if the path is not in the file system, put "File '" then the path then "' doesn't exist." into the i/o error; exit.
 \  set the path to read-write mode.
-  call "kernel32.dll" "CreateFileA" with the path's first and -2147483648 [generic_read] and 3 [file_share_read+file_share_write] and 0 
+  call "kernel32.dll" "CreateFileA" with the path's first
+    and -2147483648 [generic_read] and 3 [file_share_read+file_share_write] and 0 
     and 3 [open_existing] and 0 and 0 returning a handle.
   if the handle is -1 [invalid_handle_value], put "Error opening file '" then the path then "'." into the i/o error; exit.
   call "kernel32.dll" "GetFileSize" with the handle and nil returning a size.
   reassign the buffer's first given the size.
   put the buffer's first plus the size minus 1 into the buffer's last.
-  call "kernel32.dll" "ReadFile" with the handle and the buffer's first and the size and a number's whereabouts and 0 returning the number.
+  call "kernel32.dll" "ReadFile" with the handle and the buffer's first and the size
+    and a number's whereabouts and 0 returning the number.
   call "kernel32.dll" "CloseHandle" with the handle.
   if the number is not 0, exit.
   put "Error reading file '" then the path then "'." into the i/o error.
@@ -7708,7 +7720,8 @@ to read stdin into a buffer:
   convert the string into a length.
   if the length is 0, exit.
   reassign the buffer's first given the length.
-  call "kernel32.dll" "ReadFile" with the stdin handle and the buffer's first and the length and a number's whereabouts and nil.
+  call "kernel32.dll" "ReadFile" with the stdin handle
+    and the buffer's first and the length and a number's whereabouts and nil.
   if the number is not the length, put "Error reading stdin data" into the i/o error; clear the buffer; exit.
   put the buffer's first plus the length minus 1 into the buffer's last.
 
@@ -7726,14 +7739,17 @@ to read a url into a buffer:
   privatize the url.
   null terminate the url.
   call "wininet.dll" "InternetOpenUrlA" with the internet handle and the url's first and nil and 0 and 0 and 0 returning a url handle.
-  if the url handle is 0, put "Could not connect to url '" then the url then "'." into the i/o error; call "wininet.dll" "InternetCloseHandle" with the internet handle; exit.
+  if the url handle is 0,
+    put "Could not connect to url '" then the url then "'." into the i/o error;
+    call "wininet.dll" "InternetCloseHandle" with the internet handle; exit.
   \ read the file
   put 64 kilobytes into a buffer size.
   loop.
   put the buffer's length into a saved length.
   reassign the buffer's first given the saved length plus the buffer size.
   put the buffer's first plus the saved length into a  pointer.
-  call "wininet.dll" "InternetReadFile" with the url handle and the pointer and the buffer size and a count's whereabouts returning a result number.
+  call "wininet.dll" "InternetReadFile" with the url handle and the pointer and the buffer size
+    and a count's whereabouts returning a result number.
   if the result number is 0, put "Error reading url '" then the url then "'." into the i/o error; break.
   put the pointer plus the count minus 1 into the buffer's last.
   if the count is 0, break.
@@ -8094,7 +8110,8 @@ to resize a picture to a width by a height:
   if the picture is nil, exit.
   put the width divided by the tpp into a pixel width.
   put the height divided by the tpp into a pixel height.
-  call "gdiplus.dll" "GdipCreateBitmapFromScan0" with the pixel width and the pixel height and 0 and 137224 [pixelformat24bpprgb] and 0 and a gpbitmap's whereabouts.
+  call "gdiplus.dll" "GdipCreateBitmapFromScan0" with the pixel width and the pixel height
+    and 0 and 137224 [pixelformat24bpprgb] and 0 and a gpbitmap's whereabouts.
   call "gdiplus.dll" "GdipGetImageGraphicsContext" with the gpbitmap and a gpgraphic's whereabouts.
   call "gdiplus.dll" "GdipDrawImageRectRectI" with the gpgraphic and the picture's gpbitmap
     and 0 and 0 and the pixel width and the pixel height
@@ -9062,7 +9079,8 @@ to start a process given a path: \ must be called with a global variable
   put the processinfo's hprocess into the process.
   call "kernel32.dll" "CloseHandle" with the processinfo's hthread.
   point a pointer to routine wait for a process pointer.
-  call "kernel32.dll" "CreateThread" with 0 and 0 and the pointer and the process's whereabouts and 0 and another number's whereabouts returning a handle.
+  call "kernel32.dll" "CreateThread" with 0 and 0 and the pointer and the process's whereabouts
+    and 0 and another number's whereabouts returning a handle.
   call "kernel32.dll" "CloseHandle" with the handle. \ does not end the thread, just dumps the handle
 
 to start a timer:
@@ -9580,7 +9598,8 @@ to write a buffer to a file:
   clear the i/o error.
   call "kernel32.dll" "SetFilePointer" with the file and 0 and 0 and 0 [file_begin] returning a result number.
   if the result number is -1, put "Error positioning file pointer." into the i/o error; exit.
-  call "kernel32.dll" "WriteFile" with the file and the buffer's first and the buffer's length and a number's whereabouts and 0 returning the result number.
+  call "kernel32.dll" "WriteFile" with the file and the buffer's first and the buffer's length
+    and a number's whereabouts and 0 returning the result number.
   if the result number is 0, put "Error writing file." into the i/o error; exit.
 
 to write a buffer to a path:
@@ -9593,7 +9612,8 @@ to write a buffer to a path:
   call "kernel32.dll" "CreateFileA" with the path's first and 1073741824 [generic_write] 
     and 0 and 0 and 2 [create_always] and -2147483520 [file_flag_write_through or file_attribute_normal] and 0 returning a handle.
   if the handle is -1 [invalid_handle_value], put "Error opening file '" then the path then "'." into the i/o error; exit.
-  call "kernel32.dll" "WriteFile" with the handle and the buffer's first and the buffer's length and a number's whereabouts and 0 returning the number.
+  call "kernel32.dll" "WriteFile" with the handle and the buffer's first and the buffer's length
+    and a number's whereabouts and 0 returning the number.
   call "kernel32.dll" "CloseHandle" with the handle.
   if the number is not 0, exit.
   put "Error writing file '" then the path then "'." into the i/o error.
@@ -9603,7 +9623,8 @@ to write a byte:
   write the string.
 
 to write a byte to stdout:
-  call "kernel32.dll" "WriteFile" with the stdout handle and the byte's whereabouts and 1 and a number's whereabouts and nil.
+  call "kernel32.dll" "WriteFile" with the stdout handle
+    and the byte's whereabouts and 1 and a number's whereabouts and nil.
 
 to write a byte without advancing:
   put the byte into a string.
@@ -9652,7 +9673,8 @@ to write a string on a console without advancing:
   show the console.
 
 to write a string to stdout:
-  call "kernel32.dll" "WriteFile" with the stdout handle and the string's first and the string's length and a number's whereabouts and nil.
+  call "kernel32.dll" "WriteFile" with the stdout handle
+    and the string's first and the string's length and a number's whereabouts and nil.
 
 to write a string without advancing:
   write the string on the default console without advancing.

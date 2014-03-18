@@ -1203,7 +1203,8 @@ to compile the header of a routine given a rider (callback):
   set the routine's callback flag.
   compile the routine's monikettes and the routine's parameters given the rider.
   convert the routine's monikettes to the routine's moniker.
-  if the routine's moniker is in the routine index, abort with "I already know how to '" then the routine's moniker then "'." and the routine's locus; exit.
+  if the routine's moniker is in the routine index,
+    abort with "I already know how to '" then the routine's moniker then "'." and the routine's locus; exit.
   index the routine given the routine's monikettes and the routine index.
 
 to compile the header of a routine given a rider (decider):
@@ -1213,9 +1214,11 @@ to compile the header of a routine given a rider (decider):
   move the rider (compiler rules).
   set the routine's decider flag.
   compile the routine's monikettes and the routine's parameters given the rider.
-  if any of the routine's monikettes are negative words, abort with "It's a bad idea to use negatives in decider names." and the rider; exit.
+  if any of the routine's monikettes are negative words,
+    abort with "It's a bad idea to use negatives in decider names." and the rider; exit.
   convert the routine's monikettes to the routine's moniker.
-  if the routine's moniker is in the routine index, abort with "I already know how to '" then the routine's moniker then "'." and the routine's locus; exit.
+  if the routine's moniker is in the routine index,
+    abort with "I already know how to '" then the routine's moniker then "'." and the routine's locus; exit.
   index the routine given the routine's monikettes and the routine index.
 
 to compile the header of a routine given a rider (function):
@@ -1236,7 +1239,8 @@ to compile the header of a routine given a rider (function):
   if the moniker is in the routine index, abort with "I already know how to '" then the moniker then "'." and the routine's locus; exit.
   index the routine given the routine's monikettes and the routine index.
   move the rider (compiler rules).
-  if the rider's token is not any indefinite article, abort with "I was expecting an indefinite article, but found '" then the rider's token then "'." and the rider; exit.
+  if the rider's token is not any indefinite article,
+    abort with "I was expecting an indefinite article, but found '" then the rider's token then "'." and the rider; exit.
   compile the routine's monikettes and the routine's parameters given the rider (indefinite article).
   if the rider's token is not blank, abort with "There's extra stuff on the end of this function." and the rider; exit.
   convert the routine's monikettes to the routine's moniker.
@@ -1246,7 +1250,8 @@ to compile the header of a routine given a rider (procedure):
   if the compiler's abort flag is set, exit.
   compile the routine's monikettes and the routine's parameters given the rider.
   convert the routine's monikettes to the routine's moniker.
-  if the routine's moniker is in the routine index, abort with "I already know how to '" then the routine's moniker then "'." and the routine's locus; exit.
+  if the routine's moniker is in the routine index,
+    abort with "I already know how to '" then the routine's moniker then "'." and the routine's locus; exit.
   index the routine given the routine's monikettes and the routine index.
 
 to compile the headers of some routines:
