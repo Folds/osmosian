@@ -137,6 +137,9 @@ to adjust some tabs:
     put the tab's left plus the width into the tab's right.
   repeat.
 
+to ask user a string:
+  call "user32.dll" "MessageBoxA" with 0 and the string's first and the module's name's first and 0.
+
 the bar has a height, a box, a display box and a mode.
 
 to boldly format a command:
@@ -1258,8 +1261,9 @@ to handle measure:
   cluck.
 
 to handle minimize:
+\  On WINE, minimize freezes a non-interactive snapshot of the main window.
+\  There does not seem to be a good way to identify WINE kluges.
 \  minimize the main window.
-\  debug the main window.
 
 to handle mirror:
   if the current tab's mode is "writer",
@@ -1437,25 +1441,14 @@ to handle restore:
   resize the main window given the screen.
   resize the memory canvas.
   resize.
-\  null terminate a string.
-\  call "user32.dll" "MessageBoxA" with 0 and the string's first and "debug"'s first and 0.
-\  initialize a window placement.
-\  call "User32.dll" "GetWindowPlacement"
-\    with the main window and the window placement's whereabouts.
-\  debug the main window.
-\  perform poof.
-  ask user to abandon unused area.
-  create an event.
-  put "refresh" into the event's kind.
-  enque the event.
-
-to ask user to abandon unused area:
 \ WINE locks up the area that was part of the window area,
 \ and sometimes does not unlock the portion that is no longer part of the window area.
 \ this means that the user sees an old snapshot of the areas outside CAL's window.
 \ It seems that displaying and/or clicking a message box fixes the problem.
-  put "Please click OK to finish resizing." in a string.
-  call "user32.dll" "MessageBoxA" with 0 and the string's first and the module's name's first and 0.
+  ask user  "Please click OK to finish resizing.".
+  create an event.
+  put "refresh" into the event's kind.
+  enque the event.
 
 to handle reverse:
   if the current tab's mode is "finder",
@@ -1628,7 +1621,7 @@ to initialize:
   initialize the compiler.
   fill the tabs.
   switch to the tabs' first.
-\  handle maximize.
+  handle maximize.
 
 to initialize the bar:
   put "normal" into the bar's mode.

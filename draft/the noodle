@@ -815,10 +815,6 @@ to compatibly handle any message with a window a message number a w-param and an
   if the message is 518, handle any wm-rbuttondblclk with the l-param; put 0 into eax; exit.
   if the message is 032, handle any wm-setcursor; put 1 into eax; exit.
   if the message is 260, handle any wm-syskeydown with the w-param and the l-param; put 0 into eax; exit.
-\ to-do:
-\ if the message is 005, handle any wm-size with the window and the w-param and the l-param; put 0 into eax; exit.
-\ if the message is ___, handle any wm-ncpaint with the window and the w-param; put 0 into eax; exit.
-\ if the message is ___, handle any wm-displaychange with the window and the w-param and the l-param; put 0 into eax; exit.
   call "user32.dll" "DefWindowProcA" with the window and the message and the w-param and the l-param.
 
 to compatibly wait for a process pointer:
@@ -1355,8 +1351,9 @@ to copy an event into another event:
 
 to copy a gpbitmap into another gpbitmap:
   if the gpbitmap is nil, void the other gpbitmap; exit.
-  call "gdiplus.dll" "GdipCloneBitmapAreaI" with 0 and 0 and the gpbitmap's width and the gpbitmap's height and 0 [pixelformatdontcare] and
-    the gpbitmap and the other gpbitmap's whereabouts.
+  call "gdiplus.dll" "GdipCloneBitmapAreaI" with 0 and 0
+    and the gpbitmap's width and the gpbitmap's height and 0 [pixelformatdontcare]
+    and the gpbitmap and the other gpbitmap's whereabouts.
 
 to copy the guts of a text into another text:
   if the text is nil, exit.
@@ -1470,7 +1467,8 @@ to create a crypt session with a passphrase string: \ sets i/o error if failure
   clear the i/o error.
   allocate memory for the crypt session.
   \ acquire context
-  call "advapi32.dll" "CryptAcquireContextA" with the crypt session's hcryptprov's whereabouts and 0 and "Microsoft Enhanced Cryptographic Provider v1.0"'s first 
+  call "advapi32.dll" "CryptAcquireContextA"
+    with the crypt session's hcryptprov's whereabouts and 0 and "Microsoft Enhanced Cryptographic Provider v1.0"'s first 
     and 1 [prov_rsa_full] and -268435456 [crypt_verifycontext] returning a result number.
   if the result is 0, put "Could not acquire context." into the i/o error; destroy the crypt session; exit.
   \ create hash
@@ -1478,10 +1476,12 @@ to create a crypt session with a passphrase string: \ sets i/o error if failure
     and the crypt session's hcrypthash's whereabouts returning the result number.
   if the result is 0, put "Could not create hash." into the i/o error; destroy the crypt session; exit.
   \ hash passphrase
-  call "advapi32.dll" "CryptHashData" with the crypt session's hcrypthash and the passphrase's first and the passphrase's length and 0 returning the result number.
+  call "advapi32.dll" "CryptHashData" with the crypt session's hcrypthash
+    and the passphrase's first and the passphrase's length and 0 returning the result number.
   if the result is 0, put "Could not hash password." into the i/o error; destroy the crypt session; exit.
   \ derive session key
-  call "advapi32.dll" "CryptDeriveKey" with the crypt session's hcryptprov and 26625 [calg_rc4 stream cipher] and the crypt session's hcrypthash 
+  call "advapi32.dll" "CryptDeriveKey" with the crypt session's hcryptprov
+    and 26625 [calg_rc4 stream cipher] and the crypt session's hcrypthash 
     and 8388608 [128 bit] and the crypt session's hcryptkey's whereabouts returning the result number.
   if the result is 0, put "Could not derive session key." into the i/o error; destroy the crypt session; exit.
 
