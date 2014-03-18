@@ -219,6 +219,27 @@ Automated tests make debugging easier.
   Benefit:  Minor.
   Requested by Jasper Paulsen on March 12, 2014.
 
+095.  Identify whether the program is running on WINE.
+  Benefit:  Important.  This would allow commenting out features
+    that do not work on WINE, but do work on Windows
+    (such as minimizing, and text-to-speech).
+  Audience:  Linux programmers.
+  Status:  request.
+  Implementation difficulty:  Profound.
+  Demoing difficulty:  Hard.
+  Testing difficulty:  Profound.
+  Requested by Jasper Paulsen on March 17, 2014.
+
+096.  Enable minimize on Windows kluges, but not on WINE kluges.
+  Benefit:  Important.
+  Audience:  Osmosian masters.
+  Status:  request.
+  Implementation difficulty:  Easy -- if and only if
+    it is possible to distinguish Windows kluges from WINE kluges.
+  Demoing difficulty:  Hard.
+  Testing difficulty:  Profound.
+  Requested by Jasper Paulsen on March 17, 2014.
+
 079.  Allow font heights to be added dynamically to the menus.
   Specifically, do not require the corresponding menu handler
   to be hardcoded in the menu handler switch.
@@ -575,8 +596,6 @@ regardless of whether the file's tab is visible.
             files into smaller files.
   Requested by Jasper Paulsen on March 7, 2014.
 
-022 through 023 are done.
-
 024.  Make it easy to search all files in a project,
 regardless of whether the file is open in the editor.
 If the the search item finds files that are not open yet,
@@ -630,7 +649,7 @@ open the files that are found.
   Testing difficulty:  Medium.
   Requested by Jasper Paulsen on March 7, 2014.
 
-034.  Have an option to search upward.
+034.  Have an option to search upward, such as Shift-F3.
   Audience:  Windows programmers.
   Status:  request.
   Benefit:  Minor.
@@ -730,8 +749,9 @@ open the files that are found.
   can have different pixel densities,
   such as 72, 96, 120, 144, 150, et cetera pixels per inch.
   Benefit:  Minor.
-  Implementation difficulty:  Medium.  It just needs a short procedure,
-      but the procedure will need to make a Windows API call.
+  Implementation difficulty:  Hard.  Itneeds a short procedure,
+    but the procedure will need to make a Windows API call.
+    Also, there are several places in the code that implicitly use 96 ppi. 
   Audience:  Windows programmers.  (specifically, those who
     have pixel densities other than 96 pixels per inch.)
   Demoing difficulty:  Hard.  Changing the Windows pixel density
@@ -838,16 +858,21 @@ open the files that are found.
   Requested by Jasper Paulsen on March 7, 2014.
 
 045.  Change the sort order of byte and key declarations.
-Currently, the byte and key declarations are scattered throughout the noodle.
+As of March 7, 2014, the byte and key declarations
+were scattered throughout the noodle.  Since then,
+they have been moved to the 'characters' file.
   Audience:  Linux programmers.
   Status:  request.
   Benefit:  Minor.
   Implementation difficulty:  easy.
   Demo difficulty:  Easy.
   Test difficulty:  Medium.
+  Requested by Jasper Paulsen on March 7, 2014.
 
 046.  Change the sort order of color declarations.
-Currently, the color declarations are scattered throughout the noodle.
+As of March 7, 2014, the color declarations were scattered
+throughout the noodle.  Since then,
+they have been moved to the 'colors' file.
   Audience:  Linux programmers.
   Status:  request.
   Benefit:  Minor.
@@ -998,4 +1023,5 @@ with an adjustable slider between them.
 \ ======================================   
 Unsorted requests:
 
-Next item number:  095.
+Next item number:  097.
+
