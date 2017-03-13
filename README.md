@@ -7,7 +7,7 @@ CAL-3040 is a working product of the Osmosian Order's
 philosophy of making programming simpler.
 The Osmosian Order has improved the language and compiler
 from version 3040.  Version 4700 was released in January 2017.
-If you want to participate in the future development of CAL,
+If you want to participate in the Osmosian Order's projects,
 please contact the Osmosian Order at www.osmosian.com .
 
 If you want to program in Plain English in an environment that supports
