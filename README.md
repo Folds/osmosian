@@ -13,5 +13,5 @@ please contact the Osmosian Order at www.osmosian.com .
 If you want to program in Plain English in an environment that supports
 sharing the desktop, scrollbars, mouse-wheel scrolling, font menus,
 command-line options,  and automated testing, please visit https://github.com/Folds/english . 
-That project is based on a fork of the CAL-3040 code;
-it is **not** endorsed by the Osmosian Order.
+That project is based on a dynamic fork of the CAL-3040 code.
+It is syntax-compatible with CAL-4700, but is **not** endorsed by the Osmosian Order.
